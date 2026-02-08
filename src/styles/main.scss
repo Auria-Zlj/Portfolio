@@ -1,0 +1,74 @@
+:root {
+  --color-bg: #FFFFFF;
+  --color-text: #1a1a1a;
+  --color-accent: #00FF88;
+  --font-primary: 'Outfit', sans-serif;
+  --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+canvas {
+  touch-action: none;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 10vh 5vw;
+  min-height: 200vh;
+  align-items: start;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 5vw;
+  }
+}
+
+/* Ensure mobile stacking for columns */
+.column-left,
+.column-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10vh;
+}
+
+.column-left {
+  padding-top: 0;
+
+  @media (min-width: 768px) {
+    padding-top: 10vh;
+    gap: 15vh;
+  }
+}
+
+.column-right {
+  gap: 10vh;
+
+  @media (min-width: 768px) {
+    gap: 15vh;
+  }
+}
