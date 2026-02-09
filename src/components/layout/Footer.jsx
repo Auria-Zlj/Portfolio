@@ -15,74 +15,83 @@ const Footer = () => {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
-        timeZone: 'Asia/Shanghai'
+        timeZone: 'America/Los_Angeles' // Seattle time as requested
     });
 
     return (
         <footer style={{
             width: '100%',
             height: '100%',
-            backgroundColor: '#F9F9F9', // Grainy off-white 
+            backgroundColor: '#FBFBFB', // Grainy off-white paper texture
             color: '#1A1A1A',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            padding: '5vh 5vw', // Reduced from 8vh
+            padding: '200px 5vw 8vh 5vw', // Massive negative space at top
             fontFamily: '"Inter", "PP Neue Montreal", sans-serif',
             position: 'relative',
         }}>
-            {/* Massive White Space Above is handled by the container/Gallery section */}
-
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: '1.2fr 2fr 1.2fr',
-                alignItems: 'flex-end',
+                gridTemplateColumns: 'minmax(200px, 1fr) 2fr minmax(200px, 1fr)',
+                alignItems: 'baseline', // Baseline aligned at the bottom
                 width: '100%',
-                gap: '2rem'
+                gap: '4rem',
+                borderTop: '1px solid rgba(0,0,0,0.05)', // Extremely subtle hint of a line
+                paddingTop: '2rem'
             }}>
 
-                {/* LEFT COLUMN: Metadata */}
+                {/* LEFT COLUMN: Academic Context */}
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0.4rem',
-                    fontSize: '11px',
-                    fontWeight: 300,
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    opacity: 0.6,
-                    lineHeight: 1.6
+                    gap: '0.6rem',
+                    textAlign: 'left'
                 }}>
-                    <span>AURIA ZHANG © 2026</span>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ opacity: 0.4, marginBottom: '2px' }}>BUILT WITH</span>
-                        <span>REACT • VITE • THREE.JS</span>
-                        <span>FRAMER MOTION • GSAP • SASS</span>
+                    <div style={{
+                        fontSize: '11px',
+                        fontWeight: 300,
+                        letterSpacing: '0.15em',
+                        textTransform: 'uppercase',
+                        opacity: 0.5
+                    }}>
+                        2026 NEW GRAD / <br />
+                        UNIVERSITY OF WASHINGTON
+                    </div>
+                    <div style={{
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        letterSpacing: '0.05em',
+                        textTransform: 'uppercase'
+                    }}>
+                        M.S. IN TECHNOLOGY INNOVATION (MSTI)
                     </div>
                 </div>
 
-                {/* CENTER COLUMN: Visual Anchor */}
+                {/* CENTER COLUMN: Action (Visual Anchor) */}
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     textAlign: 'center',
-                    gap: '1.5rem' // Reduced from 2rem
+                    gap: '2.5rem'
                 }}>
                     <motion.h2
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         style={{
-                            fontSize: 'clamp(1.2rem, 3vw, 2.2rem)', // Slightly smaller
-                            fontWeight: 500,
-                            lineHeight: 1.2,
-                            letterSpacing: '-0.02em',
+                            fontSize: 'clamp(1.5rem, 3.2vw, 2.5rem)',
+                            fontWeight: 800,
+                            lineHeight: 1.1,
+                            letterSpacing: '-0.04em',
                             margin: 0,
-                            maxWidth: '450px'
+                            maxWidth: '550px',
+                            textTransform: 'uppercase'
                         }}
                     >
-                        Let’s build something <br /> simple yet complex.
+                        Let’s build something <br />
+                        simple yet complex.
                     </motion.h2>
 
                     <a href="mailto:HI@AURIAZHANG.COM" style={{
@@ -90,59 +99,50 @@ const Footer = () => {
                         textDecoration: 'none',
                         fontSize: '14px',
                         fontWeight: 500,
-                        letterSpacing: '0.1em',
-                        borderBottom: '0.5px solid rgba(26, 26, 26, 0.4)',
+                        letterSpacing: '0.15em',
+                        borderBottom: '0.5px solid rgba(26, 26, 26, 0.3)',
                         paddingBottom: '4px',
-                        transition: 'opacity 0.2s ease'
+                        transition: 'opacity 0.2s ease',
+                        textTransform: 'uppercase'
                     }}>
                         HI@AURIAZHANG.COM
                     </a>
                 </div>
 
-                {/* RIGHT COLUMN: Status & Socials */}
+                {/* RIGHT COLUMN: Status */}
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'flex-end',
-                    gap: '2rem'
+                    gap: '0.6rem',
+                    textAlign: 'right'
                 }}>
-                    {/* Status & Time */}
                     <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'flex-end',
-                        gap: '0.5rem',
                         fontSize: '12px',
                         fontWeight: 400,
                         letterSpacing: '0.05em',
-                        textAlign: 'right'
+                        opacity: 0.7
                     }}>
-                        <div style={{ opacity: 0.6 }}>SHANGHAI / {formattedTime}</div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{
-                                width: '6px',
-                                height: '6px',
-                                backgroundColor: '#00FF41',
-                                borderRadius: '50%',
-                                boxShadow: '0 0 8px #00FF41',
-                                display: 'inline-block'
-                            }}></span>
-                            <span style={{ textTransform: 'uppercase' }}>OPEN FOR COLLABORATIONS</span>
-                        </div>
+                        SEATTLE, WA / {formattedTime}
                     </div>
-
-                    {/* Socials */}
                     <div style={{
                         display: 'flex',
-                        gap: '1rem',
-                        fontSize: '11px',
-                        fontWeight: 500,
-                        letterSpacing: '0.1em',
-                        opacity: 0.6
+                        alignItems: 'center',
+                        gap: '8px',
+                        fontSize: '12px',
+                        fontWeight: 600,
+                        letterSpacing: '0.08em',
+                        textTransform: 'uppercase'
                     }}>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener" style={{ color: 'inherit', textDecoration: 'none' }}>LINKEDIN</a>
-                        <span>/</span>
-                        <a href="https://github.com" target="_blank" rel="noopener" style={{ color: 'inherit', textDecoration: 'none' }}>GITHUB</a>
+                        <span style={{
+                            width: '6px',
+                            height: '6px',
+                            backgroundColor: '#00FF41', // Vibrant neon green
+                            borderRadius: '50%',
+                            boxShadow: '0 0 10px #00FF41',
+                            display: 'inline-block'
+                        }}></span>
+                        <span>AVAILABLE FOR NEW OPPORTUNITIES</span>
                     </div>
                 </div>
             </div>
