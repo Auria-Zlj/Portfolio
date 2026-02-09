@@ -1,19 +1,26 @@
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 
 const vertexShader = `
 varying vec2 vUv;
+varying vec3 vPos;
+uniform float uTime;
+
 void main() {
   vUv = uv;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  vec3 pos = position;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+  vPos = pos;
 }
 `;
 
 const fragmentShader = `
 uniform float uTime;
+uniform vec2 uMouse;
 uniform vec3 uColorBg;
 uniform vec3 uColorAccent;
+uniform vec3 uColorDim;
 varying vec2 vUv;
 
 // Simplex 2D noise
@@ -46,42 +53,83 @@ float snoise(vec2 v){
 }
 
 void main() {
-  float noiseVal = snoise(vUv * 2.0 + uTime * 0.15);
-  
-  // Create fluid, organic shapes
-  float alpha = smoothstep(0.2, 0.6, noiseVal * 0.5 + 0.5);
-  
-  vec3 color = mix(uColorBg, uColorAccent, alpha);
-  
-  // Add subtle grain
-  float grain = fract(sin(dot(vUv, vec2(12.9898, 78.233) * uTime)) * 43758.5453);
-  color += grain * 0.03;
+  vec2 mouse = uMouse * 0.5 + 0.5;
+  float dist = distance(vUv, mouse);
 
-  gl_FragColor = vec4(color, 1.0);
+  // --- LENS LOGIC ---
+  // If close to mouse, we want SHARPNESS. If far, we want BLUR/DISTORTION.
+  // In a shader, we can simulate "blur" by lowering contrast or mixing noise layers more chaotically.
+  // We can simulate "sharpness" by high contrast and defined shapes.
+
+  float lensRadius = 0.35;
+  float focus = 1.0 - smoothstep(0.0, lensRadius, dist); // 1.0 at center, 0.0 at edge
+
+  // --- ORGANIC MESH ---
+  // Layer 1: Base Flow - LOW FREQUENCY for LARGE, FEWER shapes
+  float n1 = snoise(vUv * 0.8 + uTime * 0.05); // Reduced from 2.5 to 0.8 for big blobs
+  // Layer 2: Detail
+  float n2 = snoise(vUv * 2.0 - uTime * 0.1); // Reduced detail freq
+
+  // Mix noise based on focus
+  // Focused: Crisp, defined shapes. Unfocused: Washed out, blended.
+  float finalNoise = mix(n1 * 0.5 + 0.5, n1 * 0.7 + n2 * 0.3 + 0.2, focus);
+  
+  // Contrast adjustment
+  // Unfocused: Low contrast (foggy). Focused: High contrast (sharp).
+  float contrast = mix(0.8, 2.5, focus);
+  finalNoise = (finalNoise - 0.5) * contrast + 0.5;
+  
+  // Color Mixing
+  // Background is White. Shapes are Green.
+  vec3 greenGrad = mix(uColorDim, uColorAccent, n1); // Gradient within the green itself
+  
+  // Alpha/Intensity
+  // We want the green to appear as "clouds" or "liquid" on white.
+  // Smoothstep controls the "edge" hardness.
+  float edgeSharpness = mix(0.4, 0.01, focus); // Smaller range = sharper edge
+  // INCREASED THRESHOLD to 0.6 (was 0.45) to make shapes SPARSER / LESS GREEN
+  float shapeAlpha = smoothstep(0.6, 0.6 + edgeSharpness, finalNoise);
+
+  // Add Grain/Noise (Static) for texture - COARSER / ROUGHER
+  // We pixelate the UVs for the grain to make the "dots" bigger
+  vec2 grainUv = floor(vUv * 800.0) / 800.0; // 800.0 controls the grain size (lower = bigger)
+  float grainNode = fract(sin(dot(grainUv + uTime * 10.0, vec2(12.9898, 78.233))) * 43758.5453);
+  
+  // Apply grain ONLY to the green shapes
+  // We mix the grain into the green gradient BEFORE blending with the background
+  vec3 noisyGreen = greenGrad - vec3(grainNode * 0.15); // Increased strength slightly for visibility in color
+  
+  vec3 finalColor = mix(uColorBg, noisyGreen, shapeAlpha);
+
+  gl_FragColor = vec4(finalColor, 1.0);
 }
 `;
 
 const HeroShader = () => {
     const meshRef = useRef();
+    const { viewport } = useThree();
 
     const uniforms = useMemo(
         () => ({
             uTime: { value: 0 },
-            uColorBg: { value: new THREE.Color('#F0F0F0') }, // Off-white
-            uColorAccent: { value: new THREE.Color('#00FF88') }, // Lab Green
+            uMouse: { value: new THREE.Vector2(0, 0) },
+            uColorBg: { value: new THREE.Color('#F4F4F4') }, // Off-White
+            uColorAccent: { value: new THREE.Color('#00BB44') }, // Pure Vibrant Green
+            uColorDim: { value: new THREE.Color('#90EE90') }, // Light Green for depth
         }),
         []
     );
 
-    useFrame(({ clock }) => {
+    useFrame(({ clock, pointer }) => {
         if (meshRef.current) {
             meshRef.current.material.uniforms.uTime.value = clock.getElapsedTime();
+            meshRef.current.material.uniforms.uMouse.value.lerp(pointer, 0.1);
         }
     });
 
     return (
-        <mesh ref={meshRef} scale={[15, 15, 1]}>
-            <planeGeometry args={[1, 1, 64, 64]} />
+        <mesh ref={meshRef} scale={[viewport.width, viewport.height, 1]}>
+            <planeGeometry args={[1, 1, 128, 128]} />
             <shaderMaterial
                 uniforms={uniforms}
                 vertexShader={vertexShader}

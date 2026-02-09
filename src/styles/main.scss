@@ -1,9 +1,14 @@
 :root {
-  --color-bg: #FFFFFF;
+  --color-bg: #F4F4F4;
+  /* Clean Off-White */
   --color-text: #1a1a1a;
-  --color-accent: #00FF88;
-  --font-primary: 'Outfit', sans-serif;
-  --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Dark Grey/Black */
+  --color-accent: #00BB44;
+  /* Pure Vibrant Green */
+  --color-accent-dim: #E0F0E0;
+  /* Soft Green tint */
+  --font-main: 'Outfit', sans-serif;
+  --font-display: 'Outfit', sans-serif;
 }
 
 * {
@@ -13,9 +18,11 @@
 }
 
 body {
-  font-family: var(--font-primary);
+  margin: 0;
+  padding: 0;
   background-color: var(--color-bg);
   color: var(--color-text);
+  font-family: var(--font-main);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

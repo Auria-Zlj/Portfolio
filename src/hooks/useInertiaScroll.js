@@ -1,27 +1,30 @@
 import { useEffect } from 'react';
-import Lenis from 'lenis';
+// import Lenis from 'lenis';
+// import 'lenis/dist/lenis.css';
 
-export default function useInertiaScroll() {
+const useInertiaScroll = () => {
     useEffect(() => {
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            smoothTouch: false,
-            touchMultiplier: 2,
-        });
+        // Lenis disabled to allow CSS scroll-snap to work
+        // The sticky stack effect requires native scroll behavior for snap points
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        // const lenis = new Lenis({
+        //     duration: 1.2,
+        //     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        //     orientation: 'vertical',
+        //     smoothWheel: true,
+        // });
 
-        requestAnimationFrame(raf);
+        // function raf(time) {
+        //     lenis.raf(time);
+        //     requestAnimationFrame(raf);
+        // }
 
-        return () => {
-            lenis.destroy();
-        };
+        // requestAnimationFrame(raf);
+
+        // return () => {
+        //     lenis.destroy();
+        // };
     }, []);
-}
+};
+
+export default useInertiaScroll;
