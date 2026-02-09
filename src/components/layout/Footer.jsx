@@ -45,15 +45,19 @@ const Footer = () => {
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '0.5rem',
-                    fontSize: '12px',
+                    gap: '0.4rem',
+                    fontSize: '11px',
                     fontWeight: 300,
-                    letterSpacing: '0.15em',
+                    letterSpacing: '0.12em',
                     textTransform: 'uppercase',
-                    opacity: 0.6
+                    opacity: 0.6,
+                    lineHeight: 1.6
                 }}>
                     <span>AURIA ZHANG © 2026</span>
-                    <span>BUILT WITH REACT / VITE</span>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span>REACT • VITE • THREE.JS</span>
+                        <span>FRAMER MOTION • GSAP • SASS</span>
+                    </div>
                 </div>
 
                 {/* CENTER COLUMN: Visual Anchor */}
