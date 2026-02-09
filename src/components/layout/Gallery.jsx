@@ -182,12 +182,12 @@ const Gallery = () => {
             {/* Footer - Final snap point */}
             <div style={{
                 width: '100vw',
-                height: '100dvh', // Back to full height for massive white space feel
+                height: '45dvh', // Reduced height for a more balanced look
                 position: 'relative',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: '#F9F9F9', // Grainy off-white 
+                background: '#F9F9F9',
                 scrollSnapAlign: 'start',
                 scrollSnapStop: 'always',
                 zIndex: projects.length + 3,

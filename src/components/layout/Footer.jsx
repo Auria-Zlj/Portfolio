@@ -27,7 +27,7 @@ const Footer = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            padding: '8vh 5vw',
+            padding: '5vh 5vw', // Reduced from 8vh
             fontFamily: '"Inter", "PP Neue Montreal", sans-serif',
             position: 'relative',
         }}>
@@ -62,19 +62,19 @@ const Footer = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     textAlign: 'center',
-                    gap: '2rem'
+                    gap: '1.5rem' // Reduced from 2rem
                 }}>
                     <motion.h2
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         style={{
-                            fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)',
+                            fontSize: 'clamp(1.2rem, 3vw, 2.2rem)', // Slightly smaller
                             fontWeight: 500,
                             lineHeight: 1.2,
                             letterSpacing: '-0.02em',
                             margin: 0,
-                            maxWidth: '500px'
+                            maxWidth: '450px'
                         }}
                     >
                         Let’s build something <br /> simple yet complex.
