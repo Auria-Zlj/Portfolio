@@ -69,10 +69,11 @@ const Footer = () => {
                             fontWeight: 400,
                             opacity: 0.6,
                             margin: 0,
-                            maxWidth: '400px',
-                            lineHeight: 1.5
+                            maxWidth: '430px', // Slightly wider for the new text
+                            lineHeight: 1.5,
+                            letterSpacing: '0.01em'
                         }}>
-                            Open to full-time product design roles and collaborations.
+                            2026 Product Design graduate from the University of Washington, open to full-time UX / Product Designer roles.
                         </p>
                     </div>
 
@@ -144,29 +145,32 @@ const Footer = () => {
                 {/* Back to Top Component */}
                 <button
                     onClick={scrollToTop}
+                    aria-label="Back to top"
                     style={{
                         background: 'transparent',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        border: '1px solid rgba(255, 255, 255, 0.15)', // More subtle border
                         borderRadius: '50%',
-                        width: '40px',
-                        height: '40px',
+                        width: '36px', // Slightly smaller
+                        height: '36px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        color: '#FFFFFF',
-                        transition: 'all 0.3s ease'
+                        color: 'rgba(255, 255, 255, 0.6)',
+                        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
                     }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+                        e.currentTarget.style.color = '#FFFFFF';
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+                        e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)';
                         e.currentTarget.style.background = 'transparent';
                     }}
                 >
-                    <span style={{ fontSize: '18px', transform: 'translateY(-1px)' }}>↑</span>
+                    <span style={{ fontSize: '14px', transform: 'translateY(-1px)' }}>↑</span>
                 </button>
             </div>
         </footer>
