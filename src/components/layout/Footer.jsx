@@ -151,7 +151,6 @@ const Footer = () => {
                     {/* Links */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <span style={colHeaderStyle}>Links</span>
-                        <a href="mailto:zlinjun1@gmail.com" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Email</a>
                         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>LinkedIn</a>
                         <a href="/resume.pdf" target="_blank" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Resume</a>
                     </div>
