@@ -182,28 +182,15 @@ const Gallery = () => {
             {/* Footer - Final snap point */}
             <div style={{
                 width: '100vw',
-                height: '85dvh', // Airy presence for editorial impact
+                minHeight: '60dvh', // Natural ending height
                 position: 'relative',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: '#FBFBFB', // Match paper texture base
+                background: '#0A0A0A', // Dark background to match new footer
                 scrollSnapAlign: 'start',
                 scrollSnapStop: 'always',
-                zIndex: projects.length + 3,
-                overflow: 'hidden'
+                zIndex: projects.length + 3
             }}>
-                <div style={{
-                    position: 'relative',
-                    zIndex: 1,
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}>
-                    <Footer />
-                </div>
+                <Footer />
             </div>
         </section>
     );

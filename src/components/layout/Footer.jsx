@@ -1,161 +1,173 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 const Footer = () => {
-    const [time, setTime] = useState(new Date());
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTime(new Date());
-        }, 1000);
-        return () => clearInterval(timer);
-    }, []);
+    const linkStyle = {
+        color: '#FFFFFF',
+        textDecoration: 'none',
+        opacity: 0.6,
+        transition: 'opacity 0.2s ease',
+        fontSize: '14px',
+        fontWeight: 400
+    };
 
-    const formattedTime = time.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-        timeZone: 'America/Los_Angeles'
-    });
+    const handleMouseEnter = (e) => e.target.style.opacity = '1';
+    const handleMouseLeave = (e) => e.target.style.opacity = '0.6';
+
+    const colHeaderStyle = {
+        fontSize: '12px',
+        fontWeight: 600,
+        letterSpacing: '0.05em',
+        textTransform: 'uppercase',
+        marginBottom: '1.5rem',
+        opacity: 0.3
+    };
 
     return (
         <footer style={{
             width: '100%',
-            height: '100%',
-            backgroundColor: '#FBFBFB',
-            // Subtle green bleed from top
-            backgroundImage: 'linear-gradient(to bottom, rgba(0, 255, 65, 0.02) 0%, transparent 40%)',
-            color: '#000000',
+            backgroundColor: '#0A0A0A', // Near-black
+            color: '#FFFFFF',
+            padding: '12vh 6vw 6vh 6vw',
+            fontFamily: '"Inter", sans-serif',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '12vh 5vw 4vh 5vw',
-            fontFamily: '"Inter", -apple-system, sans-serif',
-            position: 'relative',
-            overflow: 'hidden'
+            gap: '8vh'
         }}>
-            {/* Background Texture Overlay (Optional but adds to the 'paper' feel) */}
             <div style={{
-                position: 'absolute',
-                inset: 0,
-                opacity: 0.03,
-                pointerEvents: 'none',
-                background: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")'
-            }} />
+                display: 'grid',
+                gridTemplateColumns: 'minmax(300px, 1.5fr) 1fr',
+                gap: '4rem',
+                alignItems: 'flex-start'
+            }}>
+                {/* Left Side: Editorial Headline */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            style={{
+                                fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+                                fontWeight: 500,
+                                lineHeight: 1.1,
+                                letterSpacing: '-0.02em',
+                                margin: 0
+                            }}
+                        >
+                            I’d love to hear from you.
+                        </motion.h2>
+                        <p style={{
+                            fontSize: '18px',
+                            fontWeight: 400,
+                            opacity: 0.6,
+                            margin: 0,
+                            maxWidth: '400px',
+                            lineHeight: 1.5
+                        }}>
+                            Open to full-time product design roles and collaborations.
+                        </p>
+                    </div>
 
-            {/* Primary Anchor: Massive Center Headline */}
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <motion.h2
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                    style={{
-                        fontSize: 'clamp(2.5rem, 6.5vw, 6rem)',
-                        fontWeight: 900,
-                        lineHeight: 0.9,
-                        letterSpacing: '-0.05em', // Tight kerning
-                        textAlign: 'center',
-                        margin: 0,
-                        maxWidth: '1200px',
-                        textTransform: 'uppercase',
-                        color: '#1A1A1A'
-                    }}
-                >
-                    LET'S BUILD SOMETHING <br />
-                    SIMPLE YET COMPLEX.
-                </motion.h2>
+                    <a
+                        href="mailto:hello@auria.design"
+                        style={{
+                            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                            color: '#FFFFFF',
+                            textDecoration: 'none',
+                            fontWeight: 400,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '1rem',
+                            transition: 'opacity 0.3s ease',
+                            borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+                            width: 'fit-content',
+                            paddingBottom: '0.5rem'
+                        }}
+                        onMouseEnter={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.8)'}
+                        onMouseLeave={(e) => e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)'}
+                    >
+                        hello@auria.design
+                        <span style={{ fontSize: '0.8em', opacity: 0.5 }}>→</span>
+                    </a>
+                </div>
+
+                {/* Right Side: Structured Columns */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: '2rem'
+                }}>
+                    {/* Location */}
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={colHeaderStyle}>Location</span>
+                        <span style={{ ...linkStyle, opacity: 0.8 }}>Seattle / Vancouver</span>
+                    </div>
+
+                    {/* Links */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                        <span style={colHeaderStyle}>Links</span>
+                        <a href="mailto:hello@auria.design" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Email</a>
+                        <a href="#" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>LinkedIn</a>
+                        <a href="#" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Resume</a>
+                    </div>
+
+                    {/* Navigation */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                        <span style={colHeaderStyle}>Navigation</span>
+                        <a href="#home" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Home</a>
+                        <a href="#work" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Work</a>
+                        <a href="#about" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>About</a>
+                    </div>
+                </div>
             </div>
 
-            {/* Bottom Metadata Layer */}
+            {/* Bottom Line */}
             <div style={{
-                width: '100%',
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'baseline',
-                position: 'relative',
-                zIndex: 2
+                alignItems: 'center',
+                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                paddingTop: '4vh'
             }}>
+                <span style={{ fontSize: '12px', opacity: 0.4, letterSpacing: '0.05em' }}>
+                    © 2026 AURIA ZHANG
+                </span>
 
-                {/* BOTTOM-LEFT: MSTI Signature (Technical Monospace) */}
-                <div style={{
-                    fontSize: '10px',
-                    fontFamily: '"JetBrains Mono", "SF Mono", "Fira Code", monospace',
-                    fontWeight: 400,
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    opacity: 0.4,
-                    textAlign: 'left'
-                }}>
-                    CLASS OF 2026 // UNIVERSITY OF WASHINGTON // <br />
-                    M.S. TECHNOLOGY INNOVATION
-                </div>
-
-                {/* BOTTOM-RIGHT: Global Pulse */}
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px'
-                }}>
-                    <div style={{
-                        fontSize: '10px',
-                        fontFamily: '"Inter", sans-serif',
-                        fontWeight: 500,
-                        letterSpacing: '0.15em',
-                        textTransform: 'uppercase',
-                        opacity: 0.5,
-                        textAlign: 'right'
-                    }}>
-                        SEATTLE, WA / 47.6062° N / {formattedTime}
-                    </div>
-
-                    {/* The Connection: Pulsing Neon Dot */}
-                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                        <motion.div
-                            animate={{
-                                scale: [1, 1.5, 1],
-                                opacity: [0.7, 1, 0.7]
-                            }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                            }}
-                            style={{
-                                width: '4px',
-                                height: '4px',
-                                backgroundColor: '#00FF41',
-                                borderRadius: '50%',
-                                boxShadow: '0 0 12px #00FF41',
-                            }}
-                        />
-                    </div>
-                </div>
-            </div>
-
-            {/* Centered Email Link (Subtle) */}
-            <div style={{
-                position: 'absolute',
-                bottom: '4vh',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                zIndex: 1
-            }}>
-                <a href="mailto:HI@AURIAZHANG.COM" style={{
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    letterSpacing: '0.2em',
-                    color: '#000',
-                    textDecoration: 'none',
-                    opacity: 0.2,
-                    textTransform: 'uppercase',
-                    transition: 'opacity 0.3s ease'
-                }}
-                    onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                    onMouseLeave={(e) => e.currentTarget.style.opacity = '0.2'}
+                {/* Back to Top Component */}
+                <button
+                    onClick={scrollToTop}
+                    style={{
+                        background: 'transparent',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '50%',
+                        width: '40px',
+                        height: '40px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        color: '#FFFFFF',
+                        transition: 'all 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+                        e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                        e.currentTarget.style.background = 'transparent';
+                    }}
                 >
-                    HI@AURIAZHANG.COM
-                </a>
+                    <span style={{ fontSize: '18px', transform: 'translateY(-1px)' }}>↑</span>
+                </button>
             </div>
         </footer>
     );
