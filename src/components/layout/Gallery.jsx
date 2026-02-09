@@ -126,7 +126,7 @@ const Gallery = () => {
 
     return (
         <section
-            id="work"
+            id="work-gallery"
             ref={containerRef}
             style={{
                 position: 'relative',
@@ -150,17 +150,19 @@ const Gallery = () => {
             </div>
 
             {/* Selected Works - Second snap point */}
-            <div style={{
-                width: '100vw',
-                height: '100dvh',
-                scrollSnapAlign: 'start',
-                scrollSnapStop: 'always',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                background: 'transparent'
-            }}>
+            <div
+                id="selected-works"
+                style={{
+                    width: '100vw',
+                    height: '100dvh',
+                    scrollSnapAlign: 'start',
+                    scrollSnapStop: 'always',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    background: 'transparent'
+                }}>
                 <h2 style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: '3rem',

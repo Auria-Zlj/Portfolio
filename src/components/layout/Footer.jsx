@@ -1,6 +1,42 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
+// New NavLink component
+const NavLink = ({ href, label, linkStyle, onMouseEnter, onMouseLeave }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleClick = (e) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const targetId = href === '#work-gallery' ? '#selected-works' : href;
+            const target = document.querySelector(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            } else if (href === '#home') {
+                // Special case for #home to scroll to top if no #home element is found
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    };
+
+    const currentLinkStyle = {
+        ...linkStyle,
+        opacity: isHovered ? 1 : 0.45,
+    };
+
+    return (
+        <a
+            href={href}
+            onClick={handleClick}
+            onMouseEnter={() => { setIsHovered(true); onMouseEnter && onMouseEnter(); }}
+            onMouseLeave={() => { setIsHovered(false); onMouseLeave && onMouseLeave(); }}
+            style={currentLinkStyle}
+        >
+            {label}
+        </a>
+    );
+};
+
 const Footer = () => {
     const [isEmailHovered, setIsEmailHovered] = useState(false);
 
@@ -32,6 +68,7 @@ const Footer = () => {
         display: 'block'
     };
 
+    // These handlers are now mostly redundant for NavLink, but kept for other potential links
     const handleMouseEnter = (e) => e.currentTarget.style.opacity = '1';
     const handleMouseLeave = (e) => e.currentTarget.style.opacity = '0.45';
 
@@ -158,8 +195,8 @@ const Footer = () => {
                     {/* Navigation */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <span style={colHeaderStyle}>Navigation</span>
-                        <a href="#home" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Home</a>
-                        <a href="#work" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Work</a>
+                        <NavLink href="#home" label="Home" linkStyle={linkStyle} />
+                        <NavLink href="#work-gallery" label="Work" linkStyle={linkStyle} />
                         <a href="#about" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>About</a>
                     </div>
                 </div>

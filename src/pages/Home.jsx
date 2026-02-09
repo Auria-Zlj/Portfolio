@@ -38,7 +38,7 @@ const Home = () => {
                 </Canvas>
             </div>
 
-            <section className="hero" style={{
+            <section id="home" className="hero" style={{
                 height: '100vh',
                 display: 'flex',
                 flexDirection: 'column',

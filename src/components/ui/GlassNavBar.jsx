@@ -5,10 +5,15 @@ import { motion } from 'framer-motion';
 const GlassNavBar = () => {
     // New Link Structure
     const links = [
-        { label: 'WORK', href: '#work' },
+        { label: 'WORK', href: '#selected-works' },
         { label: 'ABOUT', href: '#about' },
-        { label: 'RESUME', href: '#resume' }, // Placeholder for now
+        { label: 'RESUME', href: '/resume.pdf' },
     ];
+
+    const scrollToHome = (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     return (
         <motion.nav
@@ -35,7 +40,9 @@ const GlassNavBar = () => {
             }}
         >
             {/* Left - Name in JetBrains Mono */}
-            <motion.div
+            <motion.a
+                href="#home"
+                onClick={scrollToHome}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -45,12 +52,13 @@ const GlassNavBar = () => {
                     fontWeight: 500,
                     letterSpacing: '0.2em',
                     color: '#1A1A1A',
-                    cursor: 'default',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
                     textTransform: 'uppercase'
                 }}
             >
                 AURIA ZHANG
-            </motion.div>
+            </motion.a>
 
             {/* Right - Links with Hover Line */}
             <div style={{ display: 'flex', gap: '3rem' }}>
@@ -66,9 +74,20 @@ const GlassNavBar = () => {
 const NavLink = ({ href, label }) => {
     const [isHovered, setIsHovered] = React.useState(false);
 
+    const handleClick = (e) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
     return (
         <motion.a
             href={href}
+            onClick={handleClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{
