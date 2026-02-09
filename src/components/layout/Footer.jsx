@@ -17,12 +17,14 @@ const Footer = () => {
         opacity: 0.45, // Lighter weight/low contrast for items
         transition: 'opacity 0.2s ease',
         fontSize: '14px',
-        fontWeight: 300 // Light weight
+        fontWeight: 300, // Light weight
+        fontFamily: '"Inter", sans-serif'
     };
 
     const colHeaderStyle = {
         fontSize: '11px',
-        fontWeight: 600,
+        fontFamily: '"JetBrains Mono", monospace',
+        fontWeight: 500,
         letterSpacing: '0.1em',
         textTransform: 'uppercase',
         marginBottom: '2rem',
@@ -39,7 +41,7 @@ const Footer = () => {
             backgroundColor: '#0A0A0A',
             color: '#FFFFFF',
             padding: '15vh 6vw 6vh 6vw', // Generous breathing room
-            fontFamily: '"Inter", sans-serif',
+            fontFamily: '"PP Neue Montreal", "Inter", sans-serif',
             display: 'flex',
             flexDirection: 'column',
             gap: '12vh' // Plenty of negative space
@@ -82,7 +84,8 @@ const Footer = () => {
                             opacity: 0.75, // Increased contrast (+15%)
                             margin: 0,
                             lineHeight: 1.4,
-                            letterSpacing: '0.01em'
+                            letterSpacing: '0.01em',
+                            fontFamily: '"PP Neue Montreal", "Inter", sans-serif'
                         }}>
                             Product Designer · University of Washington · Class of 2026
                         </p>
@@ -92,7 +95,8 @@ const Footer = () => {
                             opacity: 0.75, // Increased contrast
                             margin: 0,
                             lineHeight: 1.4,
-                            letterSpacing: '0.01em'
+                            letterSpacing: '0.01em',
+                            fontFamily: '"PP Neue Montreal", "Inter", sans-serif'
                         }}>
                             Open to full-time UX / Product Designer roles
                         </p>
@@ -100,7 +104,7 @@ const Footer = () => {
 
                     {/* EDITORIAL EMAIL CTA */}
                     <a
-                        href="mailto:hello@auria.design"
+                        href="mailto:zlinjun1@gmail.com"
                         onMouseEnter={() => setIsEmailHovered(true)}
                         onMouseLeave={() => setIsEmailHovered(false)}
                         style={{
@@ -117,7 +121,7 @@ const Footer = () => {
                             transition: 'color 0.3s ease'
                         }}
                     >
-                        hello@auria.design
+                        zlinjun1@gmail.com
                         <motion.span
                             animate={{ x: isEmailHovered ? 5 : 0 }}
                             style={{ fontSize: '0.7em', opacity: 0.4 }}
@@ -136,13 +140,18 @@ const Footer = () => {
                     {/* Location */}
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <span style={colHeaderStyle}>Location</span>
-                        <span style={{ fontSize: '14px', fontWeight: 300, opacity: 0.7 }}>Seattle / Vancouver</span>
+                        <span style={{
+                            fontSize: '14px',
+                            fontWeight: 300,
+                            opacity: 0.7,
+                            fontFamily: '"JetBrains Mono", monospace'
+                        }}>Seattle / Vancouver</span>
                     </div>
 
                     {/* Links */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <span style={colHeaderStyle}>Links</span>
-                        <a href="mailto:hello@auria.design" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Email</a>
+                        <a href="mailto:zlinjun1@gmail.com" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Email</a>
                         <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>LinkedIn</a>
                         <a href="/resume.pdf" target="_blank" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Resume</a>
                     </div>
@@ -170,7 +179,8 @@ const Footer = () => {
                     fontWeight: 500,
                     opacity: 0.25,
                     letterSpacing: '0.08em',
-                    textTransform: 'uppercase'
+                    textTransform: 'uppercase',
+                    fontFamily: '"JetBrains Mono", monospace'
                 }}>
                     © 2026 AURIA ZHANG
                 </span>
