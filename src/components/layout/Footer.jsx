@@ -14,137 +14,148 @@ const Footer = () => {
     const formattedTime = time.toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit',
-        hour12: true,
-        timeZone: 'America/Los_Angeles' // Seattle time as requested
+        hour12: false,
+        timeZone: 'America/Los_Angeles'
     });
 
     return (
         <footer style={{
             width: '100%',
             height: '100%',
-            backgroundColor: '#FBFBFB', // Grainy off-white paper texture
-            color: '#1A1A1A',
+            backgroundColor: '#FBFBFB',
+            // Subtle green bleed from top
+            backgroundImage: 'linear-gradient(to bottom, rgba(0, 255, 65, 0.02) 0%, transparent 40%)',
+            color: '#000000',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-end',
-            padding: '200px 5vw 8vh 5vw', // Massive negative space at top
-            fontFamily: '"Inter", "PP Neue Montreal", sans-serif',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '12vh 5vw 4vh 5vw',
+            fontFamily: '"Inter", -apple-system, sans-serif',
             position: 'relative',
+            overflow: 'hidden'
         }}>
+            {/* Background Texture Overlay (Optional but adds to the 'paper' feel) */}
             <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'minmax(200px, 1fr) 2fr minmax(200px, 1fr)',
-                alignItems: 'baseline', // Baseline aligned at the bottom
+                position: 'absolute',
+                inset: 0,
+                opacity: 0.03,
+                pointerEvents: 'none',
+                background: 'url("https://www.transparenttextures.com/patterns/natural-paper.png")'
+            }} />
+
+            {/* Primary Anchor: Massive Center Headline */}
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <motion.h2
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    style={{
+                        fontSize: 'clamp(2.5rem, 6.5vw, 6rem)',
+                        fontWeight: 900,
+                        lineHeight: 0.9,
+                        letterSpacing: '-0.05em', // Tight kerning
+                        textAlign: 'center',
+                        margin: 0,
+                        maxWidth: '1200px',
+                        textTransform: 'uppercase',
+                        color: '#1A1A1A'
+                    }}
+                >
+                    LET'S BUILD SOMETHING <br />
+                    SIMPLE YET COMPLEX.
+                </motion.h2>
+            </div>
+
+            {/* Bottom Metadata Layer */}
+            <div style={{
                 width: '100%',
-                gap: '4rem',
-                borderTop: '1px solid rgba(0,0,0,0.05)', // Extremely subtle hint of a line
-                paddingTop: '2rem'
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'baseline',
+                position: 'relative',
+                zIndex: 2
             }}>
 
-                {/* LEFT COLUMN: Academic Context */}
+                {/* BOTTOM-LEFT: MSTI Signature (Technical Monospace) */}
                 <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.6rem',
+                    fontSize: '10px',
+                    fontFamily: '"JetBrains Mono", "SF Mono", "Fira Code", monospace',
+                    fontWeight: 400,
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    opacity: 0.4,
                     textAlign: 'left'
                 }}>
-                    <div style={{
-                        fontSize: '11px',
-                        fontWeight: 300,
-                        letterSpacing: '0.15em',
-                        textTransform: 'uppercase',
-                        opacity: 0.5
-                    }}>
-                        2026 NEW GRAD / <br />
-                        UNIVERSITY OF WASHINGTON
-                    </div>
-                    <div style={{
-                        fontSize: '12px',
-                        fontWeight: 600,
-                        letterSpacing: '0.05em',
-                        textTransform: 'uppercase'
-                    }}>
-                        M.S. IN TECHNOLOGY INNOVATION (MSTI)
-                    </div>
+                    CLASS OF 2026 // UNIVERSITY OF WASHINGTON // <br />
+                    M.S. TECHNOLOGY INNOVATION
                 </div>
 
-                {/* CENTER COLUMN: Action (Visual Anchor) */}
+                {/* BOTTOM-RIGHT: Global Pulse */}
                 <div style={{
                     display: 'flex',
-                    flexDirection: 'column',
                     alignItems: 'center',
-                    textAlign: 'center',
-                    gap: '2.5rem'
+                    gap: '12px'
                 }}>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        style={{
-                            fontSize: 'clamp(1.5rem, 3.2vw, 2.5rem)',
-                            fontWeight: 800,
-                            lineHeight: 1.1,
-                            letterSpacing: '-0.04em',
-                            margin: 0,
-                            maxWidth: '550px',
-                            textTransform: 'uppercase'
-                        }}
-                    >
-                        Let’s build something <br />
-                        simple yet complex.
-                    </motion.h2>
-
-                    <a href="mailto:HI@AURIAZHANG.COM" style={{
-                        color: '#1A1A1A',
-                        textDecoration: 'none',
-                        fontSize: '14px',
+                    <div style={{
+                        fontSize: '10px',
+                        fontFamily: '"Inter", sans-serif',
                         fontWeight: 500,
                         letterSpacing: '0.15em',
-                        borderBottom: '0.5px solid rgba(26, 26, 26, 0.3)',
-                        paddingBottom: '4px',
-                        transition: 'opacity 0.2s ease',
-                        textTransform: 'uppercase'
+                        textTransform: 'uppercase',
+                        opacity: 0.5,
+                        textAlign: 'right'
                     }}>
-                        HI@AURIAZHANG.COM
-                    </a>
-                </div>
+                        SEATTLE, WA / 47.6062° N / {formattedTime}
+                    </div>
 
-                {/* RIGHT COLUMN: Status */}
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'flex-end',
-                    gap: '0.6rem',
-                    textAlign: 'right'
-                }}>
-                    <div style={{
-                        fontSize: '12px',
-                        fontWeight: 400,
-                        letterSpacing: '0.05em',
-                        opacity: 0.7
-                    }}>
-                        SEATTLE, WA / {formattedTime}
-                    </div>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        fontSize: '12px',
-                        fontWeight: 600,
-                        letterSpacing: '0.08em',
-                        textTransform: 'uppercase'
-                    }}>
-                        <span style={{
-                            width: '6px',
-                            height: '6px',
-                            backgroundColor: '#00FF41', // Vibrant neon green
-                            borderRadius: '50%',
-                            boxShadow: '0 0 10px #00FF41',
-                            display: 'inline-block'
-                        }}></span>
-                        <span>AVAILABLE FOR NEW OPPORTUNITIES</span>
+                    {/* The Connection: Pulsing Neon Dot */}
+                    <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                        <motion.div
+                            animate={{
+                                scale: [1, 1.5, 1],
+                                opacity: [0.7, 1, 0.7]
+                            }}
+                            transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            style={{
+                                width: '4px',
+                                height: '4px',
+                                backgroundColor: '#00FF41',
+                                borderRadius: '50%',
+                                boxShadow: '0 0 12px #00FF41',
+                            }}
+                        />
                     </div>
                 </div>
+            </div>
+
+            {/* Centered Email Link (Subtle) */}
+            <div style={{
+                position: 'absolute',
+                bottom: '4vh',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                zIndex: 1
+            }}>
+                <a href="mailto:HI@AURIAZHANG.COM" style={{
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    letterSpacing: '0.2em',
+                    color: '#000',
+                    textDecoration: 'none',
+                    opacity: 0.2,
+                    textTransform: 'uppercase',
+                    transition: 'opacity 0.3s ease'
+                }}
+                    onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                    onMouseLeave={(e) => e.currentTarget.style.opacity = '0.2'}
+                >
+                    HI@AURIAZHANG.COM
+                </a>
             </div>
         </footer>
     );
