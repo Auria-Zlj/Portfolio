@@ -66,7 +66,7 @@ void main() {
 
   // --- ORGANIC MESH ---
   // Layer 1: Base Flow - LOW FREQUENCY for LARGE, FEWER shapes
-  float n1 = snoise(vUv * 0.85 + uTime * 0.05); // Balanced blob size
+  float n1 = snoise(vUv * 0.85 + uTime * 0.05); // Lower frequency = Fewer blobs
   // Layer 2: Detail
   float n2 = snoise(vUv * 2.0 - uTime * 0.1); // Reduced detail freq
 
@@ -85,10 +85,10 @@ void main() {
   
   // Alpha/Intensity
   // We want the green to appear as "clouds" or "liquid" on white.
-  // Smoothstep controls the "edge" hardness.
-  float edgeSharpness = mix(0.4, 0.01, focus); // Smaller range = sharper edge
-  // INCREASED THRESHOLD to 0.6 (was 0.45) to make shapes SPARSER / LESS GREEN
-  float shapeAlpha = smoothstep(0.6, 0.6 + edgeSharpness, finalNoise);
+  // Reduced edgeSharpness range to 0.2 (from 0.4) for cleaner edges
+  float edgeSharpness = mix(0.2, 0.01, focus); 
+  // INCREASED THRESHOLD to 0.72 to make the blobs smaller and sparser
+  float shapeAlpha = smoothstep(0.72, 0.72 + edgeSharpness, finalNoise);
 
   // Add Grain/Noise (Static) for texture - COARSER / ROUGHER
   // We pixelate the UVs for the grain to make the "dots" bigger
