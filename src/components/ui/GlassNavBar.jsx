@@ -1,102 +1,107 @@
+import React from 'react';
 import LiquidGlassFilter from '../effects/LiquidGlassFilter';
+import { motion } from 'framer-motion';
 
 const GlassNavBar = () => {
-    const navLinks = [
-        { label: 'Projects', href: '#work' },
-        { label: 'About', href: '#about' },
-    ];
-
-    const socialLinks = [
-        { label: 'Contact', href: '#contact' },
-        { label: 'LinkedIn', href: 'https://linkedin.com', external: true },
+    // New Link Structure
+    const links = [
+        { label: 'WORK', href: '#work' },
+        { label: 'ABOUT', href: '#about' },
+        { label: 'RESUME', href: '#resume' }, // Placeholder for now
     ];
 
     return (
-        <>
-            {/* Glass Navigation Bar */}
-            <nav
+        <motion.nav
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                zIndex: 1000,
+                padding: '1.5rem 4rem', // Spacious padding
+
+                // Heavy Blur / Clear Glass Effect
+                background: 'rgba(255, 255, 255, 0.02)', // Very clear
+                backdropFilter: 'blur(20px)', // Heavy blur
+                WebkitBackdropFilter: 'blur(20px)',
+                borderBottom: '1px solid rgba(255, 255, 255, 0.05)', // Subtle edge
+
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+            }}
+        >
+            {/* Left - Name in JetBrains Mono */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
                 style={{
-                    position: 'absolute',
-                    top: '2rem',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    zIndex: 100,
-                    padding: '1.2rem 3rem',
-                    borderRadius: '50px',
-                    background: 'rgba(255, 255, 255, 0.12)',
-                    backdropFilter: 'blur(25px) saturate(180%)',
-                    WebkitBackdropFilter: 'blur(25px) saturate(180%)',
-                    border: '1px solid rgba(255, 255, 255, 0.25)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: '3rem',
-                    minWidth: 'fit-content'
+                    fontFamily: '"JetBrains Mono", monospace',
+                    fontSize: '0.9rem', // Slightly smaller for technical feel
+                    fontWeight: 500,
+                    letterSpacing: '0.2em',
+                    color: '#1A1A1A',
+                    cursor: 'default',
+                    textTransform: 'uppercase'
                 }}
             >
-                {/* Left Navigation */}
-                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                    {navLinks.map((link, idx) => (
-                        <a
-                            key={idx}
-                            href={link.href}
-                            style={{
-                                fontSize: '0.95rem',
-                                fontWeight: 500,
-                                color: '#1a1a1a',
-                                textDecoration: 'none',
-                                transition: 'opacity 0.2s',
-                                opacity: 0.7
-                            }}
-                            onMouseEnter={(e) => e.target.style.opacity = '1'}
-                            onMouseLeave={(e) => e.target.style.opacity = '0.7'}
-                        >
-                            {link.label}
-                        </a>
-                    ))}
-                </div>
+                AURIA ZHANG
+            </motion.div>
 
-                {/* Center - Name */}
-                <h1
-                    style={{
-                        fontSize: '1.3rem',
-                        fontWeight: 700,
-                        margin: 0,
-                        letterSpacing: '0.05em',
-                        color: '#000000',
-                        textShadow: '0 1px 1px rgba(255, 255, 255, 0.3)',
-                        whiteSpace: 'nowrap'
-                    }}
-                >
-                    AURIA ZHANG
-                </h1>
+            {/* Right - Links with Hover Line */}
+            <div style={{ display: 'flex', gap: '3rem' }}>
+                {links.map((link) => (
+                    <NavLink key={link.label} href={link.href} label={link.label} />
+                ))}
+            </div>
+        </motion.nav>
+    );
+};
 
-                {/* Right Navigation */}
-                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-                    {socialLinks.map((link, idx) => (
-                        <a
-                            key={idx}
-                            href={link.href}
-                            target={link.external ? '_blank' : undefined}
-                            rel={link.external ? 'noopener noreferrer' : undefined}
-                            style={{
-                                fontSize: '0.95rem',
-                                fontWeight: 500,
-                                color: '#1a1a1a',
-                                textDecoration: 'none',
-                                transition: 'opacity 0.2s',
-                                opacity: 0.7
-                            }}
-                            onMouseEnter={(e) => e.target.style.opacity = '1'}
-                            onMouseLeave={(e) => e.target.style.opacity = '0.7'}
-                        >
-                            {link.label}
-                        </a>
-                    ))}
-                </div>
-            </nav>
-        </>
+// Sub-component for Link with Hover Line
+const NavLink = ({ href, label }) => {
+    const [isHovered, setIsHovered] = React.useState(false);
+
+    return (
+        <motion.a
+            href={href}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
+                position: 'relative',
+                fontSize: '0.85rem', // Slightly smaller
+                fontWeight: 500,
+                color: '#1A1A1A', // Deep Charcoal
+                textDecoration: 'none',
+                cursor: 'pointer',
+                letterSpacing: '0.05em',
+            }}
+        >
+            {label}
+
+            {/* Horizontal Thin Line (1px) */}
+            <motion.div
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{
+                    scaleX: isHovered ? 1 : 0,
+                    opacity: isHovered ? 1 : 0
+                }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                style={{
+                    position: 'absolute',
+                    bottom: '-4px',
+                    left: 0,
+                    right: 0,
+                    height: '1px',
+                    background: '#1A1A1A', // Deep Charcoal
+                    originX: 0
+                }}
+            />
+        </motion.a>
     );
 };
 

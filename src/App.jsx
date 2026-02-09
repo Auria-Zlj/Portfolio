@@ -6,6 +6,7 @@ import useInertiaScroll from './hooks/useInertiaScroll';
 import Home from './pages/Home';
 import ProjectDetails from './pages/ProjectDetails';
 import GrainOverlay from './components/ui/GrainOverlay';
+import LiquidGlassFilter from './components/effects/LiquidGlassFilter';
 
 import Gallery from './components/layout/Gallery';
 
@@ -44,6 +45,15 @@ function App() {
     <Router>
       <GrainOverlay />
       <ClarifierCursor />
+      <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+        {/* Sharper, more technical refraction */}
+        <LiquidGlassFilter
+          id="liquid-glass-refraction"
+          displacementScale={15}
+          blurStrength={2}
+          aberrationOffset={3}
+        />
+      </svg>
 
       <div className="main-container">
         <AnimatedRoutes />

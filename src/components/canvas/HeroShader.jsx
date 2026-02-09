@@ -66,7 +66,7 @@ void main() {
 
   // --- ORGANIC MESH ---
   // Layer 1: Base Flow - LOW FREQUENCY for LARGE, FEWER shapes
-  float n1 = snoise(vUv * 0.8 + uTime * 0.05); // Reduced from 2.5 to 0.8 for big blobs
+  float n1 = snoise(vUv * 0.85 + uTime * 0.05); // Balanced blob size
   // Layer 2: Detail
   float n2 = snoise(vUv * 2.0 - uTime * 0.1); // Reduced detail freq
 
@@ -114,8 +114,8 @@ const HeroShader = () => {
             uTime: { value: 0 },
             uMouse: { value: new THREE.Vector2(0, 0) },
             uColorBg: { value: new THREE.Color('#F4F4F4') }, // Off-White
-            uColorAccent: { value: new THREE.Color('#00BB44') }, // Pure Vibrant Green
-            uColorDim: { value: new THREE.Color('#90EE90') }, // Light Green for depth
+            uColorAccent: { value: new THREE.Color('#00A862') }, // Lighter Forest Green
+            uColorDim: { value: new THREE.Color('#5AEE90') }, // Light Green
         }),
         []
     );

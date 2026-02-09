@@ -65,16 +65,21 @@ const ProjectCard = ({ id, title, category, image, index }) => {
                 whileInView="visible"
                 variants={cardVariants}
                 viewport={{ once: false, amount: 0.3 }}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{
+                    scale: 1.02,
+                    filter: "url(#liquid-glass-refraction) brightness(1.05)" // Enhanced on hover
+                }}
                 style={{
                     width: isMobile ? '100%' : 'auto',
-                    flex: isMobile ? 'none' : '1.8',  // Increase from 1.4 to 1.8 for more emphasis
-                    height: isMobile ? '40vh' : '60vh', // Increase from 55vh to 60vh
-                    maxHeight: '650px',  // Increase from 600px
+                    flex: isMobile ? 'none' : '1.8',
+                    height: isMobile ? '40vh' : '60vh',
+                    maxHeight: '650px',
                     position: 'relative',
                     borderRadius: '20px',
                     overflow: 'hidden',
                     boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                    filter: "url(#liquid-glass-refraction) brightness(1)", // Base liquid effect
+                    transition: 'filter 0.4s ease'
                 }}
             >
                 <div
@@ -98,37 +103,43 @@ const ProjectCard = ({ id, title, category, image, index }) => {
                     width: isMobile ? '100%' : 'auto',
                     flex: isMobile ? 'none' : '1',
                     textAlign: isMobile ? 'left' : 'left',
-                    color: 'var(--color-text)'
+                    color: '#1A1A1A' // Deep Charcoal
                 }}
             >
                 <h3 style={{
                     fontSize: isMobile ? '2.5rem' : '3.5rem',
-                    fontWeight: 700,
-                    fontFamily: 'var(--font-display)',
-                    letterSpacing: '-0.02em',
+                    fontWeight: 800,
+                    fontFamily: '"PP Neue Montreal", "Inter", sans-serif',
+                    letterSpacing: '-0.04em',
                     margin: '0 0 1rem 0',
-                    lineHeight: 1
+                    lineHeight: 1,
+                    color: '#1A1A1A'
                 }}>
                     {title}
                 </h3>
                 <div style={{
                     display: 'inline-block',
-                    padding: '0.4rem 0.8rem',
-                    border: '1px solid var(--color-accent)',
-                    borderRadius: '50px',
-                    color: 'var(--color-accent)',
-                    fontSize: isMobile ? '0.8rem' : '0.9rem',
+                    padding: '0.3rem 0.8rem',
+                    border: '1px solid rgba(26, 26, 26, 0.2)',
+                    borderRadius: '4px',
+                    color: '#1A1A1A',
+                    fontSize: '0.7rem',
                     fontWeight: 600,
                     marginBottom: '1rem',
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase'
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    fontFamily: '"JetBrains Mono", monospace',
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    backdropFilter: 'blur(5px)',
+                    WebkitBackdropFilter: 'blur(5px)'
                 }}>
                     {category}
                 </div>
                 <p style={{
-                    fontSize: isMobile ? '1rem' : '1.1rem',
-                    lineHeight: '1.6',
-                    opacity: 0.7,
+                    fontSize: isMobile ? '1rem' : '1.05rem',
+                    lineHeight: '1.5',
+                    color: '#1A1A1A',
+                    opacity: 0.8,
                     maxWidth: isMobile ? '100%' : '400px',
                     margin: '0'
                 }}>
