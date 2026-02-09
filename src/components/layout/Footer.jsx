@@ -55,6 +55,7 @@ const Footer = () => {
                 }}>
                     <span>AURIA ZHANG © 2026</span>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ opacity: 0.4, marginBottom: '2px' }}>BUILT WITH</span>
                         <span>REACT • VITE • THREE.JS</span>
                         <span>FRAMER MOTION • GSAP • SASS</span>
                     </div>
