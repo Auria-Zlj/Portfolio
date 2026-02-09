@@ -179,7 +179,7 @@ const Gallery = () => {
                 </StickyCardWrapper>
             ))}
 
-            {/* Footer - Final snap point with liquid glass */}
+            {/* Footer - Final snap point */}
             <div style={{
                 width: '100vw',
                 height: '100dvh',
@@ -187,11 +187,10 @@ const Gallery = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'rgba(255, 255, 255, 0.03)',
+                background: '#FFFFFF', // Match new footer background
                 scrollSnapAlign: 'start',
                 scrollSnapStop: 'always',
                 zIndex: projects.length + 3,
-                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
                 overflow: 'hidden'
             }}>
                 <div style={{
