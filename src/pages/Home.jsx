@@ -159,7 +159,7 @@ const Home = () => {
                     }}
                     style={{
                         position: 'absolute',
-                        top: '6rem', // Below the nav bar
+                        bottom: '3rem', // Symmetrical with location text
                         right: '4rem', // Aligned with nav padding
                         opacity: 0.6
                     }}
