@@ -3,14 +3,19 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
 import Footer from './Footer';
 import Home from '../../pages/Home';
+import RevealFx from '../utils/RevealFx';
 
-import preloPreview from '../../assets/images/prelo_preview.png';
+import preloHero from '../../assets/images/Prelo_hero.png';
+import xheatHero from '../../assets/images/X-Heal_Hero.png';
+import mushroomateHero from '../../assets/images/mushroomate_hero.png';
+// Importing secondary/other images if needed for the 4th or secondary slots
+import m2 from '../../assets/images/M2.png';
 
 const projects = [
-    { id: 1, title: 'Prelo', category: 'Fintech / Data', image: preloPreview },
-    { id: 2, title: 'Aether', category: 'AI / Voice', image: '' },
-    { id: 3, title: 'Lumina', category: 'Health / Wearable', image: '' },
-    { id: 4, title: 'Chronos', category: 'Productivity', image: '' },
+    { id: 3, title: 'Lumina', category: 'Health / Wearable', image: xheatHero, secondaryImage: '' },
+    { id: 1, title: 'Prelo', category: 'Fintech / Data', image: preloHero, secondaryImage: '' },
+    { id: 4, title: 'Chronos', category: 'Productivity', image: mushroomateHero, secondaryImage: '' },
+    { id: 2, title: 'Aether', category: 'AI / Voice', image: null, secondaryImage: '' }, // Placeholder/Empty at end
 ];
 
 const StickyCardWrapper = ({ children, index, total }) => {
@@ -163,16 +168,18 @@ const Gallery = () => {
                     alignItems: 'center',
                     background: 'transparent'
                 }}>
-                <h2 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '3rem',
-                    fontWeight: 700,
-                    color: 'var(--color-text)',
-                    letterSpacing: '-0.03em',
-                    marginBottom: '1rem'
-                }}>
-                    Selected Works <span style={{ color: 'var(--color-accent)', fontSize: '1rem', verticalAlign: 'middle' }}>●</span>
-                </h2>
+                <RevealFx delay={0.2} y={50} duration={1.2} blur="10px">
+                    <h2 style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '3rem',
+                        fontWeight: 700,
+                        color: 'var(--color-text)',
+                        letterSpacing: '-0.03em',
+                        marginBottom: '1rem'
+                    }}>
+                        Selected Works <span style={{ color: 'var(--color-accent)', fontSize: '1rem', verticalAlign: 'middle' }}>●</span>
+                    </h2>
+                </RevealFx>
             </div>
 
             {projects.map((project, index) => (

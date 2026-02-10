@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import HeroShader from '../components/canvas/HeroShader';
 import GlassNavBar from '../components/ui/GlassNavBar';
+import RevealFx from '../components/utils/RevealFx';
 
 const Home = () => {
     // Force reload
@@ -62,29 +63,28 @@ const Home = () => {
                     marginTop: '0' // Changed from 8vh to 0 for true center
                 }}>
                     {/* Role Label - "Engineering Detail" Outline Style */}
-                    <motion.p
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8, duration: 0.6 }}
-                        style={{
-                            fontSize: '0.9rem', // Increased from 0.75rem
-                            fontWeight: 600,
-                            letterSpacing: '0.1em',
-                            textTransform: 'uppercase',
-                            color: '#1A1A1A',
-                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                            border: '1px solid rgba(26, 26, 26, 0.2)',
-                            padding: '0.5rem 1.5rem', // Increased padding
-                            borderRadius: '4px',
-                            display: 'inline-block',
-                            margin: 0,
-                            backdropFilter: 'blur(8px)',
-                            WebkitBackdropFilter: 'blur(8px)',
-                            fontFamily: '"JetBrains Mono", monospace'
-                        }}
-                    >
-                        Product Designer / UX Designer
-                    </motion.p>
+                    <RevealFx delay={0.8} y={50} blur="10px" duration={1.2}>
+                        <p
+                            style={{
+                                fontSize: '0.9rem', // Increased from 0.75rem
+                                fontWeight: 600,
+                                letterSpacing: '0.1em',
+                                textTransform: 'uppercase',
+                                color: '#1A1A1A',
+                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                border: '1px solid rgba(26, 26, 26, 0.2)',
+                                padding: '0.5rem 1.5rem', // Increased padding
+                                borderRadius: '4px',
+                                display: 'inline-block',
+                                margin: 0,
+                                backdropFilter: 'blur(8px)',
+                                WebkitBackdropFilter: 'blur(8px)',
+                                fontFamily: '"JetBrains Mono", monospace'
+                            }}
+                        >
+                            Product Designer / UX Designer
+                        </p>
+                    </RevealFx>
 
                     {/* Masked Headline with Parallax */}
                     <div style={{ overflow: 'hidden', padding: '0.5em 2rem' }}>
@@ -122,24 +122,20 @@ const Home = () => {
                 </div>
 
                 {/* Location - Bottom Left */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1, duration: 0.6 }}
-                    style={{
-                        position: 'absolute',
-                        bottom: '3rem',
-                        left: '4rem',
-                        fontSize: '0.85rem',
-                        fontWeight: 500,
-                        letterSpacing: '0.05em',
-                        color: '#1A1A1A',
-                        fontFamily: '"JetBrains Mono", monospace',
-                        opacity: 0.6
-                    }}
-                >
-                    Seattle / Vancouver
-                </motion.div>
+                <RevealFx delay={1.0} y={50} blur="10px" duration={1.2} style={{ position: 'absolute', bottom: '3rem', left: '4rem' }}>
+                    <div
+                        style={{
+                            fontSize: '0.85rem',
+                            fontWeight: 500,
+                            letterSpacing: '0.05em',
+                            color: '#1A1A1A',
+                            fontFamily: '"JetBrains Mono", monospace',
+                            opacity: 0.6
+                        }}
+                    >
+                        Seattle / Vancouver
+                    </div>
+                </RevealFx>
 
                 {/* Scroll Arrow - Right Side */}
                 <motion.div
