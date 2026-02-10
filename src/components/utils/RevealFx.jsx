@@ -6,9 +6,16 @@ const RevealFx = ({
     duration = 0.8,
     blur = "10px",
     y = 20,
+    immediate = false,
     style = {},
     className = ""
 }) => {
+    const isSafari =
+        typeof navigator !== 'undefined' &&
+        /Safari/i.test(navigator.userAgent) &&
+        !/Chrome|Chromium|CriOS|Edg|OPR|FxiOS/i.test(navigator.userAgent);
+    const shouldAnimateImmediately = immediate || isSafari;
+
     return (
         <motion.div
             initial={{
@@ -16,12 +23,22 @@ const RevealFx = ({
                 y: y,
                 filter: `blur(${blur})`
             }}
-            whileInView={{
-                opacity: 1,
-                y: 0,
-                filter: "blur(0px)"
-            }}
-            viewport={{ once: true, amount: 0.1 }}
+            {...(shouldAnimateImmediately
+                ? {
+                    animate: {
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)"
+                    }
+                }
+                : {
+                    whileInView: {
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)"
+                    },
+                    viewport: { once: true, amount: 0.1 }
+                })}
             transition={{
                 duration: duration,
                 delay: delay,
