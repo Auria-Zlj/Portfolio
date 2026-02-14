@@ -59,7 +59,7 @@ const Footer = () => {
 
     const colHeaderStyle = {
         fontSize: '11px',
-        fontFamily: '"JetBrains Mono", monospace',
+        fontFamily: '"Inter", sans-serif',
         fontWeight: 500,
         letterSpacing: '0.1em',
         textTransform: 'uppercase',
@@ -181,7 +181,7 @@ const Footer = () => {
                             fontSize: '14px',
                             fontWeight: 300,
                             opacity: 0.7,
-                            fontFamily: '"JetBrains Mono", monospace'
+                            fontFamily: '"Inter", sans-serif'
                         }}>Seattle / Vancouver</span>
                     </div>
 
@@ -216,7 +216,7 @@ const Footer = () => {
                     opacity: 0.25,
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
-                    fontFamily: '"JetBrains Mono", monospace'
+                    fontFamily: '"Inter", sans-serif'
                 }}>
                     © 2026 AURIA ZHANG
                 </span>

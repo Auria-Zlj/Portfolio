@@ -39,7 +39,7 @@ const GlassNavBar = () => {
                 alignItems: 'center',
             }}
         >
-            {/* Left - Name in JetBrains Mono */}
+            {/* Left - Name */}
             <motion.a
                 href="#home"
                 onClick={scrollToHome}
@@ -47,10 +47,10 @@ const GlassNavBar = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
                 style={{
-                    fontFamily: '"JetBrains Mono", monospace',
+                    fontFamily: '"Inter", sans-serif',
                     fontSize: '0.9rem', // Slightly smaller for technical feel
-                    fontWeight: 500,
-                    letterSpacing: '0.2em',
+                    fontWeight: 600,
+                    letterSpacing: '0.12em',
                     color: '#1A1A1A',
                     textDecoration: 'none',
                     cursor: 'pointer',

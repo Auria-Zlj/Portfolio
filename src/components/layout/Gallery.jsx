@@ -1,54 +1,81 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
+import ProjectDetailModal from '../ui/ProjectDetailModal';
 import Footer from './Footer';
 import Home from '../../pages/Home';
 
 import preloHero from '../../assets/images/Prelo_hero.png';
 import xheatHero from '../../assets/images/X-Heal_Hero.png';
 import mushroomateHero from '../../assets/images/mushroomate_hero.png';
+import x1 from '../../assets/images/X1.png';
+import x12 from '../../assets/images/X1.2.png';
+import x13 from '../../assets/images/X1.3.png';
+import m2 from '../../assets/images/M2.png';
+import m21 from '../../assets/images/M2.1.png';
+import preloLong from '../../assets/images/p1.png';
+
+let hasPreloadedProjectAssets = false;
 
 const projects = [
-    { id: 3, title: 'Lumina', category: 'Health / Wearable', image: xheatHero, secondaryImage: '' },
-    { id: 1, title: 'Prelo', category: 'Fintech / Data', image: preloHero, secondaryImage: '' },
-    { id: 4, title: 'Chronos', category: 'Productivity', image: mushroomateHero, secondaryImage: '' },
-    { id: 2, title: 'Aether', category: 'AI / Voice', image: null, secondaryImage: '' }, // Placeholder/Empty at end
+    {
+        id: 1,
+        title: 'X-Heal',
+        category: 'Real-World Systems',
+        image: xheatHero,
+        secondaryImage: '',
+        eyebrow: '01 / Case Study',
+        description: 'Real-time rehab system that turns physical motion into guided exercise feedback.',
+        tags: ['Dual BLE Sensors', 'System Logic'],
+        sponsor: 'In collaboration with T-Mobile',
+        highlights: ['Motion Guidance', 'Clinician Feedback Loop', 'Connected Rehab Experience'],
+    },
+    {
+        id: 2,
+        title: 'Prelo',
+        category: 'Decision UX',
+        image: preloHero,
+        secondaryImage: '',
+        eyebrow: '02 / Case Study',
+        description: 'Turns unfamiliar menus into confident choices through visual previews and structured dish information.',
+        tags: ['Decision UX', 'Information Structuring'],
+        sponsor: '',
+        highlights: ['Menu Clarity', 'Visual Decision Support', 'Structured Dish Data'],
+    },
+    {
+        id: 3,
+        title: 'MushRoommate',
+        category: 'Process Design',
+        image: mushroomateHero,
+        secondaryImage: '',
+        eyebrow: '03 / Case Study',
+        description: 'A home growing service designed for post-pandemic food supply disruption.',
+        tags: ['Process Design', 'Habit Support'],
+        sponsor: '',
+        highlights: ['Home Grow Workflow', 'Behavior Support', 'Supply Resilience'],
+    },
 ];
 
 const StickyCardWrapper = ({ children, index, viewportHeight }) => {
-    const cardRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: cardRef,
-        offset: ['start start', 'end start']
-    });
-
-    const opacity = useTransform(scrollYProgress, [0, 0.16, 0.92, 1], [1, 1, 0.96, 0.92]);
-    const scale = useTransform(scrollYProgress, [0, 0.16, 0.92, 1], [1, 1, 0.992, 0.985]);
-    const smoothOpacity = useSpring(opacity, { stiffness: 160, damping: 26, mass: 0.2 });
-    const smoothScale = useSpring(scale, { stiffness: 160, damping: 26, mass: 0.22 });
-
     return (
-        <motion.div
-            ref={cardRef}
+        <div
             data-snap-point="true"
             style={{
                 position: 'relative',
                 width: '100vw',
                 minHeight: viewportHeight,
                 height: viewportHeight,
-                background: 'rgba(255, 255, 255, 0.05)', // Subtle base tint
+                background: 'transparent',
                 // Removed backdrop-filter - now handled by shader
-                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                borderTop: '1px solid rgba(255, 255, 255, 0.06)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 -10px 50px rgba(0,0,0,0.02)',
+                boxShadow: 'none',
                 zIndex: index + 1,
-                scale: smoothScale,
-                opacity: smoothOpacity,
                 scrollSnapAlign: 'start',
                 scrollSnapStop: 'always',
-                willChange: 'transform, opacity',
+                willChange: 'auto',
                 overflow: 'hidden' // Prevent shader overflow
             }}
         >
@@ -66,7 +93,7 @@ const StickyCardWrapper = ({ children, index, viewportHeight }) => {
             >
                 {children}
             </div>
-        </motion.div>
+        </div>
     );
 };
 
@@ -78,6 +105,7 @@ const Gallery = () => {
     const lastScrollYRef = useRef(0);
     const directionRef = useRef(1);
     const currentSnapIndexRef = useRef(0);
+    const [activeProjectId, setActiveProjectId] = useState(null);
     const isSafari =
         typeof navigator !== 'undefined' &&
         /Safari/i.test(navigator.userAgent) &&
@@ -87,16 +115,76 @@ const Gallery = () => {
         target: selectedWorksRef,
         offset: ['start end', 'end start']
     });
-    const selectedScale = useTransform(selectedProgress, [0, 0.45, 0.72], [0.82, 1.08, 1]);
-    const selectedOpacity = useTransform(selectedProgress, [0.06, 0.35], [0, 1]);
-    const selectedY = useTransform(selectedProgress, [0, 0.45], [70, 0]);
-    const selectedBlur = useTransform(selectedProgress, [0, 0.4], ['blur(14px)', 'blur(0px)']);
-    const selectedScaleSmooth = useSpring(selectedScale, { stiffness: 170, damping: 28, mass: 0.35 });
-    const selectedOpacitySmooth = useSpring(selectedOpacity, { stiffness: 150, damping: 24, mass: 0.32 });
-    const selectedYSmooth = useSpring(selectedY, { stiffness: 150, damping: 24, mass: 0.32 });
+    // Symmetric zoom: coming from top or bottom both have the same reveal.
+    const selectedOpacity = useTransform(selectedProgress, [0, 0.18, 0.5, 0.82, 1], [0, 0.78, 1, 0.78, 0]);
+    const selectedScale = useTransform(selectedProgress, [0, 0.5, 1], [0.84, 1, 0.84]);
+    const selectedY = useTransform(selectedProgress, [0, 0.5, 1], [44, 0, -44]);
+    const selectedOpacitySmooth = useSpring(selectedOpacity, { stiffness: 210, damping: 28, mass: 0.26 });
+    const selectedScaleSmooth = useSpring(selectedScale, { stiffness: 230, damping: 26, mass: 0.28 });
+    const selectedYSmooth = useSpring(selectedY, { stiffness: 210, damping: 28, mass: 0.26 });
+    const activeProject = projects.find((project) => project.id === activeProjectId) || null;
+    const preloadedImageRefs = useRef([]);
+    const preloadLinkRefs = useRef([]);
+
+    useEffect(() => {
+        if (hasPreloadedProjectAssets || typeof window === 'undefined') return;
+        hasPreloadedProjectAssets = true;
+
+        const preloadSources = [
+            xheatHero,
+            preloHero,
+            mushroomateHero,
+            x1,
+            x12,
+            x13,
+            m2,
+            m21,
+            preloLong,
+        ];
+
+        preloadSources.forEach((src) => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = src;
+            document.head.appendChild(link);
+            preloadLinkRefs.current.push(link);
+        });
+
+        preloadSources.forEach((src) => {
+            const img = new Image();
+            img.loading = 'eager';
+            img.fetchPriority = 'high';
+            img.decoding = 'async';
+            img.src = src;
+            img.onload = () => {
+                if (typeof img.decode === 'function') {
+                    img.decode().catch(() => {});
+                }
+            };
+            preloadedImageRefs.current.push(img);
+        });
+
+        return () => {
+            preloadLinkRefs.current.forEach((link) => link.remove());
+            preloadLinkRefs.current = [];
+        };
+    }, []);
 
     useEffect(() => {
         const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+        const getNearestSnapIndex = (nodes, y) => {
+            let nearestIndex = 0;
+            let nearestDistance = Number.POSITIVE_INFINITY;
+            nodes.forEach((node, idx) => {
+                const distance = Math.abs(node.offsetTop - y);
+                if (distance < nearestDistance) {
+                    nearestDistance = distance;
+                    nearestIndex = idx;
+                }
+            });
+            return nearestIndex;
+        };
 
         const settleSnap = () => {
             if (isProgrammaticSnapRef.current) return;
@@ -108,7 +196,18 @@ const Gallery = () => {
 
             const currentY = window.scrollY;
             const maxIndex = snapNodes.length - 1;
-            const currentIndex = clamp(currentSnapIndexRef.current, 0, maxIndex);
+            const topLockThreshold = window.innerHeight * 0.12;
+            if (currentY <= topLockThreshold) {
+                currentSnapIndexRef.current = 0;
+                return;
+            }
+
+            const currentIndex = clamp(
+                getNearestSnapIndex(Array.from(snapNodes), currentY),
+                0,
+                maxIndex
+            );
+            currentSnapIndexRef.current = currentIndex;
             const currentAnchorY = snapNodes[currentIndex].offsetTop;
             const deltaFromAnchor = currentY - currentAnchorY;
             const threshold = window.innerHeight * 0.52;
@@ -139,6 +238,13 @@ const Gallery = () => {
         const onScroll = () => {
             if (isProgrammaticSnapRef.current) return;
             const currentY = window.scrollY;
+            const topLockThreshold = window.innerHeight * 0.12;
+            if (currentY <= topLockThreshold) {
+                currentSnapIndexRef.current = 0;
+                lastScrollYRef.current = currentY;
+                if (snapTimeoutRef.current) window.clearTimeout(snapTimeoutRef.current);
+                return;
+            }
             const delta = currentY - lastScrollYRef.current;
             if (Math.abs(delta) > 1) {
                 directionRef.current = delta > 0 ? 1 : -1;
@@ -201,12 +307,11 @@ const Gallery = () => {
                 data-snap-point="true">
                 <motion.div
                     style={{
-                        scale: selectedScaleSmooth,
                         opacity: selectedOpacitySmooth,
+                        scale: selectedScaleSmooth,
                         y: selectedYSmooth,
-                        filter: selectedBlur,
                         transformOrigin: 'center center',
-                        willChange: 'transform, opacity, filter'
+                        willChange: 'transform, opacity'
                     }}
                 >
                     <h2 style={{
@@ -228,7 +333,11 @@ const Gallery = () => {
                     index={index}
                     viewportHeight={viewportHeight}
                 >
-                    <ProjectCard {...project} index={index} />
+                    <ProjectCard
+                        {...project}
+                        index={index}
+                        onOpenProject={setActiveProjectId}
+                    />
                 </StickyCardWrapper>
             ))}
 
@@ -245,6 +354,11 @@ const Gallery = () => {
             }} data-snap-point="true">
                 <Footer />
             </div>
+
+            <ProjectDetailModal
+                project={activeProject}
+                onClose={() => setActiveProjectId(null)}
+            />
         </section>
     );
 };

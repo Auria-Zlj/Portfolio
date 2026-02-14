@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import RevealFx from '../utils/RevealFx';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 
 const INFO_THEMES = {
@@ -17,7 +15,7 @@ const INFO_THEMES = {
         bodyText: 'rgba(60, 72, 61, 0.82)',
     },
     softLavender: {
-        glassBg: 'rgba(205, 214, 205, 0.24)',
+        glassBg: 'rgba(224, 229, 223, 0.86)',
         glassBorder: 'rgba(122, 145, 122, 0.46)',
         glassShadow: '0 14px 30px rgba(18, 28, 20, 0.14), inset 0 1px 0 rgba(255,255,255,0.3)',
         glow: 'linear-gradient(180deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.04) 62%, rgba(255,255,255,0) 100%)',
@@ -26,9 +24,11 @@ const INFO_THEMES = {
         pillBorder: 'rgba(124, 146, 124, 0.6)',
         indexText: 'rgba(88, 96, 88, 0.62)',
         titleText: '#1F241F',
-        bodyText: 'rgba(66, 74, 66, 0.8)',
-        frosted: true,
+        bodyText: 'rgba(52, 60, 52, 0.9)',
+        frosted: false,
         edgeOnly: false,
+        noBackdrop: true,
+        noOverlay: true,
     },
     slateBlue: {
         glassBg: 'linear-gradient(150deg, rgba(42,50,66,0.56) 0%, rgba(33,39,54,0.5) 46%, rgba(24,29,42,0.66) 100%)',
@@ -74,11 +74,11 @@ const GlassCard = ({ children, className = "", style = {}, rich = true, tone = I
                 ? tone.glassBg
                 : 'rgba(255, 255, 255, 0.18)',
             backdropFilter: rich
-                ? (tone.edgeOnly ? 'blur(9px) saturate(1.05)' : tone.frosted ? 'blur(16px) saturate(1.08) brightness(1.03)' : 'blur(3px) saturate(1.01)')
-                : 'blur(10px) saturate(1.04)',
+                ? (tone.noBackdrop ? 'none' : tone.edgeOnly ? 'blur(4px) saturate(1.03)' : tone.frosted ? 'blur(3px) saturate(1.02)' : 'blur(1.2px) saturate(1.01)')
+                : 'blur(3px) saturate(1.02)',
             WebkitBackdropFilter: rich
-                ? (tone.edgeOnly ? 'blur(9px) saturate(1.05)' : tone.frosted ? 'blur(16px) saturate(1.08) brightness(1.03)' : 'blur(3px) saturate(1.01)')
-                : 'blur(10px) saturate(1.04)',
+                ? (tone.noBackdrop ? 'none' : tone.edgeOnly ? 'blur(4px) saturate(1.03)' : tone.frosted ? 'blur(3px) saturate(1.02)' : 'blur(1.2px) saturate(1.01)')
+                : 'blur(3px) saturate(1.02)',
             border: rich ? `1px solid ${tone.glassBorder}` : '1px solid rgba(255,255,255,0.35)',
             boxShadow: rich
                 ? tone.glassShadow
@@ -91,11 +91,12 @@ const GlassCard = ({ children, className = "", style = {}, rich = true, tone = I
             flexDirection: 'column',
             justifyContent: 'center',
             position: 'relative',
+            isolation: 'isolate',
             overflow: 'hidden',
             ...style
         }}
     >
-        {rich && (
+        {rich && !tone.noOverlay && (
             <>
                 <div
                     style={{
@@ -105,7 +106,8 @@ const GlassCard = ({ children, className = "", style = {}, rich = true, tone = I
                         width: '84%',
                         height: '22%',
                         background: tone.glow,
-                        filter: 'blur(8px)',
+                        filter: 'blur(2px)',
+                        zIndex: 0,
                         pointerEvents: 'none'
                     }}
                 />
@@ -116,7 +118,8 @@ const GlassCard = ({ children, className = "", style = {}, rich = true, tone = I
                             inset: 0,
                             backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27 viewBox=%270 0 120 120%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%271.1%27 numOctaves=%272%27/%3E%3C/filter%3E%3Crect width=%27120%27 height=%27120%27 filter=%27url(%23n)%27 opacity=%270.22%27/%3E%3C/svg%3E")',
                             mixBlendMode: 'soft-light',
-                            opacity: 0.1,
+                            opacity: 0.03,
+                            zIndex: 0,
                             pointerEvents: 'none'
                         }}
                     />
@@ -133,6 +136,7 @@ const GlassCard = ({ children, className = "", style = {}, rich = true, tone = I
                             WebkitMaskComposite: 'xor',
                             maskComposite: 'exclude',
                             opacity: 0.8,
+                            zIndex: 1,
                             pointerEvents: 'none'
                         }}
                     />
@@ -143,12 +147,13 @@ const GlassCard = ({ children, className = "", style = {}, rich = true, tone = I
                         inset: 0,
                         borderRadius: '24px',
                         border: tone.edgeOnly ? '1px solid rgba(226,236,255,0.26)' : '1px solid rgba(255,255,255,0.42)',
+                        zIndex: 1,
                         pointerEvents: 'none'
                     }}
                 />
             </>
         )}
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ position: 'relative', zIndex: 2, textRendering: 'optimizeLegibility', WebkitFontSmoothing: 'antialiased' }}>
             {children}
         </div>
     </div>
@@ -216,15 +221,15 @@ const Lens = ({ x, y }) => {
                 border: 'none',
                 borderRadius: 0,
                 padding: 0,
-                fontFamily: '"JetBrains Mono", monospace',
-                fontSize: '1.02rem',
-                fontWeight: 900,
-                letterSpacing: '0.105em',
+                fontFamily: '"Inter", sans-serif',
+                fontSize: '1.16rem',
+                fontWeight: 600,
+                letterSpacing: '0.09em',
                 textTransform: 'uppercase',
                 pointerEvents: 'none',
                 textAlign: 'center',
-                lineHeight: 1.2,
-                textShadow: '0 3px 12px rgba(0,0,0,0.55), 0 0 10px rgba(255,255,255,0.1)'
+                lineHeight: 1.14,
+                textShadow: '0 2px 9px rgba(0,0,0,0.42), 0 0 6px rgba(255,255,255,0.08)'
             }}>
                 View<br />Project
             </div>
@@ -233,7 +238,7 @@ const Lens = ({ x, y }) => {
 }
 
 
-const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
+const ProjectCard = ({ id, title, category, image, secondaryImage, index, onOpenProject }) => {
     const infoTone = INFO_THEMES[ACTIVE_INFO_THEME];
     const infoContent = index === 1
         ? {
@@ -282,10 +287,10 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
     };
 
 
-    // Simplified hover effect for the image container - Reduced scale since Lens does the heavy lifting
+    // Hover accent stays subtle; primary motion comes from scroll-linked zoom.
     const imageHoverVariants = {
         rest: { scale: 1, filter: "brightness(1) contrast(1)" },
-        hover: { scale: 1.02, filter: "brightness(0.9) contrast(1)" } // Dim slightly to make lens pop
+        hover: { scale: 1.02, filter: "brightness(0.93) contrast(1)" }
     };
 
     // Scroll Animation Hooks
@@ -297,14 +302,12 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
 
     // Debug logs removed
 
-    // 1. Image Zoom & Blur & MASK
-    // Scale: 0.8 -> 1.0 continuously as it moves up
-    const imageScale = useTransform(scrollYProgress, [0, 1], [0.8, 1.0]);
-    // Blur: Clears up by the time it hits center (0.5)
-    const imageBlur = useTransform(scrollYProgress, [0, 0.5], ["blur(12px)", "blur(0px)"]);
-    // Mask: Reveals by center
+    // Reintroduce scroll-linked zoom/reveal while keeping visuals crisp (no blur).
+    const imageScale = useTransform(scrollYProgress, [0, 1], [0.86, 1.0]);
+    const imageY = useTransform(scrollYProgress, [0, 1], [34, 0]);
+    const imageOpacity = 1;
     const imageMask = useTransform(scrollYProgress, [0, 0.5], [
-        "inset(15% 15% 15% 15% round 30px)",
+        "inset(12% 12% 12% 12% round 30px)",
         "inset(0% 0% 0% 0% round 0px)"
     ]);
 
@@ -328,6 +331,19 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
         ? (titleLength > 16 ? '1.6rem' : titleLength > 12 ? '1.8rem' : '2rem')
         : (titleLength > 20 ? '1.95rem' : titleLength > 14 ? '2.2rem' : '2.5rem');
 
+    const handleOpenProject = () => {
+        if (typeof onOpenProject === 'function') {
+            onOpenProject(id);
+        }
+    };
+
+    const handleCardKeyDown = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            handleOpenProject();
+        }
+    };
+
     return (
         <div
             ref={cardRef} // Attach Scroll Ref to a real DOM element
@@ -339,8 +355,12 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                 position: 'relative'
             }}
         >
-            <Link
-                to={`/project/${id}`}
+            <div
+                role="button"
+                tabIndex={0}
+                aria-label={`Open ${title} project details`}
+                onClick={handleOpenProject}
+                onKeyDown={handleCardKeyDown}
                 style={{
                     textDecoration: 'none',
                     display: 'flex',
@@ -348,7 +368,8 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                     flexDirection: isMobile ? 'column' : (index % 2 === 1 ? 'row-reverse' : 'row'),
                     alignItems: isMobile ? 'flex-start' : 'center',
                     gap: isMobile ? '2rem' : '2rem',
-                    padding: isMobile ? '0 1rem' : '0 4rem'
+                    padding: isMobile ? '0 1rem' : '0 4rem',
+                    cursor: 'pointer'
                 }}
             >
                 {/* Image Card - Wraps the visual - APPEARS SECOND */}
@@ -380,13 +401,12 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                             position: 'relative',
                             transform: 'translateZ(0)',
                             scale: imageScale,
-                            filter: imageBlur,
+                            y: imageY,
+                            opacity: imageOpacity,
                             clipPath: imageMask,
-                            willChange: 'transform, filter, clip-path',
+                            willChange: 'transform, opacity, clip-path',
                             // Applied Glass Styles Here so they scale/mask with the image
-                            background: 'rgba(255, 255, 255, 0.03)',
-                            backdropFilter: 'blur(20px)',
-                            WebkitBackdropFilter: 'blur(20px)',
+                            background: '#f3f4f2',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
                             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)',
                             borderRadius: '24px',
@@ -420,7 +440,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: 'rgba(255,255,255,0.2)',
-                                fontFamily: '"JetBrains Mono", monospace',
+                                fontFamily: '"Inter", sans-serif',
                                 fontSize: '0.8rem',
                                 letterSpacing: '0.1em'
                             }}>
@@ -452,7 +472,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                             position: 'relative', // Fix for Framer Motion scroll warning
                             opacity: infoOpacity,
                             y: infoY,
-                            scale: infoScale // Apply Zoom
+                            scale: infoScale
                         }}
                     >
                         <GlassCard tone={infoTone} style={{
@@ -476,7 +496,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                                     marginBottom: '1rem'
                                 }}>
                                     <span style={{
-                                        fontFamily: '"JetBrains Mono", monospace',
+                                        fontFamily: '"Inter", sans-serif',
                                         fontSize: '0.62rem',
                                         fontWeight: 500,
                                         letterSpacing: '0.07em',
@@ -533,7 +553,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                                         display: 'inline-block',
                                         padding: '0.18rem 0.45rem',
                                         borderRadius: '999px',
-                                        fontFamily: '"JetBrains Mono", monospace',
+                                        fontFamily: '"Inter", sans-serif',
                                         fontSize: '0.56rem',
                                         fontWeight: 500,
                                         letterSpacing: '0.03em',
@@ -547,7 +567,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                                         display: 'inline-block',
                                         padding: '0.18rem 0.45rem',
                                         borderRadius: '999px',
-                                        fontFamily: '"JetBrains Mono", monospace',
+                                        fontFamily: '"Inter", sans-serif',
                                         fontSize: '0.56rem',
                                         fontWeight: 500,
                                         letterSpacing: '0.03em',
@@ -566,7 +586,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                                         fontWeight: 600,
                                         letterSpacing: '0.06em',
                                         textTransform: 'uppercase',
-                                        fontFamily: '"JetBrains Mono", monospace',
+                                        fontFamily: '"Inter", sans-serif',
                                         color: '#1F2420',
                                         opacity: 0.96,
                                         textShadow: '0 1px 0 rgba(255,255,255,0.35)'
@@ -586,7 +606,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                             position: 'relative', // Fix for Framer Motion scroll warning
                             opacity: smallOpacity,
                             y: smallY,
-                            scale: smallScale // Apply Zoom
+                            scale: smallScale
                         }}
                     >
                         <GlassCard rich={false} style={{
@@ -599,7 +619,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                             boxShadow: '0 10px 22px rgba(8, 14, 11, 0.26), inset 0 1px 0 rgba(236,255,245,0.16)'
                         }}>
                             <motion.div
-                                whileHover={{ scale: 1.05 }}
+                                whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                                 style={{
                                     width: '100%',
@@ -610,7 +630,7 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index }) => {
                         </GlassCard>
                     </motion.div>
                 </div>
-            </Link>
+            </div>
         </div>
     );
 };

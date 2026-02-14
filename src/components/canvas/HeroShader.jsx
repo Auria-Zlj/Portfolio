@@ -21,6 +21,10 @@ uniform vec2 uMouse;
 uniform vec3 uColorBg;
 uniform vec3 uColorAccent;
 uniform vec3 uColorDim;
+uniform vec3 uColorCoreDark;
+uniform vec3 uGrainTint;
+uniform float uGrainAmount;
+uniform float uGrainTintStrength;
 varying vec2 vUv;
 
 // Simplex 2D noise
@@ -81,7 +85,17 @@ void main() {
   
   // Color Mixing
   // Background is White. Shapes are Green.
-  vec3 greenGrad = mix(uColorDim, uColorAccent, n1); // Gradient within the green itself
+  vec3 greenGrad = mix(uColorDim, uColorAccent, n1); // two-tone base
+
+  // Third green tone: a small darker core that keeps drifting over time.
+  vec2 coreCenter = vec2(
+    0.59 + 0.08 * sin(uTime * 0.11),
+    0.66 + 0.07 * cos(uTime * 0.09)
+  );
+  float coreDist = distance(vUv, coreCenter);
+  float edgeWarp = snoise(vUv * 3.0 + uTime * 0.12) * 0.03;
+  float coreMask = 1.0 - smoothstep(0.06 + edgeWarp, 0.20 + edgeWarp, coreDist);
+  vec3 greenTriTone = mix(greenGrad, uColorCoreDark, coreMask * 0.68);
   
   // Alpha/Intensity
   // We want the green to appear as "clouds" or "liquid" on white.
@@ -92,14 +106,21 @@ void main() {
 
   // Add Grain/Noise (Static) for texture - COARSER / ROUGHER
   // We pixelate the UVs for the grain to make the "dots" bigger
-  vec2 grainUv = floor(vUv * 800.0) / 800.0; // 800.0 controls the grain size (lower = bigger)
+  vec2 grainUv = floor(vUv * 1500.0) / 1500.0; // higher value = finer grain
   float grainNode = fract(sin(dot(grainUv + uTime * 10.0, vec2(12.9898, 78.233))) * 43758.5453);
   
   // Apply grain ONLY to the green shapes
   // We mix the grain into the green gradient BEFORE blending with the background
-  vec3 noisyGreen = greenGrad - vec3(grainNode * 0.15); // Increased strength slightly for visibility in color
+  vec3 noisyGreen = greenTriTone - vec3(grainNode * 0.1); // slightly softer grain contrast
   
   vec3 finalColor = mix(uColorBg, noisyGreen, shapeAlpha);
+
+  // Tinted grain: user-controllable color and amount, keeps same flow/layout.
+  float grainBase = fract(sin(dot(grainUv + uTime * 2.8, vec2(61.73, 29.47))) * 91823.71) - 0.5;
+  vec3 neutralGrain = vec3(grainBase);
+  vec3 tintedGrain = neutralGrain * uGrainTint;
+  vec3 grainColor = mix(neutralGrain, tintedGrain, uGrainTintStrength);
+  finalColor += grainColor * (uGrainAmount * shapeAlpha);
 
   gl_FragColor = vec4(finalColor, 1.0);
 }
@@ -116,6 +137,10 @@ const HeroShader = () => {
             uColorBg: { value: new THREE.Color('#F4F4F4') }, // Off-White
             uColorAccent: { value: new THREE.Color('#00A862') }, // Lighter Forest Green
             uColorDim: { value: new THREE.Color('#5AEE90') }, // Light Green
+            uColorCoreDark: { value: new THREE.Color('#1B6B42') }, // Darker inner green core
+            uGrainTint: { value: new THREE.Color('#6fcf97') }, // set grain hue here
+            uGrainAmount: { value: 0.05 }, // overall grain intensity
+            uGrainTintStrength: { value: 0.9 }, // 0=gray grain, 1=full tint
         }),
         []
     );
