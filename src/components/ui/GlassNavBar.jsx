@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import LiquidGlassFilter from '../effects/LiquidGlassFilter';
 import { motion } from 'framer-motion';
 
@@ -15,7 +16,7 @@ const GlassNavBar = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    return (
+    const navNode = (
         <motion.nav
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -25,7 +26,8 @@ const GlassNavBar = () => {
                 top: 0,
                 left: 0,
                 width: '100%',
-                zIndex: 1000,
+                // Keep nav above project cards but below modal layers.
+                zIndex: 950,
                 padding: '1.5rem 4rem', // Spacious padding
 
                 // Heavy Blur / Clear Glass Effect
@@ -68,6 +70,12 @@ const GlassNavBar = () => {
             </div>
         </motion.nav>
     );
+
+    if (typeof document === 'undefined') {
+        return navNode;
+    }
+
+    return createPortal(navNode, document.body);
 };
 
 // Sub-component for Link with Hover Line

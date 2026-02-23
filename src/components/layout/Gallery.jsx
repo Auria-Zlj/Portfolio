@@ -100,11 +100,6 @@ const StickyCardWrapper = ({ children, index, viewportHeight }) => {
 const Gallery = () => {
     const containerRef = useRef(null);
     const selectedWorksRef = useRef(null);
-    const snapTimeoutRef = useRef(null);
-    const isProgrammaticSnapRef = useRef(false);
-    const lastScrollYRef = useRef(0);
-    const directionRef = useRef(1);
-    const currentSnapIndexRef = useRef(0);
     const [activeProjectId, setActiveProjectId] = useState(null);
     const isSafari =
         typeof navigator !== 'undefined' &&
@@ -171,96 +166,6 @@ const Gallery = () => {
         };
     }, []);
 
-    useEffect(() => {
-        const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-        const getNearestSnapIndex = (nodes, y) => {
-            let nearestIndex = 0;
-            let nearestDistance = Number.POSITIVE_INFINITY;
-            nodes.forEach((node, idx) => {
-                const distance = Math.abs(node.offsetTop - y);
-                if (distance < nearestDistance) {
-                    nearestDistance = distance;
-                    nearestIndex = idx;
-                }
-            });
-            return nearestIndex;
-        };
-
-        const settleSnap = () => {
-            if (isProgrammaticSnapRef.current) return;
-            const root = containerRef.current;
-            if (!root) return;
-
-            const snapNodes = root.querySelectorAll('[data-snap-point="true"]');
-            if (!snapNodes.length) return;
-
-            const currentY = window.scrollY;
-            const maxIndex = snapNodes.length - 1;
-            const topLockThreshold = window.innerHeight * 0.12;
-            if (currentY <= topLockThreshold) {
-                currentSnapIndexRef.current = 0;
-                return;
-            }
-
-            const currentIndex = clamp(
-                getNearestSnapIndex(Array.from(snapNodes), currentY),
-                0,
-                maxIndex
-            );
-            currentSnapIndexRef.current = currentIndex;
-            const currentAnchorY = snapNodes[currentIndex].offsetTop;
-            const deltaFromAnchor = currentY - currentAnchorY;
-            const threshold = window.innerHeight * 0.52;
-
-            let targetIndex = currentIndex;
-            if (Math.abs(deltaFromAnchor) >= threshold) {
-                targetIndex = clamp(
-                    currentIndex + (directionRef.current > 0 ? 1 : -1),
-                    0,
-                    maxIndex
-                );
-            }
-
-            const targetY = snapNodes[targetIndex].offsetTop;
-            if (Math.abs(currentY - targetY) < 12) {
-                currentSnapIndexRef.current = targetIndex;
-                return;
-            }
-
-            isProgrammaticSnapRef.current = true;
-            window.scrollTo({ top: targetY, behavior: 'smooth' });
-            window.setTimeout(() => {
-                currentSnapIndexRef.current = targetIndex;
-                isProgrammaticSnapRef.current = false;
-            }, 420);
-        };
-
-        const onScroll = () => {
-            if (isProgrammaticSnapRef.current) return;
-            const currentY = window.scrollY;
-            const topLockThreshold = window.innerHeight * 0.12;
-            if (currentY <= topLockThreshold) {
-                currentSnapIndexRef.current = 0;
-                lastScrollYRef.current = currentY;
-                if (snapTimeoutRef.current) window.clearTimeout(snapTimeoutRef.current);
-                return;
-            }
-            const delta = currentY - lastScrollYRef.current;
-            if (Math.abs(delta) > 1) {
-                directionRef.current = delta > 0 ? 1 : -1;
-            }
-            lastScrollYRef.current = currentY;
-            if (snapTimeoutRef.current) window.clearTimeout(snapTimeoutRef.current);
-            snapTimeoutRef.current = window.setTimeout(settleSnap, 260);
-        };
-
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-            if (snapTimeoutRef.current) window.clearTimeout(snapTimeoutRef.current);
-        };
-    }, []);
-
     return (
         <section
             id="work-gallery"
@@ -272,8 +177,7 @@ const Gallery = () => {
                 flexDirection: 'column',
                 marginTop: 0,
                 scrollSnapType: 'y mandatory',
-                scrollBehavior: 'smooth',
-                overscrollBehavior: 'contain',
+                overscrollBehavior: 'auto',
                 scrollPadding: 0
             }}
         >

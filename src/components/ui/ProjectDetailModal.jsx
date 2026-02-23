@@ -121,7 +121,15 @@ const ProjectDetailModal = ({ project, onClose }) => {
 
     useEffect(() => {
         if (!project) return undefined;
-        const previousOverflow = document.body.style.overflow;
+        const previousBodyOverflow = document.body.style.overflow;
+        const previousHtmlOverflow = document.documentElement.style.overflow;
+        const lenis = window.__portfolioLenis;
+
+        if (lenis && typeof lenis.stop === 'function') {
+            lenis.stop();
+        }
+
+        document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
 
         const onKeyDown = (event) => {
@@ -130,7 +138,11 @@ const ProjectDetailModal = ({ project, onClose }) => {
         window.addEventListener('keydown', onKeyDown);
 
         return () => {
-            document.body.style.overflow = previousOverflow;
+            document.documentElement.style.overflow = previousHtmlOverflow;
+            document.body.style.overflow = previousBodyOverflow;
+            if (lenis && typeof lenis.start === 'function') {
+                lenis.start();
+            }
             window.removeEventListener('keydown', onKeyDown);
         };
     }, [project, onClose]);
@@ -280,8 +292,17 @@ const ProjectDetailModal = ({ project, onClose }) => {
                         role="dialog"
                         aria-modal="true"
                         aria-label={`${project.title} detail modal`}
+                        data-lenis-prevent
+                        data-lenis-prevent-wheel
+                        data-lenis-prevent-touch
                     >
-                        <div className="modal-content" ref={modalContentRef}>
+                        <div
+                            className="modal-content"
+                            ref={modalContentRef}
+                            data-lenis-prevent
+                            data-lenis-prevent-wheel
+                            data-lenis-prevent-touch
+                        >
                             {projectKey === 'x-heal' ? (
                                 <div className="modal-card modal-card-xheal">
                                     <div className="modal-card-xheal-image-wrapper">
