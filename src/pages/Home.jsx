@@ -75,9 +75,9 @@ const Home = () => {
                         introCollapse
                             ? {
                                 opacity: 1,
-                                scale: 1.06,
+                                scale: 1,
                                 filter: 'blur(0px)',
-                                z: -260,
+                                z: 0,
                             }
                             : {
                                 opacity: 1,
