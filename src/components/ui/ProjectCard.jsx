@@ -320,6 +320,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     const heroAspectRatio = isMobile ? '4 / 3' : '16 / 10';
     const heroDesktopMaxWidth = 'min(62vw, 980px)';
     const heroDesktopHeight = 'min(58vh, 600px)';
+    const shouldAutoFitHero = id === 2;
     const infoDesktopWidth = 'clamp(340px, 28vw, 430px)';
 
     const handleOpenProject = () => {
@@ -398,7 +399,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                         ref={containerRef}
                         style={{
                             width: '100%',
-                            height: isMobile ? 'auto' : heroDesktopHeight,
+                            height: isMobile || shouldAutoFitHero ? 'auto' : heroDesktopHeight,
                             aspectRatio: isMobile ? heroAspectRatio : 'auto',
                             position: 'relative',
                             transform: 'translateZ(0)',
@@ -420,7 +421,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                         <motion.div
                             style={{
                                 width: '100%',
-                                height: isMobile ? 'auto' : '100%',
+                                height: isMobile || shouldAutoFitHero ? 'auto' : '100%',
                                 position: 'relative',
                                 transform: 'translateZ(0)',
                             }}
@@ -438,7 +439,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                                     style={{
                                         width: '100%',
-                                        height: isMobile ? 'auto' : '100%',
+                                        height: isMobile || shouldAutoFitHero ? 'auto' : '100%',
                                         display: 'block',
                                         objectFit: id === 2 ? 'contain' : 'cover',
                                         objectPosition: 'center center'
