@@ -354,6 +354,20 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                     }}
                                 >
                                     <article style={{ width: '100%' }}>
+                                        <div style={{ maxWidth: '1080px', margin: '0 auto 56px auto' }}>
+                                            <div
+                                                style={{
+                                                    overflow: 'hidden',
+                                                    borderRadius: '16px',
+                                                    border: '1px solid rgba(148, 163, 184, 0.26)',
+                                                    boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
+                                                    background: '#fff'
+                                                }}
+                                            >
+                                                <img src="/image/salmon_hero.png" alt="Context and Workflow" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                            </div>
+                                        </div>
+
                                         <header style={{ maxWidth: '768px', margin: '0 auto 120px auto' }}>
                                             <h2
                                                 style={{
@@ -382,19 +396,6 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         </header>
 
                                         <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '1080px', margin: '0 auto 40px auto' }}>
-                                                <div
-                                                    style={{
-                                                        overflow: 'hidden',
-                                                        borderRadius: '16px',
-                                                        border: '1px solid rgba(148, 163, 184, 0.26)',
-                                                        boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
-                                                        background: '#fff'
-                                                    }}
-                                                >
-                                                    <img src="/image/salmon_hero.png" alt="Context and Workflow" style={{ width: '100%', height: 'auto', display: 'block' }} />
-                                                </div>
-                                            </div>
                                             <div style={{ maxWidth: '768px', margin: '0 auto' }}>
                                                 <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
                                                     Context &amp; Real-World Workflow
