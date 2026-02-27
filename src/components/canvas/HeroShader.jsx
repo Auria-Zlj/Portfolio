@@ -57,8 +57,7 @@ float snoise(vec2 v){
 }
 
 void main() {
-  // Keep lens center stable across section transitions to avoid scroll-triggered jumps.
-  vec2 mouse = vec2(0.56, 0.54);
+  vec2 mouse = uMouse;
   float dist = distance(vUv, mouse);
 
   // --- LENS LOGIC ---

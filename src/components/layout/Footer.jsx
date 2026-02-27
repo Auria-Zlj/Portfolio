@@ -9,6 +9,9 @@ const NavLink = ({ href, label, linkStyle, onMouseEnter, onMouseLeave }) => {
     const handleClick = (e) => {
         if (href.startsWith('#')) {
             e.preventDefault();
+            if (href === '#home') {
+                window.dispatchEvent(new Event('portfolio:reset-hero-shader'));
+            }
             const targetId = href === '#work-gallery' ? '#selected-works' : href;
             const target = document.querySelector(targetId);
             if (target) {
@@ -42,6 +45,7 @@ const Footer = () => {
     const [isEmailHovered, setIsEmailHovered] = useState(false);
 
     const scrollToTop = () => {
+        window.dispatchEvent(new Event('portfolio:reset-hero-shader'));
         window.scrollTo({
             top: 0,
             behavior: 'smooth'

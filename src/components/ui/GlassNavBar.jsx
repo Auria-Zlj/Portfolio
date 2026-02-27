@@ -14,6 +14,7 @@ const GlassNavBar = () => {
 
     const scrollToHome = (e) => {
         e.preventDefault();
+        window.dispatchEvent(new Event('portfolio:reset-hero-shader'));
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -86,6 +87,9 @@ const NavLink = ({ href, label, newTab = false }) => {
     const handleClick = (e) => {
         if (href.startsWith('#')) {
             e.preventDefault();
+            if (href === '#home') {
+                window.dispatchEvent(new Event('portfolio:reset-hero-shader'));
+            }
             const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth' });

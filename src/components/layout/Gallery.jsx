@@ -105,6 +105,7 @@ const Gallery = () => {
     const containerRef = useRef(null);
     const selectedWorksRef = useRef(null);
     const [activeProjectId, setActiveProjectId] = useState(null);
+    const [heroShaderResetKey, setHeroShaderResetKey] = useState(0);
     const isSafari =
         typeof navigator !== 'undefined' &&
         /Safari/i.test(navigator.userAgent) &&
@@ -124,6 +125,17 @@ const Gallery = () => {
     const activeProject = projects.find((project) => project.id === activeProjectId) || null;
     const preloadedImageRefs = useRef([]);
     const preloadLinkRefs = useRef([]);
+
+    useEffect(() => {
+        const resetHeroShader = () => {
+            setHeroShaderResetKey((prev) => prev + 1);
+        };
+
+        window.addEventListener('portfolio:reset-hero-shader', resetHeroShader);
+        return () => {
+            window.removeEventListener('portfolio:reset-hero-shader', resetHeroShader);
+        };
+    }, []);
 
     useEffect(() => {
         if (hasPreloadedProjectAssets || typeof window === 'undefined') return;
@@ -200,7 +212,7 @@ const Gallery = () => {
             >
                 <Canvas camera={{ position: [0, 0, 1] }}>
                     <Suspense fallback={null}>
-                        <HeroShader />
+                        <HeroShader key={heroShaderResetKey} />
                     </Suspense>
                 </Canvas>
             </div>
