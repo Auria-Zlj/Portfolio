@@ -289,29 +289,30 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     // Debug logs removed
 
     // Reintroduce scroll-linked zoom/reveal while keeping visuals crisp (no blur).
+    const fullStateDelay = 0.06;
     const imageScale = useTransform(scrollYProgress, [0, 1], [0.98, 1.0]);
     const imageY = useTransform(scrollYProgress, [0, 1], [12, 0]);
     const imageOpacity = 1;
-    const imageMask = useTransform(scrollYProgress, [0, 0.5], [
+    const imageMask = useTransform(scrollYProgress, [0 + fullStateDelay, 0.5 + fullStateDelay], [
         "inset(12% 12% 12% 12% round 30px)",
         "inset(0% 0% 0% 0% round 0px)"
     ]);
 
     // 2. Synchronized Typography
-    const titleSpacing = useTransform(scrollYProgress, [0, 0.5], ["-0.06em", "-0.04em"]);
-    const titleOpacity = useTransform(scrollYProgress, [0, 0.4], [0.6, 1]);
+    const titleSpacing = useTransform(scrollYProgress, [0 + fullStateDelay, 0.5 + fullStateDelay], ["-0.06em", "-0.04em"]);
+    const titleOpacity = useTransform(scrollYProgress, [0 + fullStateDelay, 0.4 + fullStateDelay], [0.6, 1]);
 
     // 3. Scroll-Linked Card Appearance (Scrubbing)
     // Info Card: Starts entering at 0.1 (just visible), Done by 0.4 (before center)
     // This ensures it's visible when snapped to center (0.5)
-    const infoOpacity = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]);
-    const infoY = useTransform(scrollYProgress, [0.1, 0.4], [100, 0]);
-    const infoScale = useTransform(scrollYProgress, [0.1, 0.4], [0.5, 1]);
+    const infoOpacity = useTransform(scrollYProgress, [0.1 + fullStateDelay, 0.4 + fullStateDelay], [0, 1]);
+    const infoY = useTransform(scrollYProgress, [0.1 + fullStateDelay, 0.4 + fullStateDelay], [100, 0]);
+    const infoScale = useTransform(scrollYProgress, [0.1 + fullStateDelay, 0.4 + fullStateDelay], [0.5, 1]);
 
     // Small Card: Starts a bit later (0.2), Done by 0.5 (center)
-    const smallOpacity = useTransform(scrollYProgress, [0.2, 0.5], [0, 1]);
-    const smallY = useTransform(scrollYProgress, [0.2, 0.5], [100, 0]);
-    const smallScale = useTransform(scrollYProgress, [0.2, 0.5], [0.5, 1]);
+    const smallOpacity = useTransform(scrollYProgress, [0.2 + fullStateDelay, 0.5 + fullStateDelay], [0, 1]);
+    const smallY = useTransform(scrollYProgress, [0.2 + fullStateDelay, 0.5 + fullStateDelay], [100, 0]);
+    const smallScale = useTransform(scrollYProgress, [0.2 + fullStateDelay, 0.5 + fullStateDelay], [0.5, 1]);
     const titleLength = title?.length ?? 0;
     const titleSize = isMobile
         ? (titleLength > 16 ? '1.6rem' : titleLength > 12 ? '1.8rem' : '2rem')
