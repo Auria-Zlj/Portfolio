@@ -289,8 +289,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     // Debug logs removed
 
     // Reintroduce scroll-linked zoom/reveal while keeping visuals crisp (no blur).
-    const imageScale = useTransform(scrollYProgress, [0, 1], [0.86, 1.0]);
-    const imageY = useTransform(scrollYProgress, [0, 1], [34, 0]);
+    const imageScale = useTransform(scrollYProgress, [0, 1], [0.98, 1.0]);
+    const imageY = useTransform(scrollYProgress, [0, 1], [12, 0]);
     const imageOpacity = 1;
     const imageMask = useTransform(scrollYProgress, [0, 0.5], [
         "inset(12% 12% 12% 12% round 30px)",
@@ -316,6 +316,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     const titleSize = isMobile
         ? (titleLength > 16 ? '1.6rem' : titleLength > 12 ? '1.8rem' : '2rem')
         : (titleLength > 20 ? '1.95rem' : titleLength > 14 ? '2.2rem' : '2.5rem');
+    const heroAspectRatio = isMobile ? '4 / 3' : '16 / 10';
 
     const handleOpenProject = () => {
         if (typeof onOpenProject === 'function') {
@@ -389,7 +390,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                         ref={containerRef}
                         style={{
                             width: '100%',
-                            height: 'auto', // Force fit
+                            aspectRatio: heroAspectRatio,
                             position: 'relative',
                             transform: 'translateZ(0)',
                             willChange: 'transform, opacity, clip-path',
@@ -406,7 +407,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                         <motion.div
                             style={{
                                 width: '100%',
-                                height: 'auto',
+                                height: '100%',
                                 position: 'relative',
                                 transform: 'translateZ(0)',
                                 scale: imageScale,
@@ -429,14 +430,15 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                                     style={{
                                         width: '100%',
-                                        height: 'auto',
-                                        display: 'block'
+                                        height: '100%',
+                                        display: 'block',
+                                        objectFit: 'cover'
                                     }}
                                 />
                             ) : (
                                 <div style={{
                                     width: '100%',
-                                    height: '300px',
+                                    height: '100%',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
