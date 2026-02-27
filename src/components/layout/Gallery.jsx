@@ -106,6 +106,8 @@ const Gallery = () => {
     const selectedWorksRef = useRef(null);
     const [activeProjectId, setActiveProjectId] = useState(null);
     const [heroShaderResetKey, setHeroShaderResetKey] = useState(0);
+    const [showHeroShader, setShowHeroShader] = useState(true);
+    const [pendingHeroShaderRestart, setPendingHeroShaderRestart] = useState(false);
     const isSafari =
         typeof navigator !== 'undefined' &&
         /Safari/i.test(navigator.userAgent) &&
@@ -127,15 +129,42 @@ const Gallery = () => {
     const preloadLinkRefs = useRef([]);
 
     useEffect(() => {
-        const resetHeroShader = () => {
-            setHeroShaderResetKey((prev) => prev + 1);
+        const requestHeroShaderRestartAtHome = () => {
+            setShowHeroShader(false);
+            setPendingHeroShaderRestart(true);
         };
 
-        window.addEventListener('portfolio:reset-hero-shader', resetHeroShader);
+        window.addEventListener('portfolio:reset-hero-shader', requestHeroShaderRestartAtHome);
         return () => {
-            window.removeEventListener('portfolio:reset-hero-shader', resetHeroShader);
+            window.removeEventListener('portfolio:reset-hero-shader', requestHeroShaderRestartAtHome);
         };
     }, []);
+
+    useEffect(() => {
+        if (!pendingHeroShaderRestart || typeof window === 'undefined') return undefined;
+
+        let rafId = 0;
+        const deadline = performance.now() + 2400;
+
+        const tryMountAtHome = () => {
+            const isAtTop = window.scrollY <= 4;
+            const timedOut = performance.now() >= deadline;
+
+            if (isAtTop || timedOut) {
+                setHeroShaderResetKey((prev) => prev + 1);
+                setShowHeroShader(true);
+                setPendingHeroShaderRestart(false);
+                return;
+            }
+
+            rafId = window.requestAnimationFrame(tryMountAtHome);
+        };
+
+        rafId = window.requestAnimationFrame(tryMountAtHome);
+        return () => {
+            window.cancelAnimationFrame(rafId);
+        };
+    }, [pendingHeroShaderRestart]);
 
     useEffect(() => {
         if (hasPreloadedProjectAssets || typeof window === 'undefined') return;
@@ -197,25 +226,27 @@ const Gallery = () => {
                 scrollPadding: 0
             }}
         >
-            <div
-                className="canvas-container"
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100vw',
-                    height: '100vh',
-                    zIndex: 0,
-                    pointerEvents: 'none',
-                    opacity: 1,
-                }}
-            >
-                <Canvas camera={{ position: [0, 0, 1] }}>
-                    <Suspense fallback={null}>
-                        <HeroShader key={heroShaderResetKey} />
-                    </Suspense>
-                </Canvas>
-            </div>
+            {showHeroShader && (
+                <div
+                    className="canvas-container"
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        zIndex: 0,
+                        pointerEvents: 'none',
+                        opacity: 1,
+                    }}
+                >
+                    <Canvas camera={{ position: [0, 0, 1] }}>
+                        <Suspense fallback={null}>
+                            <HeroShader key={heroShaderResetKey} />
+                        </Suspense>
+                    </Canvas>
+                </div>
+            )}
 
             {/* Home - First snap point */}
             <div style={{

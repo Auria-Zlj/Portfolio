@@ -106,12 +106,12 @@ void main() {
 
   // Add Grain/Noise (Static) for texture - COARSER / ROUGHER
   // We pixelate the UVs for the grain to make the "dots" bigger
-  vec2 grainUv = floor(vUv * 1500.0) / 1500.0; // higher value = finer grain
+  vec2 grainUv = floor(vUv * 2200.0) / 2200.0; // higher value = finer grain
   float grainNode = fract(sin(dot(grainUv + uTime * 10.0, vec2(12.9898, 78.233))) * 43758.5453);
   
   // Apply grain ONLY to the green shapes
   // We mix the grain into the green gradient BEFORE blending with the background
-  vec3 noisyGreen = greenTriTone - vec3(grainNode * 0.1); // slightly softer grain contrast
+  vec3 noisyGreen = greenTriTone - vec3(grainNode * 0.08); // slightly softer grain contrast
   
   vec3 finalColor = mix(uColorBg, noisyGreen, shapeAlpha);
 
@@ -139,7 +139,7 @@ const HeroShader = () => {
             uColorDim: { value: new THREE.Color('#5AEE90') }, // Light Green
             uColorCoreDark: { value: new THREE.Color('#1B6B42') }, // Darker inner green core
             uGrainTint: { value: new THREE.Color('#6fcf97') }, // set grain hue here
-            uGrainAmount: { value: 0.05 }, // overall grain intensity
+            uGrainAmount: { value: 0.038 }, // overall grain intensity
             uGrainTintStrength: { value: 0.9 }, // 0=gray grain, 1=full tint
         }),
         []
