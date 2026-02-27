@@ -320,6 +320,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     const heroAspectRatio = isMobile ? '4 / 3' : '16 / 10';
     const heroDesktopMaxWidth = 'min(62vw, 980px)';
     const heroDesktopHeight = 'min(58vh, 600px)';
+    const infoDesktopWidth = 'clamp(340px, 28vw, 430px)';
 
     const handleOpenProject = () => {
         if (typeof onOpenProject === 'function') {
@@ -461,8 +462,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                 {/* Right Side (or Left): Info Stack */}
                 {/* Right Side (or Left): Info Stack - Organic/Misaligned */}
                 <div style={{
-                    width: isMobile ? '100%' : 'auto',
-                    flex: isMobile ? 'none' : '1',
+                    width: isMobile ? '100%' : infoDesktopWidth,
+                    flex: isMobile ? 'none' : '0 0 auto',
                     height: isMobile ? 'auto' : '80vh', // More vertical space for organic arrangement
                     display: 'flex',
                     flexDirection: 'column',
@@ -475,7 +476,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     {/* Info Card - Top & Taller - APPEARS AFTER IMAGE */}
                     <motion.div
                         style={{
-                            width: isMobile ? '100%' : '100%',
+                            width: '100%',
                             marginBottom: isMobile ? '1rem' : '1.4rem',
                             position: 'relative', // Fix for Framer Motion scroll warning
                             opacity: infoOpacity,
