@@ -332,6 +332,9 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
 
     const supportingMediaSrc = secondaryVideo || secondaryImage || image || 'https://via.placeholder.com/600x400/eeeeee/00BB44?text=';
     const supportingMediaIsVideo = Boolean(secondaryVideo) || /\.(mp4|webm|mov)$/i.test(supportingMediaSrc);
+    const supportingCardSize = supportingMediaIsVideo
+        ? (isMobile ? '162px' : '220px')
+        : (isMobile ? '146px' : '198px');
 
     return (
         <div
@@ -602,8 +605,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                             padding: 0,
                             overflow: 'hidden',
                             border: '1px solid rgba(176, 242, 209, 0.3)',
-                            width: isMobile ? '146px' : '198px',
-                            height: isMobile ? '146px' : '198px',
+                            width: supportingCardSize,
+                            height: supportingCardSize,
                             borderRadius: '16px',
                             boxShadow: '0 10px 22px rgba(8, 14, 11, 0.26), inset 0 1px 0 rgba(236,255,245,0.16)'
                         }}>
@@ -613,7 +616,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                 style={{
                                     width: '100%',
                                     height: '100%',
-                                    backgroundColor: id === 3 ? '#0a0f0c' : 'transparent',
+                                    backgroundColor: supportingMediaIsVideo || id === 3 ? '#0a0f0c' : 'transparent',
                                 }}
                             >
                                 {supportingMediaIsVideo ? (
@@ -630,7 +633,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                             width: '100%',
                                             height: '100%',
                                             display: 'block',
-                                            objectFit: id === 3 ? 'contain' : 'cover',
+                                            objectFit: 'contain',
                                             pointerEvents: 'none',
                                         }}
                                     />
