@@ -440,7 +440,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                         width: '100%',
                                         height: isMobile ? 'auto' : '100%',
                                         display: 'block',
-                                        objectFit: 'cover'
+                                        objectFit: id === 2 ? 'contain' : 'cover',
+                                        objectPosition: 'center center'
                                     }}
                                 />
                             ) : (
