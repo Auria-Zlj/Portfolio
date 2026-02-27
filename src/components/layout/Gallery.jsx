@@ -1,15 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
 import ProjectDetailModal from '../ui/ProjectDetailModal';
 import Footer from './Footer';
 import Home from '../../pages/Home';
+import HeroShader from '../canvas/HeroShader';
 
 import preloHero from '../../assets/images/Prelo_hero.png';
 import xheatHero from '../../assets/images/X-Heal_Hero.png';
 import salmonHero from '../../assets/images/salmon_hero.png';
 import salmonRouting from '../../assets/images/salmon_routing.png';
 import salmonPipeline from '../../assets/images/salmonPipline.png';
+import deviceVideo from '../../assets/images/device.mov';
 import x1 from '../../assets/images/X1.png';
 import x12 from '../../assets/images/X1.2.png';
 import x13 from '../../assets/images/X1.3.png';
@@ -24,6 +27,7 @@ const projects = [
         category: 'Real-World Systems',
         image: xheatHero,
         secondaryImage: '',
+        secondaryVideo: deviceVideo,
         eyebrow: '01 / Case Study',
         description: 'Real-time rehab system that turns physical motion into guided exercise feedback.',
         tags: ['Dual BLE Sensors', 'System Logic'],
@@ -181,6 +185,26 @@ const Gallery = () => {
                 scrollPadding: 0
             }}
         >
+            <div
+                className="canvas-container"
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    zIndex: 0,
+                    pointerEvents: 'none',
+                    opacity: 1,
+                }}
+            >
+                <Canvas camera={{ position: [0, 0, 1] }}>
+                    <Suspense fallback={null}>
+                        <HeroShader />
+                    </Suspense>
+                </Canvas>
+            </div>
+
             {/* Home - First snap point */}
             <div style={{
                 width: '100vw',

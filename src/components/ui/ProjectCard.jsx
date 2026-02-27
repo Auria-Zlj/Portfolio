@@ -238,7 +238,7 @@ const Lens = ({ x, y }) => {
 }
 
 
-const ProjectCard = ({ id, title, category, description, tags, sponsor, image, secondaryImage, index, onOpenProject }) => {
+const ProjectCard = ({ id, title, category, description, tags, sponsor, image, secondaryImage, secondaryVideo, index, onOpenProject }) => {
     const infoTone = INFO_THEMES[ACTIVE_INFO_THEME];
     const infoContent = {
         title,
@@ -329,6 +329,9 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
             handleOpenProject();
         }
     };
+
+    const supportingMediaSrc = secondaryVideo || secondaryImage || image || 'https://via.placeholder.com/600x400/eeeeee/00BB44?text=';
+    const supportingMediaIsVideo = Boolean(secondaryVideo) || /\.(mp4|webm|mov)$/i.test(supportingMediaSrc);
 
     return (
         <div
@@ -613,16 +616,36 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                     backgroundColor: id === 3 ? '#0a0f0c' : 'transparent',
                                 }}
                             >
-                                <img
-                                    src={secondaryImage || image || 'https://via.placeholder.com/600x400/eeeeee/00BB44?text='}
-                                    alt={`${title} supporting visual`}
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        display: 'block',
-                                        objectFit: id === 3 ? 'contain' : 'cover',
-                                    }}
-                                />
+                                {supportingMediaIsVideo ? (
+                                    <video
+                                        src={supportingMediaSrc}
+                                        poster={image}
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="metadata"
+                                        aria-label={`${title} supporting video`}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'block',
+                                            objectFit: id === 3 ? 'contain' : 'cover',
+                                            pointerEvents: 'none',
+                                        }}
+                                    />
+                                ) : (
+                                    <img
+                                        src={supportingMediaSrc}
+                                        alt={`${title} supporting visual`}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'block',
+                                            objectFit: id === 3 ? 'contain' : 'cover',
+                                        }}
+                                    />
+                                )}
                             </motion.div>
                         </GlassCard>
                     </motion.div>
