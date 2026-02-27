@@ -347,10 +347,11 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
             ref={cardRef} // Attach Scroll Ref to a real DOM element
             style={{
                 width: '100%',
-                minWidth: isMobile ? 'auto' : '90vw',
-                maxWidth: isMobile ? '100%' : '90vw',
+                maxWidth: '100%',
                 margin: '0 auto',
-                position: 'relative'
+                position: 'relative',
+                padding: isMobile ? '0 1rem' : '0 4rem',
+                boxSizing: 'border-box'
             }}
         >
             <div
@@ -362,12 +363,13 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                 style={{
                     textDecoration: 'none',
                     display: 'flex',
-                    width: '100%',
+                    width: isMobile ? '100%' : 'fit-content',
+                    margin: isMobile ? '0' : '0 auto',
                     flexDirection: isMobile ? 'column' : (index % 2 === 1 ? 'row-reverse' : 'row'),
                     justifyContent: isMobile ? 'flex-start' : 'center',
                     alignItems: isMobile ? 'flex-start' : 'center',
                     gap: isMobile ? '2rem' : '2rem',
-                    padding: isMobile ? '0 1rem' : '0 4rem',
+                    padding: 0,
                     cursor: 'pointer'
                 }}
             >
