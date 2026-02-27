@@ -289,7 +289,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     // Debug logs removed
 
     // Reintroduce scroll-linked zoom/reveal while keeping visuals crisp (no blur).
-    const fullStateDelay = 0.06;
+    const fullStateDelay = -0.06;
     const imageScale = useTransform(scrollYProgress, [0, 1], [0.98, 1.0]);
     const imageY = useTransform(scrollYProgress, [0, 1], [12, 0]);
     const imageOpacity = 1;
