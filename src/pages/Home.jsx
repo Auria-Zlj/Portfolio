@@ -1,7 +1,5 @@
-import { Suspense, useEffect, useRef, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
-import HeroShader from '../components/canvas/HeroShader';
 import GlassNavBar from '../components/ui/GlassNavBar';
 import DemoOne from '../components/ui/demo';
 
@@ -15,7 +13,6 @@ const Home = () => {
     const [wordIndex, setWordIndex] = useState(0);
     const [showIntro, setShowIntro] = useState(true);
     const [introCollapse, setIntroCollapse] = useState(false);
-    const [showHomeFluid, setShowHomeFluid] = useState(false);
 
     useEffect(() => {
         const interval = window.setInterval(() => {
@@ -29,7 +26,6 @@ const Home = () => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (prefersReducedMotion) {
             setShowIntro(false);
-            setShowHomeFluid(true);
             return undefined;
         }
 
@@ -43,7 +39,6 @@ const Home = () => {
         const timer = window.setTimeout(() => {
             setShowIntro(false);
             setIntroCollapse(false);
-            setShowHomeFluid(true);
             window.scrollTo({ top: 0, behavior: 'auto' });
             if (window.__portfolioLenis) {
                 window.__portfolioLenis.scrollTo(0, { immediate: true, force: true });
@@ -64,7 +59,6 @@ const Home = () => {
 
     const yParallax = useTransform(scrollYProgress, [0, 1], [0, -24]);
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-    const fluidOpacity = 1;
 
     return (
         <div ref={containerRef} style={{ position: 'relative' }}>
@@ -74,16 +68,14 @@ const Home = () => {
                     animate={
                         introCollapse
                             ? {
-                                opacity: 1,
-                                scale: 1.06,
+                                opacity: 0,
+                                scale: 1,
                                 filter: 'blur(0px)',
-                                z: -260,
                             }
                             : {
                                 opacity: 1,
                                 scale: 1,
                                 filter: 'blur(0px)',
-                                z: 0,
                             }
                     }
                     transition={{
@@ -103,28 +95,6 @@ const Home = () => {
                 >
                     <DemoOne collapse={introCollapse} />
                 </motion.div>
-            )}
-
-            {showHomeFluid && (
-                <div
-                    className="canvas-container"
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        width: '100vw',
-                        height: '100vh',
-                        zIndex: 0,
-                        pointerEvents: 'none',
-                        opacity: fluidOpacity
-                    }}
-                >
-                    <Canvas camera={{ position: [0, 0, 1] }}>
-                        <Suspense fallback={null}>
-                            <HeroShader />
-                        </Suspense>
-                    </Canvas>
-                </div>
             )}
 
             <motion.div
