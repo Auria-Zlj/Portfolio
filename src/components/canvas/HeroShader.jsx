@@ -57,7 +57,7 @@ float snoise(vec2 v){
 }
 
 void main() {
-  vec2 mouse = uMouse;
+  vec2 mouse = vec2(0.56, 0.54);
   float dist = distance(vUv, mouse);
 
   // --- LENS LOGIC ---
