@@ -57,7 +57,8 @@ float snoise(vec2 v){
 }
 
 void main() {
-  vec2 mouse = uMouse * 0.5 + 0.5;
+  // Keep lens center stable across section transitions to avoid scroll-triggered jumps.
+  vec2 mouse = vec2(0.56, 0.54);
   float dist = distance(vUv, mouse);
 
   // --- LENS LOGIC ---
@@ -145,10 +146,10 @@ const HeroShader = () => {
         []
     );
 
-    useFrame(({ clock, pointer }) => {
+    useFrame(({ clock }) => {
         if (meshRef.current) {
             meshRef.current.material.uniforms.uTime.value = clock.getElapsedTime();
-            meshRef.current.material.uniforms.uMouse.value.lerp(pointer, 0.1);
+            meshRef.current.material.uniforms.uMouse.value.set(0.12, 0.08);
         }
     });
 

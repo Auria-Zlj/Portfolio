@@ -45,6 +45,9 @@ const Home = () => {
             setIntroCollapse(false);
             setShowHomeFluid(true);
             window.scrollTo({ top: 0, behavior: 'auto' });
+            if (window.__portfolioLenis) {
+                window.__portfolioLenis.scrollTo(0, { immediate: true, force: true });
+            }
         }, totalMs);
 
         return () => {
@@ -102,6 +105,28 @@ const Home = () => {
                 </motion.div>
             )}
 
+            {showHomeFluid && (
+                <div
+                    className="canvas-container"
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100vw',
+                        height: '100vh',
+                        zIndex: 0,
+                        pointerEvents: 'none',
+                        opacity: fluidOpacity
+                    }}
+                >
+                    <Canvas camera={{ position: [0, 0, 1] }}>
+                        <Suspense fallback={null}>
+                            <HeroShader />
+                        </Suspense>
+                    </Canvas>
+                </div>
+            )}
+
             <motion.div
                 initial={false}
                 animate={
@@ -114,30 +139,9 @@ const Home = () => {
                     position: 'relative',
                     transformOrigin: '50% 50%',
                     willChange: 'transform, opacity, filter',
+                    zIndex: 1
                 }}
             >
-                {showHomeFluid && (
-                    <div
-                        className="canvas-container"
-                        style={{
-                            position: 'fixed',
-                            top: 0,
-                            left: 0,
-                            width: '100vw',
-                            height: '100vh',
-                            zIndex: -1,
-                            pointerEvents: 'none',
-                            opacity: fluidOpacity
-                        }}
-                    >
-                        <Canvas camera={{ position: [0, 0, 1] }}>
-                            <Suspense fallback={null}>
-                                <HeroShader />
-                            </Suspense>
-                        </Canvas>
-                    </div>
-                )}
-
                 <section id="home" className="hero" style={{
                     height: '100vh',
                     display: 'flex',

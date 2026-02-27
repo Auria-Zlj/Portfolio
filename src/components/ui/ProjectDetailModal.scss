@@ -65,6 +65,16 @@
   background: #f5f0e8;
 }
 
+.modal-container-wildlife {
+  background: #edf3ee;
+  border: 1px solid rgba(107, 150, 122, 0.22);
+}
+
+.modal-container-wildlife .modal-content,
+.modal-container-wildlife .modal-card {
+  background: #edf3ee;
+}
+
 .modal-content {
   display: flex;
   flex-direction: column;
@@ -336,6 +346,129 @@
   clip-path: inset(0 round 24px);
   display: block;
   margin: 0 auto;
+}
+
+.modal-card-wildlife {
+  padding: 0;
+  box-shadow: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-card-wildlife-image-wrapper {
+  width: 100%;
+  border-radius: 24px;
+  clip-path: inset(0 round 24px);
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.modal-card-wildlife-image {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.modal-card-wildlife-text {
+  padding: 2.6rem 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.modal-card-wildlife-header {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.modal-card-wildlife-eyebrow {
+  font-family: "Inter", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(28, 67, 45, 0.62);
+}
+
+.modal-card-wildlife-title {
+  font-family: "Inter", sans-serif;
+  font-size: 2.2rem;
+  line-height: 1.18;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #173625;
+  margin: 0;
+  max-width: 24ch;
+}
+
+.modal-card-wildlife-subtitle {
+  font-family: "Inter", sans-serif;
+  font-size: 1.06rem;
+  line-height: 1.55;
+  color: rgba(30, 59, 43, 0.88);
+  margin: 0;
+  max-width: 78ch;
+}
+
+.modal-card-wildlife-section-flow {
+  display: grid;
+  gap: 0.62rem;
+}
+
+.modal-card-wildlife-flow-title {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 1.18rem;
+  line-height: 1.24;
+  color: #18452f;
+  letter-spacing: -0.01em;
+}
+
+.modal-card-wildlife-section-flow p {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: rgba(30, 54, 41, 0.84);
+  max-width: 80ch;
+}
+
+.modal-card-wildlife-section-flow ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.36rem;
+}
+
+.modal-card-wildlife-section-flow li {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.52;
+  color: rgba(30, 54, 41, 0.84);
+}
+
+.modal-card-wildlife-inline-image {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: 24px;
+  clip-path: inset(0 round 24px);
+}
+
+.modal-card-wildlife-outcome {
+  margin-bottom: 0.15rem;
+}
+
+.modal-card-wildlife-quote {
+  margin: 0.2rem 0 0;
+  padding: 0 0 0 1rem;
+  border-left: 3px solid rgba(79, 135, 16, 0.56);
+  font-family: "Inter", sans-serif;
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: rgba(24, 57, 38, 0.9);
 }
 
 .modal-card-prelo {
@@ -648,6 +781,14 @@
 
   .modal-card-prelo-title {
     font-size: 30px;
+  }
+
+  .modal-card-wildlife-text {
+    padding: 1.2rem 1.5rem 2rem;
+  }
+
+  .modal-card-wildlife-title {
+    font-size: 1.8rem;
   }
 }
 

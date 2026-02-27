@@ -4,9 +4,11 @@ import { createPortal } from 'react-dom';
 import x1 from '../../assets/images/X1.png';
 import x12 from '../../assets/images/X1.2.png';
 import x13 from '../../assets/images/X1.3.png';
-import m2 from '../../assets/images/M2.png';
-import m21 from '../../assets/images/M2.1.png';
 import preloPreview from '../../assets/images/p1.png';
+import salmonHeroImage from '../../assets/images/salmon_hero.png';
+import integrationFlowImage from '../../assets/images/integrationFlow.png';
+import salmonRoutingImage from '../../assets/images/salmon_routing.png';
+import salmonPipelineImage from '../../assets/images/salmonPipline.png';
 import './ProjectDetailModal.scss';
 
 const getProjectKey = (project) => {
@@ -283,6 +285,8 @@ const ProjectDetailModal = ({ project, onClose }) => {
                             projectKey === 'x-heal' ? 'modal-container-xheal' : ''
                         } ${
                             projectKey === 'prelo' ? 'modal-container-prelo' : ''
+                        } ${
+                            projectKey === 'mushroommate' ? 'modal-container-wildlife' : ''
                         }`}
                         initial={{ opacity: 0, scale: 0.85, x: '-50%', y: '-48%' }}
                         animate={{ opacity: 1, scale: 1, x: '-50%', y: '-50%' }}
@@ -343,10 +347,112 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                     </div>
                                 </div>
                             ) : projectKey === 'mushroommate' ? (
-                                <div className="modal-card modal-card-mushroommate">
-                                    <div className="modal-card-mushroommate-images">
-                                        <ProgressiveImage src={m2} alt="MushRoommate detail 1" className="modal-card-mushroommate-image" />
-                                        <ProgressiveImage src={m21} alt="MushRoommate detail 2" className="modal-card-mushroommate-image" />
+                                <div className="modal-card modal-card-wildlife">
+                                    <div className="modal-card-wildlife-image-wrapper">
+                                        <ProgressiveImage src={salmonHeroImage} alt="Context and Workflow" className="modal-card-wildlife-image" />
+                                    </div>
+
+                                    <div className="modal-card-wildlife-text">
+                                        <div className="modal-card-wildlife-header">
+                                            <div className="modal-card-wildlife-eyebrow">03 / Case Study</div>
+                                            <h1 className="modal-card-wildlife-title">Human-Calibrated ML Decision System</h1>
+                                            <p className="modal-card-wildlife-subtitle">
+                                                Replacing physical mail routing with a confidence-driven automation architecture for Washington DFW.
+                                            </p>
+                                        </div>
+
+                                        <section className="modal-card-wildlife-section-flow">
+                                            <h3 className="modal-card-wildlife-flow-title">Context &amp; Real-World Workflow</h3>
+                                            <p>
+                                                <strong>The old bottleneck:</strong> Washington DFW relied on a manual classification workflow.
+                                            </p>
+                                            <ul>
+                                                <li>Field technicians collected salmon scale samples and physically mailed them to the lab.</li>
+                                                <li>Two statewide experts manually classified thousands of samples.</li>
+                                                <li>Results were manually entered into downstream systems.</li>
+                                            </ul>
+                                            <p>
+                                                <strong>The result:</strong> Seasonal bottlenecks, delayed conservation decisions, and no structured feedback loop.
+                                            </p>
+                                            <p>
+                                                <strong>The core challenge:</strong> How do we introduce ML into a high-stakes environment without increasing operational risk?
+                                            </p>
+                                        </section>
+
+                                        <ProgressiveImage
+                                            src={integrationFlowImage}
+                                            alt="End-to-End Architecture"
+                                            className="modal-card-wildlife-inline-image"
+                                        />
+
+                                        <section className="modal-card-wildlife-section-flow">
+                                            <h3 className="modal-card-wildlife-flow-title">System Overview - End-to-End Architecture</h3>
+                                            <ul>
+                                                <li>
+                                                    <strong>Frontend Layer:</strong> React static site hosted on Amazon S3, with role-based portals (Field/Lab), upload validation, and result visualization.
+                                                </li>
+                                                <li>
+                                                    <strong>Backend / API Layer:</strong> REST API deployed on AWS EC2, handling ZIP validation, inference triggers, state transitions, routing logic, and structured writes.
+                                                </li>
+                                                <li>
+                                                    <strong>ML &amp; Data Layer:</strong> ML inference on AWS EC2; S3 stores images and heatmap overlays; DynamoDB stores predictions, confidence scores, review status, and metadata.
+                                                </li>
+                                            </ul>
+                                            <p><strong>Lifecycle orchestration:</strong> Frontend -&gt; API -&gt; Model -&gt; S3 + DynamoDB -&gt; API -&gt; Frontend.</p>
+                                        </section>
+
+                                        <ProgressiveImage
+                                            src={salmonRoutingImage}
+                                            alt="Confidence Routing Logic"
+                                            className="modal-card-wildlife-inline-image"
+                                        />
+
+                                        <section className="modal-card-wildlife-section-flow">
+                                            <h3 className="modal-card-wildlife-flow-title">Decision Architecture - Confidence as Workflow Logic</h3>
+                                            <ul>
+                                                <li><strong>Step 1:</strong> Model inference outputs predicted origin and confidence score.</li>
+                                                <li><strong>Step 2:</strong> Confidence-based routing: <strong>&gt;= 90%</strong> auto-commit to final database; <strong>&lt; 90%</strong> route to lab review. Random QA sampling is applied to high-confidence cases.</li>
+                                                <li><strong>Step 3:</strong> Human-in-the-Loop review: lab scientists confirm or override predictions using probability and heatmaps.</li>
+                                                <li><strong>Step 4:</strong> Continuous training loop: corrected and overridden results are written into a structured retraining dataset.</li>
+                                            </ul>
+                                        </section>
+
+                                        <ProgressiveImage
+                                            src={salmonPipelineImage}
+                                            alt="Production Pipeline Integration"
+                                            className="modal-card-wildlife-inline-image"
+                                        />
+
+                                        <section className="modal-card-wildlife-section-flow">
+                                            <h3 className="modal-card-wildlife-flow-title">Integration Reality - Production Pipeline</h3>
+                                            <p>This is a deployed, operational system inside internal government workflows.</p>
+                                            <ul>
+                                                <li>Batch uploads</li>
+                                                <li>Persistent run history</li>
+                                                <li>Role-based review visibility</li>
+                                                <li>Structured override logging</li>
+                                                <li>Stable reload behavior across the pipeline</li>
+                                            </ul>
+                                        </section>
+
+                                        <section className="modal-card-wildlife-section-flow modal-card-wildlife-outcome">
+                                            <h3 className="modal-card-wildlife-flow-title">Impact &amp; What It Demonstrates</h3>
+                                            <ul>
+                                                <li><strong>~50% reduction in turnaround time</strong></li>
+                                                <li><strong>~70% of samples auto-processed during peak season</strong> through confidence gating</li>
+                                                <li><strong>Full transition from physical mail routing to digital automation</strong></li>
+                                            </ul>
+                                            <ul>
+                                                <li>ML product design under severe data constraints</li>
+                                                <li>Model confidence translated into workflow control logic</li>
+                                                <li><strong>Full-stack deployment across React, REST API, AWS EC2, S3, and DynamoDB</strong></li>
+                                                <li>Continuous learning loop designed into production from day one</li>
+                                            </ul>
+                                        </section>
+
+                                        <blockquote className="modal-card-wildlife-quote">
+                                            "AI products do not fail because the model is imperfect. They fail because the surrounding system is poorly designed."
+                                        </blockquote>
                                     </div>
                                 </div>
                             ) : (

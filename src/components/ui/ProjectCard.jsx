@@ -238,28 +238,14 @@ const Lens = ({ x, y }) => {
 }
 
 
-const ProjectCard = ({ id, title, category, image, secondaryImage, index, onOpenProject }) => {
+const ProjectCard = ({ id, title, category, description, tags, sponsor, image, secondaryImage, index, onOpenProject }) => {
     const infoTone = INFO_THEMES[ACTIVE_INFO_THEME];
-    const infoContent = index === 1
-        ? {
-            title: 'Prelo',
-            description: 'Turns unfamiliar menus into confident choices through visual previews and structured dish information.',
-            tags: ['Decision UX', 'Information Structuring'],
-            sponsor: '',
-        }
-        : index === 2
-            ? {
-                title: 'MushRoommate',
-                description: 'A home growing service designed for post-pandemic food supply disruption.',
-                tags: ['Process Design', 'Habit Support'],
-                sponsor: '',
-            }
-            : {
-                title: 'X-Heal',
-                description: 'Real-time rehab system that turns physical motion into guided exercise feedback.',
-                tags: ['Dual BLE Sensors', 'System Logic'],
-                sponsor: 'In collaboration with T-Mobile',
-            };
+    const infoContent = {
+        title,
+        description,
+        tags: Array.isArray(tags) ? tags : [],
+        sponsor,
+    };
     const descriptionText = preventOrphan(infoContent.description);
     const [isMobile, setIsMobile] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -624,9 +610,20 @@ const ProjectCard = ({ id, title, category, image, secondaryImage, index, onOpen
                                 style={{
                                     width: '100%',
                                     height: '100%',
-                                    background: `url(${secondaryImage || image || 'https://via.placeholder.com/600x400/eeeeee/00BB44?text='}) center/cover no-repeat`,
+                                    backgroundColor: id === 3 ? '#0a0f0c' : 'transparent',
                                 }}
-                            />
+                            >
+                                <img
+                                    src={secondaryImage || image || 'https://via.placeholder.com/600x400/eeeeee/00BB44?text='}
+                                    alt={`${title} supporting visual`}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        display: 'block',
+                                        objectFit: id === 3 ? 'contain' : 'cover',
+                                    }}
+                                />
+                            </motion.div>
                         </GlassCard>
                     </motion.div>
                 </div>

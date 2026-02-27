@@ -7,12 +7,12 @@ import Home from '../../pages/Home';
 
 import preloHero from '../../assets/images/Prelo_hero.png';
 import xheatHero from '../../assets/images/X-Heal_Hero.png';
-import mushroomateHero from '../../assets/images/mushroomate_hero.png';
+import salmonHero from '../../assets/images/salmon_hero.png';
+import salmonRouting from '../../assets/images/salmon_routing.png';
+import salmonPipeline from '../../assets/images/salmonPipline.png';
 import x1 from '../../assets/images/X1.png';
 import x12 from '../../assets/images/X1.2.png';
 import x13 from '../../assets/images/X1.3.png';
-import m2 from '../../assets/images/M2.png';
-import m21 from '../../assets/images/M2.1.png';
 import preloLong from '../../assets/images/p1.png';
 
 let hasPreloadedProjectAssets = false;
@@ -44,15 +44,15 @@ const projects = [
     },
     {
         id: 3,
-        title: 'MushRoommate',
-        category: 'Process Design',
-        image: mushroomateHero,
-        secondaryImage: '',
+        title: 'Wildlife HITL ML',
+        category: 'Human-in-the-Loop UX',
+        image: salmonHero,
+        secondaryImage: salmonPipeline,
         eyebrow: '03 / Case Study',
-        description: 'A home growing service designed for post-pandemic food supply disruption.',
-        tags: ['Process Design', 'Habit Support'],
-        sponsor: '',
-        highlights: ['Home Grow Workflow', 'Behavior Support', 'Supply Resilience'],
+        description: 'Human-calibrated ML routing system that replaced physical mail handoff with confidence-based decision architecture.',
+        tags: ['Decision Architecture', 'Safe Automation'],
+        sponsor: 'Washington DFW · NDA details redacted',
+        highlights: ['Confidence Triage', 'Expert Guardrails', 'Structured Write-back'],
     },
 ];
 
@@ -128,12 +128,12 @@ const Gallery = () => {
         const preloadSources = [
             xheatHero,
             preloHero,
-            mushroomateHero,
+            salmonHero,
+            salmonPipeline,
+            salmonRouting,
             x1,
             x12,
             x13,
-            m2,
-            m21,
             preloLong,
         ];
 

@@ -2,13 +2,14 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import LiquidGlassFilter from '../effects/LiquidGlassFilter';
 import { motion } from 'framer-motion';
+import resumePdf from '../../assets/images/UXProductResume.pdf';
 
 const GlassNavBar = () => {
     // New Link Structure
     const links = [
         { label: 'WORK', href: '#selected-works' },
         { label: 'ABOUT', href: '#about' },
-        { label: 'RESUME', href: '/resume.pdf' },
+        { label: 'RESUME', href: resumePdf },
     ];
 
     const scrollToHome = (e) => {

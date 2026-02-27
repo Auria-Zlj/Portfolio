@@ -1,0 +1,38 @@
+<svg width="1600" height="980" viewBox="0 0 1600 980" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1600" y2="980" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F1F8F3"/>
+      <stop offset="1" stop-color="#E4F1E8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="980" rx="38" fill="url(#bg2)"/>
+
+  <text x="88" y="116" fill="#1B3F2C" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="56">Decision Architecture</text>
+  <text x="88" y="166" fill="#3A6B50" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="30">Turn uncertainty into operational logic</text>
+
+  <rect x="88" y="238" width="458" height="214" rx="24" fill="#FFFFFF" stroke="#A8C7B1"/>
+  <text x="126" y="304" fill="#24513A" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="36">1. Confidence Triage</text>
+  <text x="126" y="352" fill="#3A6B50" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="28">>= 90% -> Auto-commit</text>
+  <text x="126" y="390" fill="#3A6B50" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="28">< 90% -> Review queue</text>
+
+  <rect x="574" y="238" width="458" height="214" rx="24" fill="#FFFFFF" stroke="#A8C7B1"/>
+  <text x="612" y="304" fill="#24513A" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="36">2. HITL Guardrails</text>
+  <text x="612" y="352" fill="#3A6B50" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="28">Probability + Heatmap + Metadata</text>
+  <text x="612" y="390" fill="#3A6B50" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="28">Forced action: Confirm / Override</text>
+
+  <rect x="1060" y="238" width="458" height="214" rx="24" fill="#FFFFFF" stroke="#A8C7B1"/>
+  <text x="1098" y="304" fill="#24513A" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="36">3. Data Write-back</text>
+  <text x="1098" y="352" fill="#3A6B50" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="28">Prediction, label, override flag</text>
+  <text x="1098" y="390" fill="#3A6B50" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="28">Reviewer + timestamp persisted</text>
+
+  <path d="M546 346H566" stroke="#4C8C68" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1032 346H1052" stroke="#4C8C68" stroke-width="8" stroke-linecap="round"/>
+
+  <rect x="88" y="514" width="1430" height="348" rx="28" fill="#FFFFFF" stroke="#BFD9C7"/>
+  <text x="132" y="588" fill="#254B36" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="40">Operational Promise</text>
+
+  <text x="132" y="648" fill="#355C45" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="30">- Reduce manual queue volume without removing expert accountability</text>
+  <text x="132" y="700" fill="#355C45" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="30">- Make errors visible and recoverable (no silent failures)</text>
+  <text x="132" y="752" fill="#355C45" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="30">- Generate retraining-ready data from day one</text>
+</svg>
