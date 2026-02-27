@@ -5,10 +5,6 @@ import x1 from '../../assets/images/X1.png';
 import x12 from '../../assets/images/X1.2.png';
 import x13 from '../../assets/images/X1.3.png';
 import preloPreview from '../../assets/images/p1.png';
-import salmonHeroImage from '../../assets/images/salmon_hero.png';
-import integrationFlowImage from '../../assets/images/integrationFlow.png';
-import salmonRoutingImage from '../../assets/images/salmon_routing.png';
-import salmonPipelineImage from '../../assets/images/salmonPipline.png';
 import './ProjectDetailModal.scss';
 
 const getProjectKey = (project) => {
@@ -347,113 +343,211 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                     </div>
                                 </div>
                             ) : projectKey === 'mushroommate' ? (
-                                <div className="modal-card modal-card-wildlife">
-                                    <div className="modal-card-wildlife-image-wrapper">
-                                        <ProgressiveImage src={salmonHeroImage} alt="Context and Workflow" className="modal-card-wildlife-image" />
-                                    </div>
-
-                                    <div className="modal-card-wildlife-text">
-                                        <div className="modal-card-wildlife-header">
-                                            <div className="modal-card-wildlife-eyebrow">03 / Case Study</div>
-                                            <h1 className="modal-card-wildlife-title">Human-Calibrated ML Decision System</h1>
-                                            <p className="modal-card-wildlife-subtitle">
+                                <div
+                                    className="modal-card"
+                                    style={{
+                                        background: '#edf3ee',
+                                        border: 'none',
+                                        boxShadow: 'none',
+                                        padding: '2rem 1.5rem 3rem'
+                                    }}
+                                >
+                                    <article style={{ width: '100%' }}>
+                                        <header style={{ maxWidth: '768px', margin: '0 auto 120px auto' }}>
+                                            <h2
+                                                style={{
+                                                    margin: '0 0 20px',
+                                                    fontFamily: '"Inter", sans-serif',
+                                                    fontSize: 'clamp(2rem, 3.7vw, 3.2rem)',
+                                                    fontWeight: 650,
+                                                    lineHeight: 1.1,
+                                                    letterSpacing: '-0.02em',
+                                                    color: '#0f172a'
+                                                }}
+                                            >
+                                                Human-Calibrated ML Decision System
+                                            </h2>
+                                            <p
+                                                style={{
+                                                    margin: 0,
+                                                    fontFamily: '"Inter", sans-serif',
+                                                    fontSize: '1.06rem',
+                                                    lineHeight: 1.8,
+                                                    color: 'rgba(51, 65, 85, 0.88)'
+                                                }}
+                                            >
                                                 Replacing physical mail routing with a confidence-driven automation architecture for Washington DFW.
                                             </p>
+                                        </header>
+
+                                        <section style={{ marginBottom: '120px' }}>
+                                            <div style={{ maxWidth: '1080px', margin: '0 auto 40px auto' }}>
+                                                <div
+                                                    style={{
+                                                        overflow: 'hidden',
+                                                        borderRadius: '16px',
+                                                        border: '1px solid rgba(148, 163, 184, 0.26)',
+                                                        boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
+                                                        background: '#fff'
+                                                    }}
+                                                >
+                                                    <img src="/image/salmon_hero.png" alt="Context and Workflow" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                </div>
+                                            </div>
+                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                                    Context &amp; Real-World Workflow
+                                                </h3>
+                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    <strong>The old bottleneck:</strong> Washington DFW relied on a manual classification workflow. Field technicians collected salmon scale samples and physically mailed them to the lab. Two statewide experts manually classified thousands of samples, and results were manually entered downstream.
+                                                </p>
+                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    <strong>The result:</strong> Seasonal bottlenecks, delayed conservation decisions, and no structured feedback loop.
+                                                </p>
+                                                <p style={{ margin: 0, fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    <strong>The core challenge:</strong> How do we introduce ML into a high-stakes environment without increasing operational risk?
+                                                </p>
+                                            </div>
+                                        </section>
+
+                                        <section style={{ marginBottom: '120px' }}>
+                                            <div style={{ maxWidth: '1080px', margin: '0 auto 40px auto' }}>
+                                                <div
+                                                    style={{
+                                                        overflow: 'hidden',
+                                                        borderRadius: '16px',
+                                                        border: '1px solid rgba(148, 163, 184, 0.26)',
+                                                        boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
+                                                        background: '#fff'
+                                                    }}
+                                                >
+                                                    <img src="/image/salmon_flowchart.png" alt="End-to-End Architecture" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                </div>
+                                            </div>
+                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                                    System Overview — End-to-End Architecture
+                                                </h3>
+                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    The system is structured into three integrated layers:
+                                                </p>
+                                                <ul style={{ margin: '0 0 24px', paddingLeft: '1.3rem', display: 'grid', gap: '0.75rem' }}>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                        <strong>Frontend Layer:</strong> React static site hosted on Amazon S3. Features role-based portals (Field / Lab), upload validation, and result visualization.
+                                                    </li>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                        <strong>Backend / API Layer:</strong> REST API deployed on EC2. Handles ZIP validation, triggers inference, manages state transitions, controls routing logic, and writes structured results to storage.
+                                                    </li>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                        <strong>ML &amp; Data Layer:</strong> ML inference running on EC2. S3 stores images and heatmap overlays. DynamoDB stores predictions, confidence scores, review status, and metadata.
+                                                    </li>
+                                                </ul>
+                                                <p style={{ margin: 0, fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    The API orchestrates the full lifecycle: Frontend → API → Model → S3 + DynamoDB → API → Frontend.
+                                                </p>
+                                            </div>
+                                        </section>
+
+                                        <section style={{ marginBottom: '120px' }}>
+                                            <div style={{ maxWidth: '1080px', margin: '0 auto 40px auto' }}>
+                                                <div
+                                                    style={{
+                                                        overflow: 'hidden',
+                                                        borderRadius: '16px',
+                                                        border: '1px solid rgba(148, 163, 184, 0.26)',
+                                                        boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
+                                                        background: '#fff'
+                                                    }}
+                                                >
+                                                    <img src="/image/salmon_routing.png" alt="Confidence Routing Logic" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                </div>
+                                            </div>
+                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                                    Decision Architecture — Confidence as Workflow Logic
+                                                </h3>
+                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    Instead of full automation, I designed a calibrated routing mechanism:
+                                                </p>
+                                                <ul style={{ margin: 0, paddingLeft: '1.3rem', display: 'grid', gap: '0.75rem' }}>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                        <strong>Step 1: Model Inference.</strong> The ML model generates a predicted origin and a confidence score.
+                                                    </li>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                        <strong>Step 2: Confidence-Based Routing.</strong> &gt;= 90% confidence → Auto-commit to the final database. &lt; 90% confidence → Routed directly to lab review. (Includes random QA sampling of high-confidence cases).
+                                                    </li>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                        <strong>Step 3: Human-in-the-Loop (HITL) Review.</strong> Lab scientists confirm or override predictions based on probability and heatmaps.
+                                                    </li>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                        <strong>Step 4: Continuous Training Loop.</strong> All overridden/corrected results are written back into a structured dataset used for future ML retraining.
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </section>
+
+                                        <section style={{ marginBottom: '120px' }}>
+                                            <div style={{ maxWidth: '1080px', margin: '0 auto 40px auto' }}>
+                                                <div
+                                                    style={{
+                                                        overflow: 'hidden',
+                                                        borderRadius: '16px',
+                                                        border: '1px solid rgba(148, 163, 184, 0.26)',
+                                                        boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
+                                                        background: '#fff'
+                                                    }}
+                                                >
+                                                    <img src="/image/salmonPipline.png" alt="Production Pipeline Integration" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                </div>
+                                            </div>
+                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                                    Integration Reality — Production Pipeline
+                                                </h3>
+                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    This is not a concept system; it is deployed and operational within internal government workflows.
+                                                </p>
+                                                <p style={{ margin: 0, fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    <strong>System Capabilities:</strong> Supports batch uploads, persistent run history, role-based review visibility, structured override logging, and stable reload behavior across the pipeline.
+                                                </p>
+                                            </div>
+                                        </section>
+
+                                        <section style={{ marginBottom: '120px' }}>
+                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                                    Impact &amp; What It Demonstrates
+                                                </h3>
+                                                <ul style={{ margin: '0 0 24px', paddingLeft: '1.3rem', display: 'grid', gap: '0.75rem' }}>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>~50% reduction in turnaround time.</li>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>~70% of samples auto-processed during peak season via confidence gating.</li>
+                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>Fully transitioned from physical mail routing to digital automation.</li>
+                                                </ul>
+                                                <p style={{ margin: 0, fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
+                                                    <strong>Core Competencies Demonstrated:</strong> ML product design under severe data constraints, operationalizing model confidence into workflow control logic, full-stack deployment coordination across frontend/API/ML layers, and building a continuous learning loop from day one.
+                                                </p>
+                                            </div>
+                                        </section>
+
+                                        <br />
+                                        <br />
+                                        <div style={{ maxWidth: '768px', margin: '0 auto' }}>
+                                            <blockquote
+                                                style={{
+                                                    margin: 0,
+                                                    paddingLeft: '1rem',
+                                                    borderLeft: '2px solid rgba(148, 163, 184, 0.8)',
+                                                    fontFamily: '"Inter", sans-serif',
+                                                    fontSize: '1rem',
+                                                    fontStyle: 'italic',
+                                                    lineHeight: 1.8,
+                                                    color: 'rgba(51, 65, 85, 0.9)'
+                                                }}
+                                            >
+                                                "AI products do not fail because the model is imperfect. They fail because the surrounding system is poorly designed."
+                                            </blockquote>
                                         </div>
-
-                                        <section className="modal-card-wildlife-section-flow">
-                                            <h3 className="modal-card-wildlife-flow-title">Context &amp; Real-World Workflow</h3>
-                                            <p>
-                                                <strong>The old bottleneck:</strong> Washington DFW relied on a manual classification workflow.
-                                            </p>
-                                            <ul>
-                                                <li>Field technicians collected salmon scale samples and physically mailed them to the lab.</li>
-                                                <li>Two statewide experts manually classified thousands of samples.</li>
-                                                <li>Results were manually entered into downstream systems.</li>
-                                            </ul>
-                                            <p>
-                                                <strong>The result:</strong> Seasonal bottlenecks, delayed conservation decisions, and no structured feedback loop.
-                                            </p>
-                                            <p>
-                                                <strong>The core challenge:</strong> How do we introduce ML into a high-stakes environment without increasing operational risk?
-                                            </p>
-                                        </section>
-
-                                        <ProgressiveImage
-                                            src={integrationFlowImage}
-                                            alt="End-to-End Architecture"
-                                            className="modal-card-wildlife-inline-image"
-                                        />
-
-                                        <section className="modal-card-wildlife-section-flow">
-                                            <h3 className="modal-card-wildlife-flow-title">System Overview - End-to-End Architecture</h3>
-                                            <ul>
-                                                <li>
-                                                    <strong>Frontend Layer:</strong> React static site hosted on Amazon S3, with role-based portals (Field/Lab), upload validation, and result visualization.
-                                                </li>
-                                                <li>
-                                                    <strong>Backend / API Layer:</strong> REST API deployed on AWS EC2, handling ZIP validation, inference triggers, state transitions, routing logic, and structured writes.
-                                                </li>
-                                                <li>
-                                                    <strong>ML &amp; Data Layer:</strong> ML inference on AWS EC2; S3 stores images and heatmap overlays; DynamoDB stores predictions, confidence scores, review status, and metadata.
-                                                </li>
-                                            </ul>
-                                            <p><strong>Lifecycle orchestration:</strong> Frontend -&gt; API -&gt; Model -&gt; S3 + DynamoDB -&gt; API -&gt; Frontend.</p>
-                                        </section>
-
-                                        <ProgressiveImage
-                                            src={salmonRoutingImage}
-                                            alt="Confidence Routing Logic"
-                                            className="modal-card-wildlife-inline-image"
-                                        />
-
-                                        <section className="modal-card-wildlife-section-flow">
-                                            <h3 className="modal-card-wildlife-flow-title">Decision Architecture - Confidence as Workflow Logic</h3>
-                                            <ul>
-                                                <li><strong>Step 1:</strong> Model inference outputs predicted origin and confidence score.</li>
-                                                <li><strong>Step 2:</strong> Confidence-based routing: <strong>&gt;= 90%</strong> auto-commit to final database; <strong>&lt; 90%</strong> route to lab review. Random QA sampling is applied to high-confidence cases.</li>
-                                                <li><strong>Step 3:</strong> Human-in-the-Loop review: lab scientists confirm or override predictions using probability and heatmaps.</li>
-                                                <li><strong>Step 4:</strong> Continuous training loop: corrected and overridden results are written into a structured retraining dataset.</li>
-                                            </ul>
-                                        </section>
-
-                                        <ProgressiveImage
-                                            src={salmonPipelineImage}
-                                            alt="Production Pipeline Integration"
-                                            className="modal-card-wildlife-inline-image"
-                                        />
-
-                                        <section className="modal-card-wildlife-section-flow">
-                                            <h3 className="modal-card-wildlife-flow-title">Integration Reality - Production Pipeline</h3>
-                                            <p>This is a deployed, operational system inside internal government workflows.</p>
-                                            <ul>
-                                                <li>Batch uploads</li>
-                                                <li>Persistent run history</li>
-                                                <li>Role-based review visibility</li>
-                                                <li>Structured override logging</li>
-                                                <li>Stable reload behavior across the pipeline</li>
-                                            </ul>
-                                        </section>
-
-                                        <section className="modal-card-wildlife-section-flow modal-card-wildlife-outcome">
-                                            <h3 className="modal-card-wildlife-flow-title">Impact &amp; What It Demonstrates</h3>
-                                            <ul>
-                                                <li><strong>~50% reduction in turnaround time</strong></li>
-                                                <li><strong>~70% of samples auto-processed during peak season</strong> through confidence gating</li>
-                                                <li><strong>Full transition from physical mail routing to digital automation</strong></li>
-                                            </ul>
-                                            <ul>
-                                                <li>ML product design under severe data constraints</li>
-                                                <li>Model confidence translated into workflow control logic</li>
-                                                <li><strong>Full-stack deployment across React, REST API, AWS EC2, S3, and DynamoDB</strong></li>
-                                                <li>Continuous learning loop designed into production from day one</li>
-                                            </ul>
-                                        </section>
-
-                                        <blockquote className="modal-card-wildlife-quote">
-                                            "AI products do not fail because the model is imperfect. They fail because the surrounding system is poorly designed."
-                                        </blockquote>
-                                    </div>
+                                    </article>
                                 </div>
                             ) : (
                                 <div className="modal-card modal-card-prelo-long">
