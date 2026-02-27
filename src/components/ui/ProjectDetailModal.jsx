@@ -421,7 +421,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                         background: '#fff'
                                                     }}
                                                 >
-                                                    <img src="/image/salmon_flowchart.png" alt="End-to-End Architecture" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                    <img src="/image/integrationFlow.png" alt="End-to-End Architecture" style={{ width: '100%', height: 'auto', display: 'block' }} />
                                                 </div>
                                             </div>
                                             <div style={{ maxWidth: '768px', margin: '0 auto' }}>
