@@ -392,12 +392,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                             height: 'auto', // Force fit
                             position: 'relative',
                             transform: 'translateZ(0)',
-                            scale: imageScale,
-                            y: imageY,
-                            opacity: imageOpacity,
-                            clipPath: imageMask,
                             willChange: 'transform, opacity, clip-path',
-                            // Applied Glass Styles Here so they scale/mask with the image
+                            // Keep the outer frame static so border does not shrink with image scale
                             background: '#f3f4f2',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
                             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)',
@@ -407,38 +403,52 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                             cursor: 'none' // Hide default cursor for custom lens
                         }}
                     >
-                        {/* THE LENS */}
-                        {!isMobile && lensVisible && (
-                            <Lens x={mouseX} y={mouseY} />
-                        )}
-
-                        {image ? (
-                            <motion.img
-                                src={image}
-                                alt={title}
-                                variants={imageHoverVariants}
-                                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                                style={{
-                                    width: '100%',
-                                    height: 'auto',
-                                    display: 'block'
-                                }}
-                            />
-                        ) : (
-                            <div style={{
+                        <motion.div
+                            style={{
                                 width: '100%',
-                                height: '300px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'rgba(255,255,255,0.2)',
-                                fontFamily: '"Inter", sans-serif',
-                                fontSize: '0.8rem',
-                                letterSpacing: '0.1em'
-                            }}>
-                                NO IMAGE
-                            </div>
-                        )}
+                                height: 'auto',
+                                position: 'relative',
+                                transform: 'translateZ(0)',
+                                scale: imageScale,
+                                y: imageY,
+                                opacity: imageOpacity,
+                                clipPath: imageMask,
+                                willChange: 'transform, opacity, clip-path',
+                            }}
+                        >
+                            {/* THE LENS */}
+                            {!isMobile && lensVisible && (
+                                <Lens x={mouseX} y={mouseY} />
+                            )}
+
+                            {image ? (
+                                <motion.img
+                                    src={image}
+                                    alt={title}
+                                    variants={imageHoverVariants}
+                                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                                    style={{
+                                        width: '100%',
+                                        height: 'auto',
+                                        display: 'block'
+                                    }}
+                                />
+                            ) : (
+                                <div style={{
+                                    width: '100%',
+                                    height: '300px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'rgba(255,255,255,0.2)',
+                                    fontFamily: '"Inter", sans-serif',
+                                    fontSize: '0.8rem',
+                                    letterSpacing: '0.1em'
+                                }}>
+                                    NO IMAGE
+                                </div>
+                            )}
+                        </motion.div>
                     </motion.div>
                 </motion.div>
 
