@@ -627,7 +627,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                             boxShadow: '0 10px 22px rgba(8, 14, 11, 0.26), inset 0 1px 0 rgba(236,255,245,0.16)'
                         }}>
                             <motion.div
-                                whileHover={{ scale: 1.02 }}
+                                whileHover={supportingMediaIsVideo ? undefined : { scale: 1.02 }}
                                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                                 style={{
                                     width: '100%',
@@ -650,6 +650,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                             height: 'auto',
                                             display: 'block',
                                             objectFit: 'contain',
+                                            objectPosition: 'center center',
                                             pointerEvents: 'none',
                                         }}
                                     />
