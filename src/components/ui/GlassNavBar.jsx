@@ -9,7 +9,7 @@ const GlassNavBar = () => {
     const links = [
         { label: 'WORK', href: '#selected-works' },
         { label: 'ABOUT', href: '#about' },
-        { label: 'RESUME', href: resumePdf },
+        { label: 'RESUME', href: resumePdf, newTab: true },
     ];
 
     const scrollToHome = (e) => {
@@ -66,7 +66,7 @@ const GlassNavBar = () => {
             {/* Right - Links with Hover Line */}
             <div style={{ display: 'flex', gap: '3rem' }}>
                 {links.map((link) => (
-                    <NavLink key={link.label} href={link.href} label={link.label} />
+                    <NavLink key={link.label} href={link.href} label={link.label} newTab={link.newTab} />
                 ))}
             </div>
         </motion.nav>
@@ -80,7 +80,7 @@ const GlassNavBar = () => {
 };
 
 // Sub-component for Link with Hover Line
-const NavLink = ({ href, label }) => {
+const NavLink = ({ href, label, newTab = false }) => {
     const [isHovered, setIsHovered] = React.useState(false);
 
     const handleClick = (e) => {
@@ -97,6 +97,8 @@ const NavLink = ({ href, label }) => {
         <motion.a
             href={href}
             onClick={handleClick}
+            target={newTab ? '_blank' : undefined}
+            rel={newTab ? 'noopener noreferrer' : undefined}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{
