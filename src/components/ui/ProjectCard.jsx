@@ -317,6 +317,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
         ? (titleLength > 16 ? '1.6rem' : titleLength > 12 ? '1.8rem' : '2rem')
         : (titleLength > 20 ? '1.95rem' : titleLength > 14 ? '2.2rem' : '2.5rem');
     const heroAspectRatio = isMobile ? '4 / 3' : '16 / 10';
+    const heroDesktopMaxWidth = 'min(62vw, 980px)';
+    const heroDesktopHeight = 'min(58vh, 600px)';
 
     const handleOpenProject = () => {
         if (typeof onOpenProject === 'function') {
@@ -375,8 +377,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
                     className="project-card-visual-wrapper"
                     style={{
-                        width: isMobile ? '100%' : 'auto',
-                        flex: isMobile ? 'none' : '2.5',
+                        width: isMobile ? '100%' : heroDesktopMaxWidth,
+                        flex: isMobile ? 'none' : '0 0 auto',
                         position: 'relative'
                     }}
                 >
@@ -390,11 +392,16 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                         ref={containerRef}
                         style={{
                             width: '100%',
-                            aspectRatio: heroAspectRatio,
+                            height: isMobile ? 'auto' : heroDesktopHeight,
+                            aspectRatio: isMobile ? heroAspectRatio : 'auto',
                             position: 'relative',
                             transform: 'translateZ(0)',
+                            scale: imageScale,
+                            y: imageY,
+                            opacity: imageOpacity,
+                            clipPath: imageMask,
                             willChange: 'transform, opacity, clip-path',
-                            // Keep the outer frame static so border does not shrink with image scale
+                            // Scale the whole hero block (image + frame) together
                             background: '#f3f4f2',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
                             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.05)',
@@ -407,14 +414,9 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                         <motion.div
                             style={{
                                 width: '100%',
-                                height: '100%',
+                                height: isMobile ? 'auto' : '100%',
                                 position: 'relative',
                                 transform: 'translateZ(0)',
-                                scale: imageScale,
-                                y: imageY,
-                                opacity: imageOpacity,
-                                clipPath: imageMask,
-                                willChange: 'transform, opacity, clip-path',
                             }}
                         >
                             {/* THE LENS */}
@@ -430,7 +432,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                                     style={{
                                         width: '100%',
-                                        height: '100%',
+                                        height: isMobile ? 'auto' : '100%',
                                         display: 'block',
                                         objectFit: 'cover'
                                     }}
@@ -438,7 +440,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                             ) : (
                                 <div style={{
                                     width: '100%',
-                                    height: '100%',
+                                    height: isMobile ? '300px' : '100%',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
