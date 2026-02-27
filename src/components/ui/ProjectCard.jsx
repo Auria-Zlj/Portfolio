@@ -336,9 +336,10 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
 
     const supportingMediaSrc = secondaryVideo || secondaryImage || image || 'https://via.placeholder.com/600x400/eeeeee/00BB44?text=';
     const supportingMediaIsVideo = Boolean(secondaryVideo) || /\.(mp4|webm|mov)$/i.test(supportingMediaSrc);
-    const supportingCardSize = supportingMediaIsVideo
-        ? (isMobile ? '162px' : '220px')
+    const supportingCardWidth = supportingMediaIsVideo
+        ? (isMobile ? '176px' : '248px')
         : (isMobile ? '146px' : '198px');
+    const supportingCardHeight = supportingMediaIsVideo ? 'auto' : supportingCardWidth;
 
     return (
         <div
@@ -620,8 +621,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                             padding: 0,
                             overflow: 'hidden',
                             border: '1px solid rgba(176, 242, 209, 0.3)',
-                            width: supportingCardSize,
-                            height: supportingCardSize,
+                            width: supportingCardWidth,
+                            height: supportingCardHeight,
                             borderRadius: '16px',
                             boxShadow: '0 10px 22px rgba(8, 14, 11, 0.26), inset 0 1px 0 rgba(236,255,245,0.16)'
                         }}>
@@ -630,7 +631,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                                 style={{
                                     width: '100%',
-                                    height: '100%',
+                                    height: supportingMediaIsVideo ? 'auto' : '100%',
                                     backgroundColor: supportingMediaIsVideo || id === 3 ? '#0a0f0c' : 'transparent',
                                 }}
                             >
@@ -646,7 +647,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                         aria-label={`${title} supporting video`}
                                         style={{
                                             width: '100%',
-                                            height: '100%',
+                                            height: 'auto',
                                             display: 'block',
                                             objectFit: 'contain',
                                             pointerEvents: 'none',
