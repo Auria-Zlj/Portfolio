@@ -364,6 +364,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     display: 'flex',
                     width: '100%',
                     flexDirection: isMobile ? 'column' : (index % 2 === 1 ? 'row-reverse' : 'row'),
+                    justifyContent: isMobile ? 'flex-start' : 'center',
                     alignItems: isMobile ? 'flex-start' : 'center',
                     gap: isMobile ? '2rem' : '2rem',
                     padding: isMobile ? '0 1rem' : '0 4rem',
