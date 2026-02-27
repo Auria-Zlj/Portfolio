@@ -5,6 +5,7 @@ import x1 from '../../assets/images/X1.png';
 import x12 from '../../assets/images/X1.2.png';
 import x13 from '../../assets/images/X1.3.png';
 import preloPreview from '../../assets/images/p1.png';
+import integrationFlowImage from '../../assets/images/integrationFlow.png';
 import './ProjectDetailModal.scss';
 
 const getProjectKey = (project) => {
@@ -421,7 +422,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                         background: '#fff'
                                                     }}
                                                 >
-                                                    <img src="/image/integrationFlow.png" alt="End-to-End Architecture" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                    <img src={integrationFlowImage} alt="End-to-End Architecture" style={{ width: '100%', height: 'auto', display: 'block' }} />
                                                 </div>
                                             </div>
                                             <div style={{ maxWidth: '768px', margin: '0 auto' }}>
