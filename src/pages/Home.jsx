@@ -4,9 +4,9 @@ import GlassNavBar from '../components/ui/GlassNavBar';
 import DemoOne from '../components/ui/demo';
 
 const rotatingWords = [
-    { text: '[complex systems]', color: '#A81415' },
-    { text: '[data-driven workflows]', color: '#A81415' },
-    { text: '[AI-assisted products]', color: '#A81415' },
+    { text: 'complex systems', color: '#A81415' },
+    { text: 'data-driven workflows', color: '#A81415' },
+    { text: 'AI-assisted products', color: '#A81415' },
 ];
 
 const Home = () => {
@@ -162,7 +162,7 @@ const Home = () => {
                                         fontFamily: '"Fraunces", "Cormorant Garamond", serif'
                                     }}
                                 >
-                                    Product Designer转行，<br />
+                                    Product Designer,<br />
                                     Designing tools for <br />
                                     <span className="hero-rotating-word-wrap" style={{ display: 'inline-block' }}>
                                         <AnimatePresence mode="wait">
