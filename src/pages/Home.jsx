@@ -144,7 +144,9 @@ const Home = () => {
                                     opacity: opacity,
                                     textAlign: 'left',
                                     display: 'inline-block',
-                                    position: 'relative'
+                                    position: 'relative',
+                                    width: 'fit-content',
+                                    margin: '0 auto'
                                 }}
                                 >
                                     <h2
@@ -162,9 +164,13 @@ const Home = () => {
                                         fontFamily: '"Fraunces", "Cormorant Garamond", serif'
                                     }}
                                 >
-                                    Product Designer,<br />
-                                    Designing tools for <br />
-                                    <span className="hero-rotating-word-wrap" style={{ display: 'inline-block' }}>
+                                    <span style={{ display: 'block', fontSize: '0.44em', lineHeight: 1.1, marginBottom: '0.58em', letterSpacing: '-0.01em' }}>
+                                        Product Designer
+                                    </span>
+                                    <span style={{ display: 'block' }}>
+                                        Designing tools for
+                                    </span>
+                                    <span className="hero-rotating-word-wrap" style={{ display: 'block', marginTop: '0.1em' }}>
                                         <AnimatePresence mode="wait">
                                             <motion.span
                                                 key={rotatingWords[wordIndex].text}
@@ -173,7 +179,7 @@ const Home = () => {
                                                 exit={{ opacity: 0, y: '-0.15em' }}
                                                 transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
                                                 className="hero-rotating-word"
-                                                style={{ display: 'inline-block', fontSize: '0.92em' }}
+                                                style={{ display: 'block', fontSize: '0.92em' }}
                                             >
                                                 <span style={{ color: rotatingWords[wordIndex].color }}>
                                                     {rotatingWords[wordIndex].text}
