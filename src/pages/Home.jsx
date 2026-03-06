@@ -4,9 +4,9 @@ import GlassNavBar from '../components/ui/GlassNavBar';
 import DemoOne from '../components/ui/demo';
 
 const rotatingWords = [
-    { text: 'reliably', color: '#A81415' },
-    { text: 'clearly', color: '#A81415' },
-    { text: 'intuitively', color: '#A81415' },
+    { text: '[complex systems]', color: '#A81415' },
+    { text: '[data-driven workflows]', color: '#A81415' },
+    { text: '[AI-assisted products]', color: '#A81415' },
 ];
 
 const Home = () => {
@@ -133,13 +133,9 @@ const Home = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        gap: '2.5rem',
+                        gap: '1.8rem',
                         marginTop: '0'
                     }}>
-                        <p className="hero-role-badge">
-                            <span className="hero-role-badge-text">Product Designer / UX Designer</span>
-                        </p>
-
                         <div style={{ overflow: 'hidden', padding: '0.5em 2rem' }}>
                             <motion.div
                                 style={{
@@ -150,9 +146,9 @@ const Home = () => {
                                     display: 'inline-block',
                                     position: 'relative'
                                 }}
-                            >
-                                <h2
-                                    className="hero-headline"
+                                >
+                                    <h2
+                                        className="hero-headline"
                                     style={{
                                         fontSize: '6.5vw',
                                         lineHeight: 1.15,
@@ -166,10 +162,9 @@ const Home = () => {
                                         fontFamily: '"Fraunces", "Cormorant Garamond", serif'
                                     }}
                                 >
-                                    I make complex products <br />
-                                    feel simple — <br />
-                                    and work{' '}
-                                    <span className="hero-rotating-word-wrap" style={{ display: 'inline-block', marginLeft: '0.08em' }}>
+                                    Product Designer转行，<br />
+                                    Designing tools for <br />
+                                    <span className="hero-rotating-word-wrap" style={{ display: 'inline-block' }}>
                                         <AnimatePresence mode="wait">
                                             <motion.span
                                                 key={rotatingWords[wordIndex].text}
