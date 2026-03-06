@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import GlassNavBar from '../components/ui/GlassNavBar';
 import DemoOne from '../components/ui/demo';
 
@@ -52,13 +52,6 @@ const Home = () => {
     }, []);
 
     const containerRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start start', 'end start']
-    });
-
-    const yParallax = useTransform(scrollYProgress, [0, 1], [0, -24]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
         <div ref={containerRef} style={{ position: 'relative' }}>
@@ -140,8 +133,6 @@ const Home = () => {
                             <motion.div
                                 style={{
                                     zIndex: 10,
-                                    y: yParallax,
-                                    opacity: opacity,
                                     textAlign: 'left',
                                     display: 'inline-block',
                                     position: 'relative',
@@ -170,7 +161,18 @@ const Home = () => {
                                     <span style={{ display: 'block' }}>
                                         Designing tools for
                                     </span>
-                                    <span className="hero-rotating-word-wrap" style={{ display: 'block', marginTop: '0.1em' }}>
+                                    <span className="hero-rotating-word-wrap" style={{ display: 'block', marginTop: '0.1em', position: 'relative' }}>
+                                        <span
+                                            aria-hidden="true"
+                                            style={{
+                                                visibility: 'hidden',
+                                                display: 'block',
+                                                whiteSpace: 'nowrap',
+                                                fontSize: '0.92em'
+                                            }}
+                                        >
+                                            data-driven workflows
+                                        </span>
                                         <AnimatePresence mode="wait">
                                             <motion.span
                                                 key={rotatingWords[wordIndex].text}
@@ -179,7 +181,14 @@ const Home = () => {
                                                 exit={{ opacity: 0, y: '-0.15em' }}
                                                 transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
                                                 className="hero-rotating-word"
-                                                style={{ display: 'block', fontSize: '0.92em' }}
+                                                style={{
+                                                    display: 'block',
+                                                    fontSize: '0.92em',
+                                                    position: 'absolute',
+                                                    left: 0,
+                                                    top: 0,
+                                                    whiteSpace: 'nowrap'
+                                                }}
                                             >
                                                 <span style={{ color: rotatingWords[wordIndex].color }}>
                                                     {rotatingWords[wordIndex].text}
