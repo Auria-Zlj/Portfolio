@@ -368,215 +368,38 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                             </div>
                                         </div>
 
-                                        <header style={{ maxWidth: '896px', margin: '0 auto 120px auto' }}>
-                                            <p
-                                                style={{
-                                                    margin: '0 0 14px',
-                                                    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif',
-                                                    fontSize: '0.74rem',
-                                                    fontWeight: 600,
-                                                    letterSpacing: '0.09em',
-                                                    textTransform: 'uppercase',
-                                                    color: 'rgba(51, 65, 85, 0.88)'
-                                                }}
-                                            >
-                                                Sponsored by the Washington Department of Fish &amp; Wildlife and AWS
-                                            </p>
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'flex-start',
-                                                    gap: '0.75rem 1rem',
-                                                    flexWrap: 'wrap',
-                                                    marginBottom: '26px'
-                                                }}
-                                            >
-                                                <h2
-                                                    style={{
-                                                        margin: 0,
-                                                        fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif',
-                                                        fontSize: 'clamp(1.8rem, 3.45vw, 2.8rem)',
-                                                        fontWeight: 700,
-                                                        lineHeight: 1.14,
-                                                        letterSpacing: '-0.022em',
-                                                        color: '#0f172a',
-                                                        maxWidth: '24ch',
-                                                        flex: '1 1 580px',
-                                                        textWrap: 'balance'
-                                                    }}
-                                                >
-                                                    Designing a Faster Verification Workflow for Washington Fish &amp; Wildlife
-                                                </h2>
-                                                <span
-                                                    style={{
-                                                        display: 'inline-flex',
-                                                        alignItems: 'center',
-                                                        gap: '0.5rem',
-                                                        padding: '0.38rem 0.76rem',
-                                                        borderRadius: '999px',
-                                                        border: '1px solid rgba(22, 163, 74, 0.26)',
-                                                        backgroundColor: 'rgba(240, 253, 244, 0.96)',
-                                                        color: '#166534',
-                                                        fontFamily: '"Inter", sans-serif',
-                                                        fontSize: '0.79rem',
-                                                        fontWeight: 600,
-                                                        letterSpacing: '-0.01em',
-                                                        whiteSpace: 'nowrap'
-                                                    }}
-                                                >
-                                                    <span
-                                                        aria-hidden="true"
-                                                        style={{
-                                                            width: '8px',
-                                                            height: '8px',
-                                                            borderRadius: '999px',
-                                                            backgroundColor: '#22c55e',
-                                                            boxShadow: '0 0 0 3px rgba(34, 197, 94, 0.18)'
-                                                        }}
-                                                    />
-                                                    Shipped &amp; Deployed
-                                                </span>
-                                            </div>
-                                            <p
-                                                style={{
-                                                    margin: '0 0 46px',
-                                                    maxWidth: '65ch',
-                                                    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif',
-                                                    fontSize: '1.1rem',
-                                                    lineHeight: 1.82,
-                                                    color: 'rgba(51, 65, 85, 0.9)'
-                                                }}
-                                            >
-                                                A field-to-lab verification system built on AWS infrastructure to connect field upload, model prediction, and lab validation in one shared workflow. Machine learning predictions and expert review work together to support reliable origin verification and faster field decision-making. Now deployed and in active internal use at the Washington Department of Fish &amp; Wildlife.
-                                            </p>
-                                            <div
-                                                style={{
-                                                    display: 'grid',
-                                                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                                                    gap: '1rem',
-                                                    marginBottom: '38px'
-                                                }}
-                                            >
-                                                <div
-                                                    style={{
-                                                        border: '1px solid rgba(148, 163, 184, 0.24)',
-                                                        borderRadius: '12px',
-                                                        padding: '1rem 1rem 1.1rem',
-                                                        background: 'rgba(255, 255, 255, 0.68)'
-                                                    }}
-                                                >
-                                                    <p
-                                                        style={{
-                                                            margin: '0 0 0.5rem',
-                                                            fontFamily: '"Inter", sans-serif',
-                                                            fontSize: '0.72rem',
-                                                            fontWeight: 600,
-                                                            letterSpacing: '0.08em',
-                                                            textTransform: 'uppercase',
-                                                            color: 'rgba(71, 85, 105, 0.8)'
-                                                        }}
-                                                    >
-                                                        Role
-                                                    </p>
-                                                    <p
-                                                        style={{
-                                                            margin: 0,
-                                                            fontFamily: '"Inter", sans-serif',
-                                                            fontSize: '0.95rem',
-                                                            lineHeight: 1.65,
-                                                            color: 'rgba(30, 41, 59, 0.92)'
-                                                        }}
-                                                    >
-                                                        Product Designer (Workflow Design &amp; Decision Architecture)
-                                                    </p>
+                                        <header className="wildlife-hero-editorial">
+                                            <div className="wildlife-hero-editorial__container">
+                                                <p className="wildlife-hero-editorial__eyebrow">CLIENT PROJECT: WASHINGTON DFW &amp; AWS</p>
+                                                <h2 className="wildlife-hero-editorial__title">Designing a Faster Verification Workflow</h2>
+                                                <p className="wildlife-hero-editorial__lead">
+                                                    A field-to-lab verification system built on AWS infrastructure to connect field upload, model prediction, and lab validation in one shared workflow. Machine learning predictions and expert review work together to support reliable origin verification and faster field decision-making. Now deployed and in active internal use at the Washington Department of Fish &amp; Wildlife.
+                                                </p>
+
+                                                <div className="wildlife-hero-editorial__meta">
+                                                    <div className="wildlife-hero-editorial__meta-item">
+                                                        <p className="wildlife-hero-editorial__meta-label">ROLE</p>
+                                                        <p className="wildlife-hero-editorial__meta-value">Product Designer</p>
+                                                        <p className="wildlife-hero-editorial__meta-sub">Workflow &amp; Decision Arch.</p>
+                                                    </div>
+                                                    <div className="wildlife-hero-editorial__meta-item">
+                                                        <p className="wildlife-hero-editorial__meta-label">IMPACT</p>
+                                                        <p className="wildlife-hero-editorial__meta-value"><strong>~50% Faster</strong></p>
+                                                        <p className="wildlife-hero-editorial__meta-sub">Turnaround Time</p>
+                                                    </div>
+                                                    <div className="wildlife-hero-editorial__meta-item">
+                                                        <p className="wildlife-hero-editorial__meta-label">AUTOMATION</p>
+                                                        <p className="wildlife-hero-editorial__meta-value"><strong>70% Reduction</strong></p>
+                                                        <p className="wildlife-hero-editorial__meta-sub">In Manual Review</p>
+                                                    </div>
+                                                    <div className="wildlife-hero-editorial__meta-item">
+                                                        <p className="wildlife-hero-editorial__meta-label">STATUS</p>
+                                                        <p className="wildlife-hero-editorial__meta-value">🟢 Live in Production</p>
+                                                    </div>
                                                 </div>
-                                                <div
-                                                    style={{
-                                                        border: '1px solid rgba(148, 163, 184, 0.24)',
-                                                        borderRadius: '12px',
-                                                        padding: '1rem 1rem 1.1rem',
-                                                        background: 'rgba(255, 255, 255, 0.68)'
-                                                    }}
-                                                >
-                                                    <p
-                                                        style={{
-                                                            margin: '0 0 0.5rem',
-                                                            fontFamily: '"Inter", sans-serif',
-                                                            fontSize: '0.72rem',
-                                                            fontWeight: 600,
-                                                            letterSpacing: '0.08em',
-                                                            textTransform: 'uppercase',
-                                                            color: 'rgba(71, 85, 105, 0.8)'
-                                                        }}
-                                                    >
-                                                        Impact
-                                                    </p>
-                                                    <p
-                                                        style={{
-                                                            margin: 0,
-                                                            fontFamily: '"Inter", sans-serif',
-                                                            fontSize: '0.95rem',
-                                                            lineHeight: 1.65,
-                                                            color: 'rgba(30, 41, 59, 0.92)'
-                                                        }}
-                                                    >
-                                                        <strong style={{ color: '#0f172a', fontWeight: 700 }}>~50% faster</strong> turnaround time
-                                                    </p>
-                                                </div>
-                                                <div
-                                                    style={{
-                                                        border: '1px solid rgba(148, 163, 184, 0.24)',
-                                                        borderRadius: '12px',
-                                                        padding: '1rem 1rem 1.1rem',
-                                                        background: 'rgba(255, 255, 255, 0.68)'
-                                                    }}
-                                                >
-                                                    <p
-                                                        style={{
-                                                            margin: '0 0 0.5rem',
-                                                            fontFamily: '"Inter", sans-serif',
-                                                            fontSize: '0.72rem',
-                                                            fontWeight: 600,
-                                                            letterSpacing: '0.08em',
-                                                            textTransform: 'uppercase',
-                                                            color: 'rgba(71, 85, 105, 0.8)'
-                                                        }}
-                                                    >
-                                                        Automation
-                                                    </p>
-                                                    <p
-                                                        style={{
-                                                            margin: 0,
-                                                            fontFamily: '"Inter", sans-serif',
-                                                            fontSize: '0.95rem',
-                                                            lineHeight: 1.65,
-                                                            color: 'rgba(30, 41, 59, 0.92)'
-                                                        }}
-                                                    >
-                                                        Confidence-based routing reduced mandatory expert review for <strong style={{ color: '#0f172a', fontWeight: 700 }}>70%</strong> of seasonal samples
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div
-                                                style={{
-                                                    borderLeft: '4px solid rgba(100, 116, 139, 0.34)',
-                                                    backgroundColor: 'rgba(248, 250, 252, 0.9)',
-                                                    borderRadius: '10px',
-                                                    padding: '0.9rem 1rem 0.95rem 1.1rem'
-                                                }}
-                                            >
-                                                <p
-                                                    style={{
-                                                        margin: 0,
-                                                        fontFamily: '"Inter", sans-serif',
-                                                        fontSize: '0.92rem',
-                                                        lineHeight: 1.7,
-                                                        color: 'rgba(71, 85, 105, 0.88)',
-                                                        fontStyle: 'italic'
-                                                    }}
-                                                >
-                                                    Note: Detailed interfaces are not shown due to the system&apos;s use in internal government workflows. This case study focuses on workflow logic, system behavior, and decision architecture.
+
+                                                <p className="wildlife-hero-editorial__note">
+                                                    <em>Note: Detailed interfaces are not shown due to the system&apos;s use in internal government workflows. This case study focuses on workflow logic, system behavior, and decision architecture.</em>
                                                 </p>
                                             </div>
                                         </header>
