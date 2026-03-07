@@ -48,7 +48,7 @@ const projects = [
     },
     {
         id: 3,
-        title: 'Wildlife HITL ML',
+        title: 'Designing a Faster Verification Workflow for Washington Fish & Wildlife',
         category: 'Human-in-the-Loop UX',
         image: salmonHero,
         secondaryImage: salmonPipeline,
