@@ -386,22 +386,23 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                 style={{
                                                     display: 'flex',
                                                     alignItems: 'center',
-                                                    justifyContent: 'space-between',
-                                                    gap: '1rem',
+                                                    justifyContent: 'flex-start',
+                                                    gap: '0.75rem 1rem',
                                                     flexWrap: 'wrap',
-                                                    marginBottom: '22px'
+                                                    marginBottom: '26px'
                                                 }}
                                             >
                                                 <h2
                                                     style={{
                                                         margin: 0,
                                                         fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif',
-                                                        fontSize: 'clamp(2rem, 4.3vw, 3.35rem)',
+                                                        fontSize: 'clamp(1.8rem, 3.45vw, 2.8rem)',
                                                         fontWeight: 700,
-                                                        lineHeight: 1.08,
-                                                        letterSpacing: '-0.028em',
+                                                        lineHeight: 1.14,
+                                                        letterSpacing: '-0.022em',
                                                         color: '#0f172a',
-                                                        maxWidth: '18ch',
+                                                        maxWidth: '24ch',
+                                                        flex: '1 1 580px',
                                                         textWrap: 'balance'
                                                     }}
                                                 >

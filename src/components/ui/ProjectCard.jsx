@@ -315,8 +315,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     const smallScale = useTransform(scrollYProgress, [0.2 + fullStateDelay, 0.5 + fullStateDelay], [0.5, 1]);
     const titleLength = title?.length ?? 0;
     const titleSize = isMobile
-        ? (titleLength > 16 ? '1.6rem' : titleLength > 12 ? '1.8rem' : '2rem')
-        : (titleLength > 20 ? '1.95rem' : titleLength > 14 ? '2.2rem' : '2.5rem');
+        ? (titleLength > 34 ? '1.25rem' : titleLength > 24 ? '1.42rem' : titleLength > 16 ? '1.6rem' : titleLength > 12 ? '1.8rem' : '2rem')
+        : (titleLength > 64 ? '1.42rem' : titleLength > 48 ? '1.56rem' : titleLength > 34 ? '1.72rem' : titleLength > 20 ? '1.95rem' : titleLength > 14 ? '2.2rem' : '2.5rem');
     const heroAspectRatio = isMobile ? '4 / 3' : '16 / 10';
     const heroDesktopMaxWidth = 'min(62vw, 980px)';
     const heroDesktopHeight = 'min(58vh, 600px)';
@@ -523,17 +523,19 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
 
                                 <motion.h3
                                     style={{
-                                        fontSize: isMobile ? '1.72rem' : '2.16rem',
+                                        fontSize: titleSize,
                                         fontWeight: 520,
                                         fontFamily: '"PP Neue Montreal", "Inter", sans-serif',
                                         letterSpacing: '-0.032em',
                                         margin: '0 0 1.2rem 0',
-                                        lineHeight: 1.12,
+                                        lineHeight: titleLength > 34 ? 1.18 : 1.12,
                                         color: infoTone.titleText,
                                         opacity: titleOpacity,
-                                        whiteSpace: 'nowrap',
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis'
+                                        whiteSpace: 'normal',
+                                        overflow: 'visible',
+                                        textOverflow: 'clip',
+                                        overflowWrap: 'anywhere',
+                                        wordBreak: 'break-word'
                                     }}
                                 >
                                     {infoContent.title}
