@@ -370,8 +370,8 @@ const ProjectDetailModal = ({ project, onClose }) => {
 
                                         <header className="wildlife-hero-editorial">
                                             <div className="wildlife-hero-editorial__container">
-                                                <p className="wildlife-hero-editorial__eyebrow">CLIENT PROJECT: WASHINGTON DFW &amp; AWS</p>
-                                                <h2 className="wildlife-hero-editorial__title">Designing a Faster Verification Workflow</h2>
+                                                <p className="wildlife-hero-editorial__eyebrow">SPONSORED BY THE WASHINGTON DEPARTMENT OF FISH &amp; WILDLIFE AND AWS</p>
+                                                <h2 className="wildlife-hero-editorial__title">Designing a Faster Verification Workflow for Washington Fish &amp; Wildlife</h2>
                                                 <p className="wildlife-hero-editorial__lead">
                                                     A field-to-lab verification system built on AWS infrastructure to connect field upload, model prediction, and lab validation in one shared workflow. Machine learning predictions and expert review work together to support reliable origin verification and faster field decision-making. Now deployed and in active internal use at the Washington Department of Fish &amp; Wildlife.
                                                 </p>
@@ -380,21 +380,18 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">ROLE</p>
                                                         <p className="wildlife-hero-editorial__meta-value">Product Designer</p>
-                                                        <p className="wildlife-hero-editorial__meta-sub">Workflow &amp; Decision Arch.</p>
                                                     </div>
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">IMPACT</p>
-                                                        <p className="wildlife-hero-editorial__meta-value"><strong>~50% Faster</strong></p>
-                                                        <p className="wildlife-hero-editorial__meta-sub">Turnaround Time</p>
+                                                        <p className="wildlife-hero-editorial__meta-value"><strong>~50% faster</strong> turnaround</p>
                                                     </div>
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">AUTOMATION</p>
-                                                        <p className="wildlife-hero-editorial__meta-value"><strong>70% Reduction</strong></p>
-                                                        <p className="wildlife-hero-editorial__meta-sub">In Manual Review</p>
+                                                        <p className="wildlife-hero-editorial__meta-value"><strong>70% reduction</strong> in manual review</p>
                                                     </div>
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">STATUS</p>
-                                                        <p className="wildlife-hero-editorial__meta-value">🟢 Live in Production</p>
+                                                        <p className="wildlife-hero-editorial__meta-value wildlife-hero-editorial__meta-value--status">🟢 Live in Production</p>
                                                     </div>
                                                 </div>
 
