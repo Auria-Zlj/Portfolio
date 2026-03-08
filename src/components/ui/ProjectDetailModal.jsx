@@ -370,7 +370,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
 
                                         <header className="wildlife-hero-editorial">
                                             <div className="wildlife-hero-editorial__container">
-                                                <p className="wildlife-hero-editorial__eyebrow">SPONSORED BY THE WASHINGTON DEPARTMENT OF FISH &amp; WILDLIFE AND AWS</p>
+                                                <p className="wildlife-hero-editorial__eyebrow">Sponsored by the Washington Department of Fish &amp; Wildlife and AWS</p>
                                                 <h2 className="wildlife-hero-editorial__title">
                                                     Designing a Faster Verification Workflow
                                                     <br />
@@ -383,15 +383,15 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                 <div className="wildlife-hero-editorial__meta">
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">ROLE</p>
-                                                        <p className="wildlife-hero-editorial__meta-value">Product Designer</p>
+                                                        <p className="wildlife-hero-editorial__meta-value">Product Designer, Workflow Design &amp; Decision Architecture</p>
                                                     </div>
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">IMPACT</p>
-                                                        <p className="wildlife-hero-editorial__meta-value"><strong>~50% faster</strong> turnaround</p>
+                                                        <p className="wildlife-hero-editorial__meta-value">~50% faster turnaround time; confidence-based routing designed to reduce mandatory expert review for up to 70% of seasonal samples</p>
                                                     </div>
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">AUTOMATION</p>
-                                                        <p className="wildlife-hero-editorial__meta-value"><strong>70% reduction</strong> in manual review</p>
+                                                        <p className="wildlife-hero-editorial__meta-value">Confidence-based routing designed to reduce mandatory expert review for up to 70% of seasonal samples</p>
                                                     </div>
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">STATUS</p>
@@ -400,7 +400,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                 </div>
 
                                                 <p className="wildlife-hero-editorial__note">
-                                                    <em>Note: Detailed interfaces are not shown due to the system&apos;s use in internal government workflows. This case study focuses on workflow logic, system behavior, and decision architecture.</em>
+                                                    <em>Detailed interfaces are not shown due to the system&apos;s use in internal government workflows. This case study focuses on workflow logic, system behavior, and decision architecture.</em>
                                                 </p>
                                             </div>
                                         </header>
