@@ -179,19 +179,24 @@
   margin: 0;
   width: 100%;
   max-width: none;
-  font-size: clamp(3rem, 6.5vw, 5.3rem);
-  line-height: 1.03;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.15rem, 4.3vw, 3.45rem);
+  line-height: 1.1;
+  letter-spacing: -0.024em;
   font-weight: 800;
   color: #111827;
   text-wrap: balance;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
 
 .wildlife-hero-editorial__lead {
-  margin: 2rem 0 0;
+  margin: 1.5rem 0 0;
   max-width: 56rem;
-  font-size: clamp(1.25rem, 2.15vw, 1.65rem);
-  line-height: 1.62;
+  font-size: clamp(1.04rem, 1.35vw, 1.22rem);
+  line-height: 1.72;
   font-weight: 400;
   color: #4b5563;
 }
