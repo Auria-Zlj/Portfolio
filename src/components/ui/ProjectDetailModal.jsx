@@ -371,7 +371,11 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         <header className="wildlife-hero-editorial">
                                             <div className="wildlife-hero-editorial__container">
                                                 <p className="wildlife-hero-editorial__eyebrow">SPONSORED BY THE WASHINGTON DEPARTMENT OF FISH &amp; WILDLIFE AND AWS</p>
-                                                <h2 className="wildlife-hero-editorial__title">Designing a Faster Verification Workflow for Washington Fish &amp; Wildlife</h2>
+                                                <h2 className="wildlife-hero-editorial__title">
+                                                    Designing a Faster Verification Workflow
+                                                    <br />
+                                                    for Washington Fish &amp; Wildlife
+                                                </h2>
                                                 <p className="wildlife-hero-editorial__lead">
                                                     A field-to-lab verification system built on AWS infrastructure to connect field upload, model prediction, and lab validation in one shared workflow. Machine learning predictions and expert review work together to support reliable origin verification and faster field decision-making. Now deployed and in active internal use at the Washington Department of Fish &amp; Wildlife.
                                                 </p>

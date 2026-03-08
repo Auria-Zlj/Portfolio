@@ -179,17 +179,11 @@
   margin: 0;
   width: 100%;
   max-width: none;
-  font-size: clamp(2.15rem, 4.3vw, 3.45rem);
-  line-height: 1.1;
-  letter-spacing: -0.024em;
+  font-size: clamp(1.88rem, 3.35vw, 2.95rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
   font-weight: 800;
   color: #111827;
-  text-wrap: balance;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
 }
 
 .wildlife-hero-editorial__lead {
