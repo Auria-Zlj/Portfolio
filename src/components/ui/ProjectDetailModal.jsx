@@ -399,7 +399,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                     </div>
                                                     <div className="wildlife-hero-editorial__meta-item">
                                                         <p className="wildlife-hero-editorial__meta-label">STATUS</p>
-                                                        <p className="wildlife-hero-editorial__meta-value wildlife-hero-editorial__meta-value--status">🟢 Live in Production</p>
+                                                        <p className="wildlife-hero-editorial__meta-value wildlife-hero-editorial__meta-value--status">🟢 Shipped: Adopted by WA DFW</p>
                                                     </div>
                                                 </div>
 
