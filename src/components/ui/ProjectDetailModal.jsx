@@ -386,8 +386,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                         <p className="wildlife-hero-editorial__meta-value">
                                                             Product Designer
                                                             <br />
-                                                            <br />
-                                                            Workflow Design &amp; Decision Architecture
+                                                            (Workflow Design &amp; Decision Architecture)
                                                         </p>
                                                     </div>
                                                     <div className="wildlife-hero-editorial__meta-item">
