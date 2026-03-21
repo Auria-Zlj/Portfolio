@@ -317,11 +317,11 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     const titleSize = isMobile
         ? (titleLength > 34 ? '1.25rem' : titleLength > 24 ? '1.42rem' : titleLength > 16 ? '1.6rem' : titleLength > 12 ? '1.8rem' : '2rem')
         : (titleLength > 64 ? '1.42rem' : titleLength > 48 ? '1.56rem' : titleLength > 34 ? '1.72rem' : titleLength > 20 ? '1.95rem' : titleLength > 14 ? '2.2rem' : '2.5rem');
-    const heroAspectRatio = isMobile ? '4 / 3' : '16 / 10';
-    const heroDesktopMaxWidth = 'min(62vw, 980px)';
-    const heroDesktopHeight = 'min(58vh, 600px)';
+    const heroAspectRatio = isMobile ? '4 / 3' : (id === 2 ? 'auto' : '16 / 10'); 
+    const heroDesktopMaxWidth = id === 3 ? 'min(62vw, 1060px)' : 'min(52vw, 840px)';
+    const heroDesktopHeight = 'auto';
     const shouldAutoFitHero = id === 2;
-    const infoDesktopWidth = 'clamp(340px, 28vw, 430px)';
+    const infoDesktopWidth = 'clamp(380px, 36vw, 560px)';
 
     const handleOpenProject = () => {
         if (typeof onOpenProject === 'function') {
@@ -339,8 +339,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     const supportingMediaSrc = secondaryVideo || secondaryImage || image || 'https://via.placeholder.com/600x400/eeeeee/00BB44?text=';
     const supportingMediaIsVideo = Boolean(secondaryVideo) || /\.(mp4|webm|mov)$/i.test(supportingMediaSrc);
     const supportingCardWidth = supportingMediaIsVideo
-        ? (isMobile ? '176px' : '248px')
-        : (isMobile ? '146px' : '198px');
+        ? (isMobile ? '176px' : (id === 3 ? 'min(100%, 500px)' : '300px'))
+        : (isMobile ? '146px' : (id === 3 ? 'min(100%, 400px)' : '250px'));
     const supportingCardHeight = supportingMediaIsVideo ? 'auto' : supportingCardWidth;
 
     return (
@@ -351,7 +351,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                 maxWidth: '100%',
                 margin: '0 auto',
                 position: 'relative',
-                padding: isMobile ? '0 1rem' : '0 4rem',
+                padding: isMobile ? '0 1rem' : '0 5vw',
                 boxSizing: 'border-box'
             }}
         >
@@ -364,12 +364,12 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                 style={{
                     textDecoration: 'none',
                     display: 'flex',
-                    width: isMobile ? '100%' : 'fit-content',
-                    margin: isMobile ? '0' : '0 auto',
+                    width: '100%',
+                    margin: 0,
                     flexDirection: isMobile ? 'column' : (index % 2 === 1 ? 'row-reverse' : 'row'),
                     justifyContent: isMobile ? 'flex-start' : 'center',
                     alignItems: isMobile ? 'flex-start' : 'center',
-                    gap: isMobile ? '2rem' : '2rem',
+                    gap: isMobile ? '2rem' : '4vw',
                     padding: 0,
                     cursor: 'pointer'
                 }}
@@ -384,8 +384,10 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
                     className="project-card-visual-wrapper"
                     style={{
-                        width: isMobile ? '100%' : heroDesktopMaxWidth,
-                        flex: isMobile ? 'none' : '0 0 auto',
+                        width: isMobile ? '100%' : 'auto',
+                        flex: isMobile ? 'none' : '1 1 auto',
+                        minWidth: !isMobile ? 0 : undefined,
+                        maxWidth: !isMobile ? heroDesktopMaxWidth : undefined,
                         position: 'relative'
                     }}
                 >
@@ -399,8 +401,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                         ref={containerRef}
                         style={{
                             width: '100%',
-                            height: isMobile || shouldAutoFitHero ? 'auto' : heroDesktopHeight,
-                            aspectRatio: isMobile ? heroAspectRatio : 'auto',
+                            height: 'auto',
+                            aspectRatio: heroAspectRatio,
                             position: 'relative',
                             transform: 'translateZ(0)',
                             scale: imageScale,
@@ -472,7 +474,9 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     height: isMobile ? 'auto' : '80vh', // More vertical space for organic arrangement
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center', // Center the cluster vertically
+                    justifyContent: isMobile ? 'flex-start' : 'center',
+                    paddingTop: !isMobile ? '4vh' : 0,
+                    paddingBottom: !isMobile ? '4vh' : 0,
                     alignItems: isMobile ? 'flex-start' : (index % 2 === 0 ? 'flex-start' : 'flex-end'), // Align towards the Main Image
                     position: 'relative',
                     textTextAlign: 'left', // Keep text inside cards left-aligned
@@ -481,8 +485,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     {/* Info Card - Top & Taller - APPEARS AFTER IMAGE */}
                     <motion.div
                         style={{
-                            width: '100%',
-                            marginBottom: isMobile ? '1rem' : '1.4rem',
+                            width: (!isMobile && id === 3) ? '78%' : '100%',
+                            marginBottom: isMobile ? '1.5rem' : '2.5rem',
                             position: 'relative', // Fix for Framer Motion scroll warning
                             opacity: infoOpacity,
                             y: infoY,
@@ -493,7 +497,8 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                             alignItems: 'flex-start',
                             justifyContent: 'center',
                             padding: isMobile ? '1.7rem 1.55rem' : '2.25rem 2.7rem',
-                            minHeight: isMobile ? 'auto' : '46vh',
+                            minHeight: 'auto',
+                            height: 'auto',
                             display: 'flex',
                             flexDirection: 'column'
                         }}>
@@ -501,7 +506,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                 width: '100%',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                minHeight: isMobile ? 'auto' : '31vh'
+                                minHeight: 'auto'
                             }}>
                                 <div style={{
                                     display: 'flex',
@@ -546,7 +551,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                     lineHeight: '1.72',
                                     color: infoTone.bodyText,
                                     margin: '0 0 1.25rem 0',
-                                    maxWidth: isMobile ? '34ch' : '40ch',
+                                    maxWidth: isMobile ? '34ch' : '48ch',
                                     fontWeight: 400
                                 }}>
                                     {descriptionText}
@@ -567,29 +572,29 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                 }}>
                                     <span style={{
                                         display: 'inline-block',
-                                        padding: '0.18rem 0.45rem',
+                                        padding: '0.35rem 0.8rem',
                                         borderRadius: '999px',
                                         fontFamily: '"Inter", sans-serif',
-                                        fontSize: '0.56rem',
+                                        fontSize: '0.75rem',
                                         fontWeight: 500,
                                         letterSpacing: '0.03em',
                                             color: infoTone.pillText,
                                             backgroundColor: infoTone.pillBg,
-                                            border: `1px solid ${infoTone.pillBorder}`
+                                            border: `1px solid ${infoTone.pillText}66`  // 40% opacity of text color for sharp, prominent contrast
                                         }}>
                                             {infoContent.tags[0]}
                                         </span>
                                         <span style={{
                                         display: 'inline-block',
-                                        padding: '0.18rem 0.45rem',
+                                        padding: '0.35rem 0.8rem',
                                         borderRadius: '999px',
                                         fontFamily: '"Inter", sans-serif',
-                                        fontSize: '0.56rem',
+                                        fontSize: '0.75rem',
                                         fontWeight: 500,
                                         letterSpacing: '0.03em',
                                             color: infoTone.pillText,
                                             backgroundColor: infoTone.pillBg,
-                                            border: `1px solid ${infoTone.pillBorder}`
+                                            border: `1px solid ${infoTone.pillText}66`  // 40% opacity of text color for sharp, prominent contrast
                                         }}>
                                             {infoContent.tags[1]}
                                         </span>
@@ -598,14 +603,14 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                     <p style={{
                                         margin: 'auto 0 0',
                                         paddingTop: '1rem',
-                                        fontSize: '0.58rem',
-                                        fontWeight: 600,
+                                        paddingLeft: '0.8rem',
+                                        fontSize: '0.72rem',
+                                        fontWeight: 700,
                                         letterSpacing: '0.06em',
                                         textTransform: 'uppercase',
                                         fontFamily: '"Inter", sans-serif',
-                                        color: '#1F2420',
-                                        opacity: 0.96,
-                                        textShadow: '0 1px 0 rgba(255,255,255,0.35)'
+                                        color: '#2A5A3B',
+                                        whiteSpace: 'nowrap',
                                     }}>
                                         {infoContent.sponsor}
                                     </p>
@@ -618,64 +623,82 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     {/* Secondary Image Card - Bottom & Square & Offset */}
                     <motion.div
                         style={{
-                            marginTop: isMobile ? '1rem' : '2rem',
-                            position: 'relative', // Fix for Framer Motion scroll warning
+                            marginTop: isMobile ? '1rem' : '0',
+                            width: (!isMobile && (id === 3 || id === 2)) ? '100%' : 'auto',
+                            position: 'relative',
                             opacity: smallOpacity,
                             y: smallY,
                             scale: smallScale
                         }}
                     >
-                        <GlassCard rich={false} style={{
-                            padding: 0,
-                            overflow: 'hidden',
-                            border: '1px solid rgba(176, 242, 209, 0.3)',
-                            width: supportingCardWidth,
-                            height: supportingCardHeight,
-                            borderRadius: '16px',
-                            boxShadow: '0 10px 22px rgba(8, 14, 11, 0.26), inset 0 1px 0 rgba(236,255,245,0.16)'
-                        }}>
-                            <motion.div
-                                whileHover={supportingMediaIsVideo ? undefined : { scale: 1.02 }}
-                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                        {id === 2 ? (
+                            <img
+                                src={supportingMediaSrc}
+                                alt={`${title} supporting banner`}
                                 style={{
-                                    width: '100%',
-                                    height: supportingMediaIsVideo ? 'auto' : '100%',
-                                    backgroundColor: supportingMediaIsVideo || id === 3 ? '#0a0f0c' : 'transparent',
+                                    width: '82%',
+                                    maxWidth: '380px',
+                                    height: 'auto',
+                                    display: 'block',
+                                    marginLeft: 'auto', // Pushes the image to effectively right-align with the info card padding
+                                    borderTopLeftRadius: '16px',
+                                    borderTopRightRadius: '16px',
+                                    mixBlendMode: 'multiply',
                                 }}
-                            >
-                                {supportingMediaIsVideo ? (
-                                    <video
-                                        src={supportingMediaSrc}
-                                        poster={image}
-                                        autoPlay
-                                        muted
-                                        loop
-                                        playsInline
-                                        preload="metadata"
-                                        aria-label={`${title} supporting video`}
-                                        style={{
-                                            width: '100%',
-                                            height: 'auto',
-                                            display: 'block',
-                                            objectFit: 'contain',
-                                            objectPosition: 'center center',
-                                            pointerEvents: 'none',
-                                        }}
-                                    />
-                                ) : (
-                                    <img
-                                        src={supportingMediaSrc}
-                                        alt={`${title} supporting visual`}
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            display: 'block',
-                                            objectFit: id === 3 ? 'contain' : 'cover',
-                                        }}
-                                    />
-                                )}
-                            </motion.div>
-                        </GlassCard>
+                            />
+                        ) : (
+                            <GlassCard rich={false} style={{
+                                padding: 0,
+                                overflow: 'hidden',
+                                border: '1px solid rgba(176, 242, 209, 0.3)',
+                                width: supportingCardWidth,
+                                height: supportingCardHeight,
+                                borderRadius: '16px',
+                                boxShadow: '0 10px 22px rgba(8, 14, 11, 0.26), inset 0 1px 0 rgba(236,255,245,0.16)'
+                            }}>
+                                <motion.div
+                                    whileHover={supportingMediaIsVideo ? undefined : { scale: 1.02 }}
+                                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                    style={{
+                                        width: '100%',
+                                        height: supportingMediaIsVideo ? 'auto' : '100%',
+                                        backgroundColor: supportingMediaIsVideo || id === 3 ? '#0a0f0c' : 'transparent',
+                                    }}
+                                >
+                                    {supportingMediaIsVideo ? (
+                                        <video
+                                            src={supportingMediaSrc}
+                                            poster={image}
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                            preload="metadata"
+                                            aria-label={`${title} supporting video`}
+                                            style={{
+                                                width: '100%',
+                                                height: 'auto',
+                                                display: 'block',
+                                                objectFit: 'contain',
+                                                objectPosition: 'center center',
+                                                pointerEvents: 'none',
+                                            }}
+                                        />
+                                    ) : (
+                                        <img
+                                            src={supportingMediaSrc}
+                                            alt={`${title} supporting visual`}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                display: 'block',
+                                                objectFit: id === 3 ? 'contain' : 'cover',
+                                            }}
+                                        />
+                                    )}
+                                </motion.div>
+                            </GlassCard>
+                        )}
                     </motion.div>
                 </div>
             </div>

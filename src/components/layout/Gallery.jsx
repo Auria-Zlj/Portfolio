@@ -8,11 +8,13 @@ import Home from '../../pages/Home';
 import HeroShader from '../canvas/HeroShader';
 
 import preloHero from '../../assets/images/Prelo_hero.png';
+import preloSm from '../../assets/images/prelosm.png';
 import xheatHero from '../../assets/images/X-Heal_Hero.png';
 import salmonHero from '../../assets/images/salmon_hero.png';
 import salmonRouting from '../../assets/images/salmon_routing.png';
 import salmonPipeline from '../../assets/images/salmonPipline.png';
 import deviceVideo from '../../assets/images/device.mov';
+import salmonSaysVideo from '../../assets/images/SalmonSays Final Video.mp4';
 import x1 from '../../assets/images/X1.png';
 import x12 from '../../assets/images/X1.2.png';
 import x13 from '../../assets/images/X1.3.png';
@@ -22,13 +24,26 @@ let hasPreloadedProjectAssets = false;
 
 const projects = [
     {
+        id: 3,
+        title: 'Salmon Says',
+        category: 'Human-in-the-Loop UX',
+        image: salmonHero,
+        secondaryImage: '',
+        secondaryVideo: salmonSaysVideo,
+        eyebrow: '01 / Case Study',
+        description: 'Designing a human-calibrated salmon identification workflow for the Washington State Department of Fish & Wildlife.',
+        tags: ['Decision Architecture', 'Safe Automation'],
+        sponsor: 'deployed at Washington DFW for internal use',
+        highlights: ['Confidence Triage', 'Expert Guardrails', 'Structured Write-back'],
+    },
+    {
         id: 1,
         title: 'X-Heal',
         category: 'Real-World Systems',
         image: xheatHero,
         secondaryImage: '',
         secondaryVideo: deviceVideo,
-        eyebrow: '01 / Case Study',
+        eyebrow: '02 / Case Study',
         description: 'Real-time rehab system that turns physical motion into guided exercise feedback.',
         tags: ['Dual BLE Sensors', 'System Logic'],
         sponsor: 'In collaboration with T-Mobile',
@@ -39,24 +54,12 @@ const projects = [
         title: 'Prelo',
         category: 'Decision UX',
         image: preloHero,
-        secondaryImage: '',
-        eyebrow: '02 / Case Study',
+        secondaryImage: preloSm,
+        eyebrow: '03 / Case Study',
         description: 'Turns unfamiliar menus into confident choices through visual previews and structured dish information.',
         tags: ['Decision UX', 'Information Structuring'],
         sponsor: '',
         highlights: ['Menu Clarity', 'Visual Decision Support', 'Structured Dish Data'],
-    },
-    {
-        id: 3,
-        title: 'Designing a Faster Verification Workflow for Washington Fish & Wildlife',
-        category: 'Human-in-the-Loop UX',
-        image: salmonHero,
-        secondaryImage: salmonPipeline,
-        eyebrow: '03 / Case Study',
-        description: 'Human-calibrated ML routing system that replaced physical mail handoff with confidence-based decision architecture.',
-        tags: ['Decision Architecture', 'Safe Automation'],
-        sponsor: 'Washington DFW · NDA details redacted',
-        highlights: ['Confidence Triage', 'Expert Guardrails', 'Structured Write-back'],
     },
 ];
 
@@ -69,6 +72,7 @@ const StickyCardWrapper = ({ children, index, viewportHeight }) => {
                 width: '100vw',
                 minHeight: viewportHeight,
                 height: viewportHeight,
+                marginBottom: '15vh',
                 background: 'transparent',
                 // Removed backdrop-filter - now handled by shader
                 borderTop: '1px solid rgba(255, 255, 255, 0.06)',
@@ -284,10 +288,11 @@ const Gallery = () => {
             {/* Footer - Final snap point */}
             <div style={{
                 width: '100vw',
-                minHeight: '60dvh', // Natural ending height
+                minHeight: '70dvh',
+                paddingTop: '10dvh',
                 position: 'relative',
                 display: 'flex',
-                background: '#0A0A0A', // Dark background to match new footer
+                background: '#0A0A0A',
                 scrollSnapAlign: 'start',
                 scrollSnapStop: 'always',
                 zIndex: projects.length + 3

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import x1 from '../../assets/images/X1.png';
@@ -6,6 +6,7 @@ import x12 from '../../assets/images/X1.2.png';
 import x13 from '../../assets/images/X1.3.png';
 import preloPreview from '../../assets/images/p1.png';
 import integrationFlowImage from '../../assets/images/integrationFlow.png';
+import fish1Image from '../../assets/images/fish1.png';
 import './ProjectDetailModal.scss';
 
 const getProjectKey = (project) => {
@@ -347,21 +348,20 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                 <div
                                     className="modal-card"
                                     style={{
-                                        background: '#edf3ee',
+                                        background: '#0A3121',
                                         border: 'none',
                                         boxShadow: 'none',
-                                        padding: '2rem 1.5rem 3rem'
                                     }}
                                 >
-                                    <article style={{ width: '100%' }}>
+                                    <article style={{ width: '100%', padding: '2.5rem 4rem 3rem' }}>
                                         <div style={{ maxWidth: '1080px', margin: '0 auto 56px auto' }}>
                                             <div
                                                 style={{
                                                     overflow: 'hidden',
                                                     borderRadius: '16px',
-                                                    border: '1px solid rgba(148, 163, 184, 0.26)',
-                                                    boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
-                                                    background: '#fff'
+                                                    background: 'rgba(255, 255, 255, 0.94)',
+                                                    backdropFilter: 'blur(10px)',
+                                                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
                                                 }}
                                             >
                                                 <img src="/image/salmon_hero.png" alt="Context and Workflow" style={{ width: '100%', height: 'auto', display: 'block' }} />
@@ -372,9 +372,9 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                             <div className="wildlife-hero-editorial__container">
                                                 <p className="wildlife-hero-editorial__eyebrow">Sponsored by the Washington Department of Fish &amp; Wildlife and AWS</p>
                                                 <h2 className="wildlife-hero-editorial__title">
-                                                    Designing a Faster Verification Workflow
+                                                    Designing a Faster Identification Workflow
                                                     <br />
-                                                    for Washington Fish &amp; Wildlife
+                                                    for Washington Department of Fish &amp; Wildlife
                                                 </h2>
                                                 <p className="wildlife-hero-editorial__lead">
                                                     A field-to-lab verification system built on AWS infrastructure to connect field upload, model prediction, and lab validation in one shared workflow. Machine learning predictions and expert review work together to support reliable origin verification and faster field decision-making. Now deployed and in active internal use at the Washington Department of Fish &amp; Wildlife.
@@ -409,155 +409,164 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                             </div>
                                         </header>
 
-                                        <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
-                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
-                                                    Context &amp; Real-World Workflow
-                                                </h3>
-                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    <strong>The old bottleneck:</strong> Washington DFW relied on a manual classification workflow. Field technicians collected salmon scale samples and physically mailed them to the lab. Two statewide experts manually classified thousands of samples, and results were manually entered downstream.
-                                                </p>
-                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    <strong>The result:</strong> Seasonal bottlenecks, delayed conservation decisions, and no structured feedback loop.
-                                                </p>
-                                                <p style={{ margin: 0, fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    <strong>The core challenge:</strong> How do we introduce ML into a high-stakes environment without increasing operational risk?
-                                                </p>
-                                            </div>
-                                        </section>
+                                        {/* fish1 full-width image */}
+                                        <div style={{
+                                            marginLeft: '-4rem',
+                                            marginRight: '-4rem',
+                                            width: 'calc(100% + 8rem)',
+                                            marginBottom: '80px',
+                                        }}>
+                                            <img
+                                                src={fish1Image}
+                                                alt="Washington Fish & Wildlife fieldwork"
+                                                style={{ width: '100%', height: 'auto', display: 'block' }}
+                                            />
+                                        </div>
 
                                         <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '1080px', margin: '0 auto 40px auto' }}>
+                                            <div style={{ maxWidth: '1080px', margin: '0 auto 56px auto' }}>
                                                 <div
                                                     style={{
                                                         overflow: 'hidden',
                                                         borderRadius: '16px',
-                                                        border: '1px solid rgba(148, 163, 184, 0.26)',
-                                                        boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
-                                                        background: '#fff'
+                                                        background: 'rgba(255, 255, 255, 0.94)',
+                                                        backdropFilter: 'blur(10px)',
+                                                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
                                                     }}
                                                 >
                                                     <img src={integrationFlowImage} alt="End-to-End Architecture" style={{ width: '100%', height: 'auto', display: 'block' }} />
                                                 </div>
                                             </div>
-                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
-                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                            <div style={{ maxWidth: '896px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 32px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     System Overview — End-to-End Architecture
                                                 </h3>
-                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    The system is structured into three integrated layers:
-                                                </p>
-                                                <ul style={{ margin: '0 0 24px', paddingLeft: '1.3rem', display: 'grid', gap: '0.75rem' }}>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                        <strong>Frontend Layer:</strong> React static site hosted on Amazon S3. Features role-based portals (Field / Lab), upload validation, and result visualization.
-                                                    </li>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                        <strong>Backend / API Layer:</strong> REST API deployed on EC2. Handles ZIP validation, triggers inference, manages state transitions, controls routing logic, and writes structured results to storage.
-                                                    </li>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                        <strong>ML &amp; Data Layer:</strong> ML inference running on EC2. S3 stores images and heatmap overlays. DynamoDB stores predictions, confidence scores, review status, and metadata.
-                                                    </li>
-                                                </ul>
-                                                <p style={{ margin: 0, fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    The API orchestrates the full lifecycle: Frontend → API → Model → S3 + DynamoDB → API → Frontend.
-                                                </p>
-                                            </div>
-                                        </section>
-
-                                        <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '1080px', margin: '0 auto 40px auto' }}>
-                                                <div
-                                                    style={{
-                                                        overflow: 'hidden',
-                                                        borderRadius: '16px',
-                                                        border: '1px solid rgba(148, 163, 184, 0.26)',
-                                                        boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
-                                                        background: '#fff'
-                                                    }}
-                                                >
-                                                    <img src="/image/salmon_routing.png" alt="Confidence Routing Logic" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                                                    <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
+                                                        The system is structured into three integrated layers that coordinate field-to-lab workflows:
+                                                    </p>
+                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                                                        {[
+                                                            { title: 'Frontend Layer', desc: 'React static site hosted on Amazon S3. Features role-based portals (Field / Lab), upload validation, and result visualization.' },
+                                                            { title: 'Backend / API Layer', desc: 'REST API deployed on EC2. Handles ZIP validation, triggers inference, manages state transitions, and controls routing logic.' },
+                                                            { title: 'ML & Data Layer', desc: 'ML inference running on EC2. S3 stores images/overlays while DynamoDB handles predictions, confidence scores, and metadata.' }
+                                                        ].map((item, index) => (
+                                                            <div key={index} style={{ paddingLeft: '20px', borderLeft: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                                                                <h4 style={{ margin: '0 0 8px', fontFamily: '"Unbounded", sans-serif', fontSize: '1rem', color: '#ffffff' }}>{item.title}</h4>
+                                                                <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>{item.desc}</p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
-                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                        </section>
+
+                                        <section style={{ marginBottom: '120px' }}>
+                                            <div style={{ maxWidth: '896px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 40px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Decision Architecture — Confidence as Workflow Logic
                                                 </h3>
-                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    Instead of full automation, I designed a calibrated routing mechanism:
-                                                </p>
-                                                <ul style={{ margin: 0, paddingLeft: '1.3rem', display: 'grid', gap: '0.75rem' }}>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                        <strong>Step 1: Model Inference.</strong> The ML model generates a predicted origin and a confidence score.
-                                                    </li>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                        <strong>Step 2: Confidence-Based Routing.</strong> &gt;= 90% confidence → Auto-commit to the final database. &lt; 90% confidence → Routed directly to lab review. (Includes random QA sampling of high-confidence cases).
-                                                    </li>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                        <strong>Step 3: Human-in-the-Loop (HITL) Review.</strong> Lab scientists confirm or override predictions based on probability and heatmaps.
-                                                    </li>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                        <strong>Step 4: Continuous Training Loop.</strong> All overridden/corrected results are written back into a structured dataset used for future ML retraining.
-                                                    </li>
-                                                </ul>
+                                                <div style={{ 
+                                                    display: 'grid', 
+                                                    gridTemplateColumns: 'repeat(2, 1fr)', 
+                                                    gap: '48px 40px' 
+                                                }}>
+                                                    {[
+                                                        { step: '01', title: 'Model Inference', desc: 'The ML model generates a predicted origin and a confidence score for each salmon sample.' },
+                                                        { step: '02', title: 'Confidence Routing', desc: '>= 90% confidence auto-commits to the final database, while lower scores route to lab review.' },
+                                                        { step: '03', title: 'HITL Review', desc: 'Lab scientists confirm or override predictions based on probability heatmaps and expert knowledge.' },
+                                                        { step: '04', title: 'Continuous Training', desc: 'All overrides are written back into a structured dataset used for future model retraining cycles.' }
+                                                    ].map((item, index) => (
+                                                        <div key={index} style={{ borderLeft: '2px solid rgba(34, 197, 94, 0.5)', paddingLeft: '24px' }}>
+                                                            <div style={{ fontFamily: '"Unbounded", sans-serif', fontSize: '0.875rem', color: 'rgba(34, 197, 94, 0.8)', marginBottom: '8px', fontWeight: 600 }}>{item.step}</div>
+                                                            <h4 style={{ margin: '0 0 12px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff' }}>
+                                                                {item.title}
+                                                            </h4>
+                                                            <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#9ca3af' }}>
+                                                                {item.desc}
+                                                            </p>
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
                                         </section>
 
                                         <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '1080px', margin: '0 auto 40px auto' }}>
+                                            <div style={{ maxWidth: '1080px', margin: '0 auto 56px auto' }}>
                                                 <div
                                                     style={{
                                                         overflow: 'hidden',
                                                         borderRadius: '16px',
-                                                        border: '1px solid rgba(148, 163, 184, 0.26)',
-                                                        boxShadow: '0 10px 30px rgba(15, 23, 42, 0.08)',
-                                                        background: '#fff'
+                                                        background: 'rgba(255, 255, 255, 0.94)',
+                                                        backdropFilter: 'blur(10px)',
+                                                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
                                                     }}
                                                 >
                                                     <img src="/image/salmonPipline.png" alt="Production Pipeline Integration" style={{ width: '100%', height: 'auto', display: 'block' }} />
                                                 </div>
                                             </div>
-                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
-                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                            <div style={{ maxWidth: '896px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 32px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Integration Reality — Production Pipeline
                                                 </h3>
-                                                <p style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    This is not a concept system; it is deployed and operational within internal government workflows.
+                                                <p style={{ marginBottom: '32px', fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
+                                                    This system is not a concept; it is fully deployed within internal government workflows, supporting batch uploads and role-based review visibility.
                                                 </p>
-                                                <p style={{ margin: 0, fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    <strong>System Capabilities:</strong> Supports batch uploads, persistent run history, role-based review visibility, structured override logging, and stable reload behavior across the pipeline.
-                                                </p>
+                                                <div style={{ background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px', padding: '32px', borderLeft: '4px solid #4f8710' }}>
+                                                    <strong style={{ display: 'block', marginBottom: '12px', fontFamily: '"Unbounded", sans-serif', fontSize: '1rem', color: '#ffffff' }}>
+                                                        System Capabilities
+                                                    </strong>
+                                                    <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
+                                                        Supports batch uploads, persistent run history, role-based review visibility, structured override logging, and stable reload behavior across the pipeline.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </section>
 
                                         <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '768px', margin: '0 auto' }}>
-                                                <h3 style={{ margin: '0 0 24px', fontFamily: '"Inter", sans-serif', fontSize: '1.65rem', fontWeight: 620, color: '#1f2937' }}>
+                                            <div style={{ maxWidth: '896px', margin: '0 auto' }}>
+                                                <h3 style={{ margin: '0 0 48px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Impact &amp; What It Demonstrates
                                                 </h3>
-                                                <ul style={{ margin: '0 0 24px', paddingLeft: '1.3rem', display: 'grid', gap: '0.75rem' }}>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>~50% reduction in turnaround time.</li>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>~70% of samples auto-processed during peak season via confidence gating.</li>
-                                                    <li style={{ fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>Fully transitioned from physical mail routing to digital automation.</li>
-                                                </ul>
-                                                <p style={{ margin: 0, fontFamily: '"Inter", sans-serif', fontSize: '1rem', lineHeight: 1.8, color: 'rgba(55, 65, 81, 0.9)' }}>
-                                                    <strong>Core Competencies Demonstrated:</strong> ML product design under severe data constraints, operationalizing model confidence into workflow control logic, full-stack deployment coordination across frontend/API/ML layers, and building a continuous learning loop from day one.
-                                                </p>
+                                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
+                                                    {[
+                                                        { val: '~50%', label: 'Turnaround Time Reduction' },
+                                                        { val: '~70%', label: 'Auto-Processed via Confidence' },
+                                                        { val: '100%', label: 'Physical to Digital Transition' }
+                                                    ].map((metric, i) => (
+                                                        <div key={i}>
+                                                            <div style={{ fontFamily: '"Unbounded", sans-serif', fontSize: '3.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
+                                                                {metric.val}
+                                                            </div>
+                                                            <div style={{ fontFamily: '"Unbounded", sans-serif', fontSize: '0.75rem', color: '#9ca3af', textTransform: 'uppercase', tracking: '0.1em', lineHeight: 1.4 }}>
+                                                                {metric.label}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+                                                <div style={{ background: 'rgba(0, 0, 0, 0.25)', borderRadius: '16px', padding: '40px', marginTop: '64px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                                                    <h4 style={{ margin: '0 0 20px', fontFamily: '"Unbounded", sans-serif', fontSize: '1rem', color: '#ffffff', textTransform: 'uppercase', tracking: '0.05em' }}>
+                                                        Core Competencies Demonstrated
+                                                    </h4>
+                                                    <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.7, color: '#d1d5db' }}>
+                                                        ML product design under severe data constraints, operationalizing model confidence into workflow control logic, full-stack deployment coordination, and building a continuous learning loop from day one.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </section>
 
-                                        <br />
-                                        <br />
-                                        <div style={{ maxWidth: '768px', margin: '0 auto' }}>
+                                        <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
                                             <blockquote
                                                 style={{
                                                     margin: 0,
                                                     paddingLeft: '1rem',
-                                                    borderLeft: '2px solid rgba(148, 163, 184, 0.8)',
-                                                    fontFamily: '"Inter", sans-serif',
+                                                    borderLeft: '4px solid #A7F3D0',
+                                                    fontFamily: '"Cabin", sans-serif',
                                                     fontSize: '1rem',
                                                     fontStyle: 'italic',
                                                     lineHeight: 1.8,
-                                                    color: 'rgba(51, 65, 85, 0.9)'
+                                                    color: 'rgba(209, 213, 219, 1)'
                                                 }}
                                             >
                                                 "AI products do not fail because the model is imperfect. They fail because the surrounding system is poorly designed."
