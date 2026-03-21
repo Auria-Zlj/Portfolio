@@ -337,11 +337,12 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
     };
 
     const supportingMediaSrc = secondaryVideo || secondaryImage || image || 'https://via.placeholder.com/600x400/eeeeee/00BB44?text=';
-    const supportingMediaIsVideo = Boolean(secondaryVideo) || /\.(mp4|webm|mov)$/i.test(supportingMediaSrc);
-    const supportingCardWidth = supportingMediaIsVideo
+    const isYouTube = typeof supportingMediaSrc === 'string' && (supportingMediaSrc.includes('youtube.com') || supportingMediaSrc.includes('youtu.be'));
+    const supportingMediaIsVideo = Boolean(secondaryVideo) || (typeof supportingMediaSrc === 'string' && /\.(mp4|webm|mov)$/i.test(supportingMediaSrc));
+    const supportingCardWidth = (supportingMediaIsVideo || isYouTube)
         ? (isMobile ? '176px' : (id === 3 ? 'min(100%, 500px)' : '300px'))
         : (isMobile ? '146px' : (id === 3 ? 'min(100%, 400px)' : '250px'));
-    const supportingCardHeight = supportingMediaIsVideo ? 'auto' : supportingCardWidth;
+    const supportingCardHeight = (supportingMediaIsVideo || isYouTube) ? 'auto' : supportingCardWidth;
 
     return (
         <div
@@ -661,11 +662,36 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                                     style={{
                                         width: '100%',
-                                        height: supportingMediaIsVideo ? 'auto' : '100%',
-                                        backgroundColor: supportingMediaIsVideo || id === 3 ? '#0a0f0c' : 'transparent',
+                                        height: (supportingMediaIsVideo || isYouTube) ? 'auto' : '100%',
+                                        backgroundColor: (supportingMediaIsVideo || isYouTube) || id === 3 ? '#0a0f0c' : 'transparent',
                                     }}
                                 >
-                                    {supportingMediaIsVideo ? (
+                                    {isYouTube ? (
+                                        <div style={{
+                                            width: '100%',
+                                            aspectRatio: '16 / 9',
+                                            position: 'relative',
+                                            overflow: 'hidden',
+                                            pointerEvents: 'none' // Matches original video behavior
+                                        }}>
+                                            <iframe
+                                                src={supportingMediaSrc}
+                                                style={{
+                                                    position: 'absolute',
+                                                    top: '-50%',
+                                                    left: '-50%',
+                                                    width: '200%',
+                                                    height: '200%',
+                                                    border: 0,
+                                                    pointerEvents: 'none',
+                                                    // Zoom to crop YouTube UI as much as possible
+                                                    transform: 'scale(1.15)', 
+                                                }}
+                                                allow="autoplay; encrypted-media"
+                                                title={`${title} supporting video`}
+                                            />
+                                        </div>
+                                    ) : supportingMediaIsVideo ? (
                                         <video
                                             src={supportingMediaSrc}
                                             poster={image}

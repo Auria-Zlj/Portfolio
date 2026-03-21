@@ -15,7 +15,7 @@ import salmonRouting from '../../assets/images/salmon_routing.png';
 import salmonPipeline from '../../assets/images/salmonPipline.png';
 import deviceVideo from '../../assets/images/device.mov';
 // import salmonSaysVideo from '../../assets/images/SalmonSays Final Video.mp4';
-const salmonSaysVideo = null;
+const salmonSaysVideo = "https://www.youtube.com/embed/Bk0cCWW6BX4?autoplay=1&loop=1&playlist=Bk0cCWW6BX4&mute=1&controls=0&modestbranding=1";
 import x1 from '../../assets/images/X1.png';
 import x12 from '../../assets/images/X1.2.png';
 import x13 from '../../assets/images/X1.3.png';
