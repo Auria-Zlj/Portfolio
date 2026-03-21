@@ -53,7 +53,7 @@ const TONE_STYLES = {
     },
 };
 
-const ProgressiveImage = ({ src, alt, className = '', decoding = 'async', loading = 'lazy', fetchPriority = 'auto' }) => {
+const ProgressiveImage = ({ src, alt, className = '', decoding = 'async', loading = 'lazy', fetchPriority = 'auto', style = {} }) => {
     const [loaded, setLoaded] = useState(false);
     const [revealed, setRevealed] = useState(false);
     const imgRef = useRef(null);
@@ -108,6 +108,12 @@ const ProgressiveImage = ({ src, alt, className = '', decoding = 'async', loadin
             onLoad={handleLoad}
             onError={handleLoad}
             className={`${className} modal-media ${loaded ? 'is-loaded' : ''} ${revealed ? 'is-revealed' : ''}`.trim()}
+            style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                ...style
+            }}
         />
     );
 };
