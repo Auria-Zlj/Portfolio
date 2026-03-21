@@ -31,7 +31,7 @@ const projects = [
         secondaryImage: '',
         secondaryVideo: salmonSaysVideo,
         eyebrow: '01 / Case Study',
-        description: 'Designing a human-calibrated salmon identification workflow for the Washington State Department of Fish & Wildlife.',
+        description: 'Designing a faster salmon origin identification workflow for Washington Department of Fish & Wildlife.',
         tags: ['Decision Architecture', 'Safe Automation'],
         sponsor: 'deployed at Washington DFW for internal use',
         highlights: ['Confidence Triage', 'Expert Guardrails', 'Structured Write-back'],
