@@ -367,7 +367,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     display: 'flex',
                     width: '100%',
                     margin: 0,
-                    flexDirection: isMobile ? 'column' : (index % 2 === 1 ? 'row-reverse' : 'row'),
+                    flexDirection: isMobile ? 'column' : (index % 2 === 0 ? 'row-reverse' : 'row'),
                     justifyContent: isMobile ? 'flex-start' : 'center',
                     alignItems: isMobile ? 'flex-start' : 'center',
                     gap: isMobile ? '2rem' : '4vw',
@@ -478,7 +478,7 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                     justifyContent: isMobile ? 'flex-start' : 'center',
                     paddingTop: !isMobile ? '4vh' : 0,
                     paddingBottom: !isMobile ? '4vh' : 0,
-                    alignItems: isMobile ? 'flex-start' : (index % 2 === 0 ? 'flex-start' : 'flex-end'), // Align towards the Main Image
+                    alignItems: isMobile ? 'flex-start' : (index % 2 === 1 ? 'flex-start' : 'flex-end'), // Align towards the Main Image
                     position: 'relative',
                     textTextAlign: 'left', // Keep text inside cards left-aligned
                     // PADDING REMOVED to tighten gap to Main Image
