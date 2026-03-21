@@ -678,14 +678,13 @@ const ProjectCard = ({ id, title, category, description, tags, sponsor, image, s
                                                 src={supportingMediaSrc}
                                                 style={{
                                                     position: 'absolute',
-                                                    top: '-50%',
-                                                    left: '-50%',
-                                                    width: '200%',
-                                                    height: '200%',
+                                                    top: 0,
+                                                    left: 0,
+                                                    width: '100%',
+                                                    height: '100%',
                                                     border: 0,
                                                     pointerEvents: 'none',
-                                                    // Zoom to crop YouTube UI as much as possible
-                                                    transform: 'scale(1.15)', 
+                                                    transform: 'scale(1.05)', // Subtle zoom to reduce UI chrome
                                                 }}
                                                 allow="autoplay; encrypted-media"
                                                 title={`${title} supporting video`}
