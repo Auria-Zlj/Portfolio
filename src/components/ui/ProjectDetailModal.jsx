@@ -53,7 +53,7 @@ const TONE_STYLES = {
     },
 };
 
-const ProgressiveImage = ({ src, alt, className = '', decoding = 'async' }) => {
+const ProgressiveImage = ({ src, alt, className = '', decoding = 'async', loading = 'lazy', fetchPriority = 'auto' }) => {
     const [loaded, setLoaded] = useState(false);
     const [revealed, setRevealed] = useState(false);
     const imgRef = useRef(null);
@@ -102,6 +102,9 @@ const ProgressiveImage = ({ src, alt, className = '', decoding = 'async' }) => {
             src={src}
             alt={alt}
             decoding={decoding}
+            loading={loading}
+            // @ts-ignore
+            fetchpriority={fetchPriority}
             onLoad={handleLoad}
             onError={handleLoad}
             className={`${className} modal-media ${loaded ? 'is-loaded' : ''} ${revealed ? 'is-revealed' : ''}`.trim()}
@@ -361,10 +364,11 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                     borderRadius: '16px',
                                                     background: 'rgba(255, 255, 255, 0.94)',
                                                     backdropFilter: 'blur(10px)',
-                                                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                                                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+                                                    minHeight: '200px'
                                                 }}
                                             >
-                                                <img src="/image/salmon_hero.png" alt="Context and Workflow" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                <ProgressiveImage src="/image/salmon_hero.png" alt="Context and Workflow" className="modal-card-wildlife-hero-image" loading="eager" fetchPriority="high" />
                                             </div>
                                         </div>
 
@@ -415,11 +419,14 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                             marginRight: '-4rem',
                                             width: 'calc(100% + 8rem)',
                                             marginBottom: '80px',
+                                            minHeight: '300px'
                                         }}>
-                                            <img
+                                            <ProgressiveImage
                                                 src={fish1Image}
                                                 alt="Washington Fish & Wildlife fieldwork"
-                                                style={{ width: '100%', height: 'auto', display: 'block' }}
+                                                className="modal-card-wildlife-fieldwork"
+                                                loading="eager"
+                                                fetchPriority="high"
                                             />
                                         </div>
 
@@ -431,10 +438,11 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                         borderRadius: '16px',
                                                         background: 'rgba(255, 255, 255, 0.94)',
                                                         backdropFilter: 'blur(10px)',
-                                                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                                                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+                                                        minHeight: '200px'
                                                     }}
                                                 >
-                                                    <img src={integrationFlowImage} alt="End-to-End Architecture" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                    <ProgressiveImage src={integrationFlowImage} alt="End-to-End Architecture" className="modal-card-wildlife-flow" loading="eager" fetchPriority="high" />
                                                 </div>
                                             </div>
                                             <div style={{ maxWidth: '896px', margin: '0 auto' }}>
@@ -466,10 +474,10 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                 <h3 style={{ margin: '0 0 40px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Decision Architecture — Confidence as Workflow Logic
                                                 </h3>
-                                                <div style={{ 
-                                                    display: 'grid', 
-                                                    gridTemplateColumns: 'repeat(2, 1fr)', 
-                                                    gap: '48px 40px' 
+                                                <div style={{
+                                                    display: 'grid',
+                                                    gridTemplateColumns: 'repeat(2, 1fr)',
+                                                    gap: '48px 40px'
                                                 }}>
                                                     {[
                                                         { step: '01', title: 'Model Inference', desc: 'The ML model generates a predicted origin and a confidence score for each salmon sample.' },
@@ -499,10 +507,11 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                         borderRadius: '16px',
                                                         background: 'rgba(255, 255, 255, 0.94)',
                                                         backdropFilter: 'blur(10px)',
-                                                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                                                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+                                                        minHeight: '200px'
                                                     }}
                                                 >
-                                                    <img src="/image/salmonPipline.png" alt="Production Pipeline Integration" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                                                    <ProgressiveImage src="/image/salmonPipline.png" alt="Production Pipeline Integration" className="modal-card-wildlife-pipeline" loading="eager" fetchPriority="high" />
                                                 </div>
                                             </div>
                                             <div style={{ maxWidth: '896px', margin: '0 auto' }}>
@@ -580,6 +589,8 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         src={preloPreview}
                                         alt="Prelo long case study"
                                         className="modal-card-prelo-long-image"
+                                        loading="eager"
+                                        fetchPriority="high"
                                     />
                                 </div>
                             )}
