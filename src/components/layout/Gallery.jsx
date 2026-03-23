@@ -1,11 +1,11 @@
-import { Suspense, useEffect, useRef, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
 import ProjectDetailModal from '../ui/ProjectDetailModal';
 import Footer from './Footer';
 import Home from '../../pages/Home';
-import HeroShader from '../canvas/HeroShader';
+// import HeroShader from '../canvas/HeroShader';
+import homeHero from '../../assets/images/homehero.JPG';
 
 import preloHero from '../../assets/images/Prelo_hero.png';
 import preloSm from '../../assets/images/prelosm.png';
@@ -116,6 +116,17 @@ const Gallery = () => {
         /Safari/i.test(navigator.userAgent) &&
         !/Chrome|Chromium|CriOS|Edg|OPR|FxiOS/i.test(navigator.userAgent);
     const viewportHeight = isSafari ? '100svh' : '100dvh';
+    const { scrollY } = useScroll();
+    const bgY = useTransform(scrollY, (y) => {
+        const vh = window.innerHeight;
+        const scrollStart = vh * 1.0;
+        const scrollEnd = vh * 1.8;
+        if (y <= scrollStart) return '0%';
+        if (y >= scrollEnd) return '-100%';
+        const pct = ((y - scrollStart) / (scrollEnd - scrollStart)) * 100;
+        return `-${pct}%`;
+    });
+
     const { scrollYProgress: selectedProgress } = useScroll({
         target: selectedWorksRef,
         offset: ['start end', 'end start']
@@ -202,7 +213,7 @@ const Gallery = () => {
                 scrollPadding: 0
             }}
         >
-            <div
+            <motion.div
                 className="canvas-container"
                 style={{
                     position: 'fixed',
@@ -212,15 +223,13 @@ const Gallery = () => {
                     height: '100vh',
                     zIndex: 0,
                     pointerEvents: 'none',
-                    opacity: 1,
+                    backgroundImage: `url(${homeHero})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    y: bgY,
                 }}
-            >
-                <Canvas camera={{ position: [0, 0, 1] }}>
-                    <Suspense fallback={null}>
-                        <HeroShader key={heroShaderResetKey} />
-                    </Suspense>
-                </Canvas>
-            </div>
+            />
 
             {/* Home - First snap point */}
             <div style={{

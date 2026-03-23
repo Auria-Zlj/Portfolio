@@ -29,7 +29,7 @@ const Home = () => {
             return undefined;
         }
 
-        const totalMs = 6200;
+        const totalMs = 4600;
         const collapseDurationMs = 1200;
 
         const collapseTimer = window.setTimeout(() => {
