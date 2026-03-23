@@ -13,13 +13,13 @@ const getProjectKey = (project) => {
     if (!project) return null;
     const title = String(project.title || '').toLowerCase();
     if (project.id === 1 || title.includes('x-heal') || title.includes('xheal')) return 'x-heal';
-    if (project.id === 3 || title.includes('mush')) return 'mushroommate';
+    if (project.id === 3 || title.includes('salmon')) return 'salmonsays';
     return 'prelo';
 };
 
 const getToneClass = (projectKey) => {
     if (projectKey === 'x-heal') return 'xheal';
-    if (projectKey === 'mushroommate') return 'mushroommate';
+    if (projectKey === 'salmonsays') return 'salmonsays';
     return 'prelo';
 };
 
@@ -33,14 +33,14 @@ const TONE_STYLES = {
         progressFill: 'linear-gradient(180deg, rgba(233, 30, 99, 0.4) 0%, rgba(233, 30, 99, 0.7) 30%, rgba(233, 30, 99, 0.85) 50%, rgba(233, 30, 99, 0.7) 70%, rgba(233, 30, 99, 0.4) 100%)',
         progressShadow: '0 0 12px rgba(233, 30, 99, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.1)',
     },
-    mushroommate: {
-        buttonColor: '#4f8710',
-        buttonBorder: '1px solid rgba(109, 174, 3, 0.28)',
-        buttonBg: 'rgba(243, 248, 236, 0.96)',
-        buttonShadow: '0 2px 10px rgba(109, 174, 3, 0.2)',
-        progressTrack: 'rgba(109, 174, 3, 0.1)',
-        progressFill: 'linear-gradient(180deg, rgba(109, 174, 3, 0.4) 0%, rgba(109, 174, 3, 0.7) 30%, rgba(109, 174, 3, 0.85) 50%, rgba(109, 174, 3, 0.7) 70%, rgba(109, 174, 3, 0.4) 100%)',
-        progressShadow: '0 0 12px rgba(109, 174, 3, 0.4), inset 0 0 8px rgba(255, 255, 255, 0.1)',
+    salmonsays: {
+        buttonColor: '#017B54',
+        buttonBorder: '1px solid rgba(1, 123, 84, 0.28)',
+        buttonBg: 'rgba(224, 245, 237, 0.96)',
+        buttonShadow: '0 2px 10px rgba(1, 123, 84, 0.2)',
+        progressTrack: 'rgba(1, 123, 84, 0.1)',
+        progressFill: 'linear-gradient(180deg, rgba(1, 123, 84, 0.4) 0%, rgba(1, 123, 84, 0.7) 30%, rgba(1, 123, 84, 0.9) 50%, rgba(1, 123, 84, 0.7) 70%, rgba(1, 123, 84, 0.4) 100%)',
+        progressShadow: '0 0 12px rgba(1, 123, 84, 0.45), inset 0 0 8px rgba(255, 255, 255, 0.1)',
     },
     prelo: {
         buttonColor: '#d07a2e',
@@ -169,7 +169,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
             setProgressBarStyle({
                 top: `${rect.top}px`,
                 height: `${rect.height}px`,
-                right: `${Math.max(10, window.innerWidth - rect.right - 12)}px`,
+                right: `${Math.max(8, window.innerWidth - rect.right - 8)}px`,
             });
             setCloseButtonStyle({
                 top: `${rect.top + 20}px`,
@@ -181,6 +181,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
         const timerA = window.setTimeout(updateFloatingControls, 50);
         const timerB = window.setTimeout(updateFloatingControls, 130);
         const timerC = window.setTimeout(updateFloatingControls, 260);
+        const timerD = window.setTimeout(updateFloatingControls, 620);
 
         const onResize = () => updateFloatingControls();
         const onScroll = () => updateFloatingControls();
@@ -197,6 +198,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
             window.clearTimeout(timerA);
             window.clearTimeout(timerB);
             window.clearTimeout(timerC);
+            window.clearTimeout(timerD);
             window.removeEventListener('resize', onResize);
             window.removeEventListener('scroll', onScroll);
             if (resizeObserver) resizeObserver.disconnect();
@@ -293,7 +295,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                         } ${
                             projectKey === 'prelo' ? 'modal-container-prelo' : ''
                         } ${
-                            projectKey === 'mushroommate' ? 'modal-container-wildlife' : ''
+                            projectKey === 'salmonsays' ? 'modal-container-wildlife' : ''
                         }`}
                         initial={{ opacity: 0, scale: 0.85, x: '-50%', y: '-48%' }}
                         animate={{ opacity: 1, scale: 1, x: '-50%', y: '-50%' }}
@@ -353,7 +355,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         <ProgressiveImage src={x13} alt="X-Heal detail 2" className="modal-card-xheal-additional-image" />
                                     </div>
                                 </div>
-                            ) : projectKey === 'mushroommate' ? (
+                            ) : projectKey === 'salmonsays' ? (
                                 <div
                                     className="modal-card"
                                     style={{

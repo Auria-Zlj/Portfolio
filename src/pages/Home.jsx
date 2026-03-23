@@ -206,12 +206,12 @@ const Home = () => {
                             position: 'absolute',
                             bottom: '3rem',
                             left: '4rem',
-                            fontSize: '0.85rem',
+                            fontSize: '1.2rem',
                             fontWeight: 500,
                             letterSpacing: '0.05em',
-                            color: '#1A1A1A',
+                            color: '#FFFFFF',
                             fontFamily: '"Inter", sans-serif',
-                            opacity: 0.6,
+                            opacity: 0.9,
                             textTransform: 'uppercase'
                         }}
                     >
@@ -221,7 +221,7 @@ const Home = () => {
                     <motion.div
                         initial={false}
                         animate={{
-                            opacity: 0.6,
+                            opacity: 0.9,
                             y: [0, 10, 0]
                         }}
                         transition={{
@@ -234,14 +234,14 @@ const Home = () => {
                         }}
                         style={{
                             position: 'absolute',
-                            bottom: '3rem',
+                            bottom: '2.4rem',
                             right: '4rem',
-                            opacity: 0.6
+                            opacity: 0.9
                         }}
                     >
-                        <svg width="24" height="80" viewBox="0 0 24 80" fill="none">
-                            <line x1="12" y1="0" x2="12" y2="70" stroke="#1A1A1A" strokeWidth="1.5" />
-                            <polyline points="6,64 12,70 18,64" stroke="#1A1A1A" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                        <svg width="36" height="110" viewBox="0 0 36 110" fill="none">
+                            <line x1="18" y1="0" x2="18" y2="96" stroke="#FFFFFF" strokeWidth="2" />
+                            <polyline points="8,88 18,98 28,88" stroke="#FFFFFF" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </motion.div>
                 </section>

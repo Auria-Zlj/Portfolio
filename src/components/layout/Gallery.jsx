@@ -119,8 +119,8 @@ const Gallery = () => {
     const { scrollY } = useScroll();
     const bgY = useTransform(scrollY, (y) => {
         const vh = window.innerHeight;
-        const scrollStart = vh * 1.0;
-        const scrollEnd = vh * 1.8;
+        const scrollStart = vh * 1.5;
+        const scrollEnd = vh * 2.2;
         if (y <= scrollStart) return '0%';
         if (y >= scrollEnd) return '-100%';
         const pct = ((y - scrollStart) / (scrollEnd - scrollStart)) * 100;
@@ -248,8 +248,8 @@ const Gallery = () => {
                 ref={selectedWorksRef}
                 style={{
                     width: '100vw',
-                    minHeight: viewportHeight,
-                    height: viewportHeight,
+                    minHeight: `calc(${viewportHeight} * 1.35)`,
+                    height: `calc(${viewportHeight} * 1.35)`,
                     scrollSnapAlign: 'start',
                     scrollSnapStop: 'always',
                     display: 'flex',

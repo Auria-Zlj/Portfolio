@@ -52,7 +52,7 @@ const GlassNavBar = () => {
                 transition={{ delay: 0.2 }}
                 style={{
                     fontFamily: '"Inter", sans-serif',
-                    fontSize: '0.9rem', // Slightly smaller for technical feel
+                    fontSize: '1.2rem',
                     fontWeight: 600,
                     letterSpacing: '0.12em',
                     color: '#1A1A1A',
@@ -107,7 +107,7 @@ const NavLink = ({ href, label, newTab = false }) => {
             onMouseLeave={() => setIsHovered(false)}
             style={{
                 position: 'relative',
-                fontSize: '0.85rem', // Slightly smaller
+                fontSize: '1.2rem',
                 fontWeight: 500,
                 color: '#1A1A1A', // Deep Charcoal
                 textDecoration: 'none',
