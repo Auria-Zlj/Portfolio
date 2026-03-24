@@ -39,7 +39,7 @@ export default function DemoOne({ collapse = false }) {
                 overflow: 'hidden',
             }}
         >
-            <FlowFieldBackground color="#1B6B42" scale={1} trailOpacity={0.1} speed={0.8} collapse={collapse} />
+            <FlowFieldBackground color="#7BA4B8" scale={1} trailOpacity={0.1} speed={0.8} collapse={collapse} />
 
             <motion.div
                 initial={false}

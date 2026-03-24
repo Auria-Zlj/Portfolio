@@ -53,9 +53,9 @@ const GlassNavBar = () => {
                 style={{
                     fontFamily: '"Inter", sans-serif',
                     fontSize: '1.2rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.12em',
-                    color: '#1A1A1A',
+                    fontWeight: 300,
+                    letterSpacing: '0.2em',
+                    color: '#2A2A2A',
                     textDecoration: 'none',
                     cursor: 'pointer',
                     textTransform: 'uppercase'
@@ -107,12 +107,13 @@ const NavLink = ({ href, label, newTab = false }) => {
             onMouseLeave={() => setIsHovered(false)}
             style={{
                 position: 'relative',
-                fontSize: '1.2rem',
-                fontWeight: 500,
-                color: '#1A1A1A', // Deep Charcoal
+                fontFamily: '"Inter", sans-serif',
+                fontSize: '13px',
+                fontWeight: 400,
+                color: 'rgba(0, 0, 0, 0.6)',
                 textDecoration: 'none',
                 cursor: 'pointer',
-                letterSpacing: '0.05em',
+                letterSpacing: '0.08em',
             }}
         >
             {label}
@@ -131,7 +132,7 @@ const NavLink = ({ href, label, newTab = false }) => {
                     left: 0,
                     right: 0,
                     height: '1px',
-                    background: '#1A1A1A', // Deep Charcoal
+                    background: 'rgba(0, 0, 0, 0.6)',
                     originX: 0
                 }}
             />
