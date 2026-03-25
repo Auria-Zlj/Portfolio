@@ -36,6 +36,8 @@ const projects = [
         tags: ['Decision Architecture', 'Safe Automation'],
         sponsor: 'deployed at Washington DFW for internal use',
         highlights: ['Confidence Triage', 'Expert Guardrails', 'Structured Write-back'],
+        thumbnails: [salmonRouting, salmonPipeline],
+        thumbnailLabels: ['Origin Routing', 'AI Pipeline'],
     },
     {
         id: 1,
@@ -49,6 +51,8 @@ const projects = [
         tags: ['Dual BLE Sensors', 'System Logic'],
         sponsor: 'In collaboration with T-Mobile',
         highlights: ['Motion Guidance', 'Clinician Feedback Loop', 'Connected Rehab Experience'],
+        thumbnails: [x1, x12],
+        thumbnailLabels: ['Device Interface', 'Motion Feedback'],
     },
     {
         id: 2,
@@ -61,50 +65,12 @@ const projects = [
         tags: ['Decision UX', 'Information Structuring'],
         sponsor: '',
         highlights: ['Menu Clarity', 'Visual Decision Support', 'Structured Dish Data'],
+        thumbnails: [preloSm, preloLong],
+        thumbnailLabels: ['Mobile App', 'Full Flow'],
     },
 ];
 
-const StickyCardWrapper = ({ children, index, viewportHeight }) => {
-    return (
-        <div
-            data-snap-point="true"
-            style={{
-                position: 'relative',
-                width: '100vw',
-                minHeight: viewportHeight,
-                height: viewportHeight,
-                marginBottom: '15vh',
-                background: 'transparent',
-                // Removed backdrop-filter - now handled by shader
-                borderTop: '1px solid rgba(255, 255, 255, 0.06)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: 'none',
-                zIndex: index + 1,
-                scrollSnapAlign: 'start',
-                scrollSnapStop: 'always',
-                willChange: 'auto',
-                overflow: 'hidden' // Prevent shader overflow
-            }}
-        >
-            {/* Content Layer */}
-            <div
-                style={{
-                    position: 'relative',
-                    zIndex: 1,
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                }}
-            >
-                {children}
-            </div>
-        </div>
-    );
-};
+// Removed StickyCardWrapper — replaced with inline sticky stacking in Gallery return
 
 const Gallery = () => {
     const containerRef = useRef(null);
@@ -116,25 +82,16 @@ const Gallery = () => {
         /Safari/i.test(navigator.userAgent) &&
         !/Chrome|Chromium|CriOS|Edg|OPR|FxiOS/i.test(navigator.userAgent);
     const viewportHeight = isSafari ? '100svh' : '100dvh';
-    const { scrollY } = useScroll();
-    const bgY = useTransform(scrollY, (y) => {
-        const vh = window.innerHeight;
-        const scrollStart = vh * 1.5;
-        const scrollEnd = vh * 2.2;
-        if (y <= scrollStart) return '0%';
-        if (y >= scrollEnd) return '-100%';
-        const pct = ((y - scrollStart) / (scrollEnd - scrollStart)) * 100;
-        return `-${pct}%`;
-    });
+    // bgY removed — homeHero stays fixed so no white gap between sections
 
     const { scrollYProgress: selectedProgress } = useScroll({
         target: selectedWorksRef,
         offset: ['start end', 'end start']
     });
     // Symmetric zoom: coming from top or bottom both have the same reveal.
-    const selectedOpacity = useTransform(selectedProgress, [0, 0.18, 0.5, 0.82, 1], [0, 0.78, 1, 0.78, 0]);
-    const selectedScale = useTransform(selectedProgress, [0, 0.5, 1], [0.84, 1, 0.84]);
-    const selectedY = useTransform(selectedProgress, [0, 0.5, 1], [44, 0, -44]);
+    const selectedOpacity = useTransform(selectedProgress, [0, 0.10, 0.5, 0.96, 1], [0, 1, 1, 1, 0]);
+    const selectedScale = useTransform(selectedProgress, [0, 0.5, 1], [0.92, 1, 0.92]);
+    const selectedY = useTransform(selectedProgress, [0, 0.5, 1], [30, 0, -30]);
     const selectedOpacitySmooth = useSpring(selectedOpacity, { stiffness: 210, damping: 28, mass: 0.26 });
     const selectedScaleSmooth = useSpring(selectedScale, { stiffness: 230, damping: 26, mass: 0.28 });
     const selectedYSmooth = useSpring(selectedY, { stiffness: 210, damping: 28, mass: 0.26 });
@@ -158,9 +115,10 @@ const Gallery = () => {
         hasPreloadedProjectAssets = true;
 
         const preloadSources = [
+            homeHero,
+            salmonHero,
             xheatHero,
             preloHero,
-            salmonHero,
             salmonPipeline,
             salmonRouting,
             x1,
@@ -174,6 +132,7 @@ const Gallery = () => {
             link.rel = 'preload';
             link.as = 'image';
             link.href = src;
+            link.fetchPriority = 'high';
             document.head.appendChild(link);
             preloadLinkRefs.current.push(link);
         });
@@ -182,13 +141,17 @@ const Gallery = () => {
             const img = new Image();
             img.loading = 'eager';
             img.fetchPriority = 'high';
-            img.decoding = 'async';
             img.src = src;
-            img.onload = () => {
+            const decodeWhenReady = () => {
                 if (typeof img.decode === 'function') {
                     img.decode().catch(() => {});
                 }
             };
+            if (img.complete) {
+                decodeWhenReady();
+            } else {
+                img.onload = decodeWhenReady;
+            }
             preloadedImageRefs.current.push(img);
         });
 
@@ -210,39 +173,82 @@ const Gallery = () => {
                 marginTop: 0,
                 scrollSnapType: 'y mandatory',
                 overscrollBehavior: 'auto',
-                scrollPadding: 0
+                scrollPadding: 0,
             }}
         >
-            <motion.div
-                className="canvas-container"
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100vw',
-                    height: '100vh',
-                    zIndex: 0,
-                    pointerEvents: 'none',
-                    backgroundImage: `url(${homeHero})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    y: bgY,
-                }}
-            />
+            {/* Salmon Says — fixed in viewport, revealed when Home+SW scroll away */}
+            <div style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100vw',
+                height: '100vh',
+                zIndex: 3,
+                willChange: 'transform',
+            }}>
+                <ProjectCard
+                    {...projects[0]}
+                    index={0}
+                    onOpenProject={setActiveProjectId}
+                    thumbnails={projects[0].thumbnails || []}
+                    thumbnailLabels={projects[0].thumbnailLabels || []}
+                />
+            </div>
 
-            {/* Home - First snap point */}
+            {/* X-Heal & Prelo — absolute wrapper with sticky stacking, above Salmon Says */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: `calc(${viewportHeight} * 7.2)`,
+                zIndex: 5,
+            }}>
+                {projects.slice(1).map((project, index) => (
+                    <div
+                        key={project.id}
+                        style={{
+                            position: 'sticky',
+                            top: 0,
+                            height: viewportHeight,
+                            overflow: 'hidden',
+                            zIndex: index + 1,
+                            marginTop: index === 0
+                                ? `calc(${viewportHeight} * 3.95)`
+                                : index === 1
+                                ? `calc(${viewportHeight} * 0.6)`
+                                : 0,
+                        }}
+                    >
+                        <ProjectCard
+                            {...project}
+                            index={index + 1}
+                            onOpenProject={setActiveProjectId}
+                            thumbnails={project.thumbnails || []}
+                            thumbnailLabels={project.thumbnailLabels || []}
+                        />
+                    </div>
+                ))}
+            </div>
+
+            {/* Home - First snap point — sits on top of everything */}
             <div style={{
                 width: '100vw',
                 minHeight: viewportHeight,
                 height: viewportHeight,
                 scrollSnapAlign: 'start',
-                scrollSnapStop: 'always'
+                scrollSnapStop: 'always',
+                position: 'relative',
+                zIndex: 20,
+                backgroundImage: `url(${homeHero})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundAttachment: 'fixed',
             }} data-snap-point="true">
                 <Home />
             </div>
 
-            {/* Selected Works - Second snap point */}
+            {/* Selected Works - Second snap point — above project cards */}
             <div
                 id="selected-works"
                 ref={selectedWorksRef}
@@ -256,7 +262,12 @@ const Gallery = () => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    background: 'transparent'
+                    backgroundImage: `url(${homeHero})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundAttachment: 'fixed',
+                    position: 'relative',
+                    zIndex: 18,
                 }}
                 data-snap-point="true">
                 <motion.div
@@ -281,18 +292,21 @@ const Gallery = () => {
                 </motion.div>
             </div>
 
+            {/* Project snap spacers — transparent divs that provide scroll height + snap points.
+                The actual visible cards live in the absolute layer above. */}
             {projects.map((project, index) => (
-                <StickyCardWrapper
-                    key={project.id}
-                    index={index}
-                    viewportHeight={viewportHeight}
-                >
-                    <ProjectCard
-                        {...project}
-                        index={index}
-                        onOpenProject={setActiveProjectId}
-                    />
-                </StickyCardWrapper>
+                <div
+                    key={`spacer-${project.id}`}
+                    data-snap-point="true"
+                    style={{
+                        width: '100vw',
+                        height: `calc(${viewportHeight} * 1.6)`,
+                        scrollSnapAlign: 'start',
+                        scrollSnapStop: 'always',
+                        flexShrink: 0,
+                        pointerEvents: 'none',
+                    }}
+                />
             ))}
 
             {/* Footer - Final snap point */}
