@@ -71,7 +71,7 @@ export default function DemoOne({ collapse = false }) {
                             <TextShimmer
                                 duration={1.2}
                                 className="intro-line intro-line--base"
-                                style={{ '--base-color': '#12392a', '--base-gradient-color': '#82cda7' }}
+                                style={{ '--base-color': '#1B3A4B', '--base-gradient-color': '#7EC8E3' }}
                             >
                                 INITIALIZING SYSTEM
                             </TextShimmer>
@@ -88,7 +88,7 @@ export default function DemoOne({ collapse = false }) {
                             <TextShimmer
                                 duration={1.2}
                                 className="intro-line intro-line--base"
-                                style={{ '--base-color': '#1e3a30', '--base-gradient-color': '#98d6b7' }}
+                                style={{ '--base-color': '#1B3A4B', '--base-gradient-color': '#7EC8E3' }}
                             >
                                 A Perspective by
                             </TextShimmer>
@@ -104,8 +104,8 @@ export default function DemoOne({ collapse = false }) {
                                 <TextShimmer
                                     duration={1.2}
                                     className="intro-line intro-line--base"
-                                    style={{ '--base-color': '#861118', '--base-gradient-color': '#e58a90' }}
-                                >
+                                style={{ '--base-color': '#0A5C8A', '--base-gradient-color': '#A8D8F0' }}
+                            >
                                     AURIA Z
                                 </TextShimmer>
                             </span>

@@ -8,6 +8,7 @@ const GlassNavBar = () => {
     // New Link Structure
     const links = [
         { label: 'WORK', href: '#selected-works' },
+        { label: 'LAB', href: '#lab' },
         { label: 'ABOUT', href: '#about' },
         { label: 'RESUME', href: resumePdf, newTab: true },
     ];

@@ -60,7 +60,7 @@ export default function FlowFieldBackground({
             canvas.height = Math.max(1, Math.floor(height * dpr));
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-            const count = Math.round(Math.min(680, Math.max(300, (width * height) / 7200)));
+            const count = Math.round(Math.min(520, Math.max(220, (width * height) / 9500)));
             particles = Array.from({ length: count }, () => createParticle(width, height));
 
             ctx.fillStyle = '#F4F4F4';
@@ -95,20 +95,28 @@ export default function FlowFieldBackground({
             mouseRef.current.active = false;
         };
 
+        let lastTime = null;
+        const TARGET_FPS = 120;
+        const TARGET_FRAME_MS = 1000 / TARGET_FPS;
+
         const loop = (time) => {
+            const rawDelta = lastTime === null ? TARGET_FRAME_MS : time - lastTime;
+            const delta = Math.min(rawDelta, TARGET_FRAME_MS * 3);
+            const dtScale = delta / TARGET_FRAME_MS;
+            lastTime = time;
+
             const isCollapsing = collapseRef.current;
             const targetStrength = isCollapsing ? 1 : 0;
-            collapseStrengthRef.current += (targetStrength - collapseStrengthRef.current) * 0.085;
+            collapseStrengthRef.current += (targetStrength - collapseStrengthRef.current) * 0.085 * dtScale;
             const collapseStrength = collapseStrengthRef.current;
 
-            // Keep collapse strokes crisp by clearing more aggressively.
             const clearOpacity = isCollapsing ? Math.max(trailOpacity, 0.14) : trailOpacity;
             ctx.fillStyle = `rgba(244, 244, 244, ${clearOpacity})`;
             ctx.fillRect(0, 0, width, height);
 
             const t = time * 0.001 * speed;
             const flowScale = 0.0018 * scale;
-            const step = 1.02 * speed;
+            const step = 1.02 * speed * dtScale;
             const mouse = mouseRef.current;
             const mouseActive = mouse.active || (time - mouse.lastMove < 140);
             const interactionRadius = Math.min(width, height) * 0.24;
@@ -131,7 +139,7 @@ export default function FlowFieldBackground({
 
                 p.x += Math.cos(angle) * step;
                 p.y += Math.sin(angle) * step;
-                p.life -= 1;
+                p.life -= dtScale;
 
                 if (mouseActive) {
                     const dx = mouse.x - p.x;
@@ -141,8 +149,8 @@ export default function FlowFieldBackground({
                     if (dist > 0.001 && dist < interactionRadius) {
                         const influence = 1 - dist / interactionRadius;
                         const inv = 1 / dist;
-                        const attract = 0.28 * speed * influence;
-                        const swirl = 0.9 * speed * influence;
+                        const attract = 0.28 * speed * influence * dtScale;
+                        const swirl = 0.9 * speed * influence * dtScale;
 
                         p.x += dx * inv * attract + (-dy * inv) * swirl;
                         p.y += dy * inv * attract + (dx * inv) * swirl;
@@ -157,29 +165,19 @@ export default function FlowFieldBackground({
                     if (dist > 0.001 && dist < collapseRadius) {
                         const influence = 1 - dist / collapseRadius;
                         const inv = 1 / dist;
-                        const pull = (1.1 + 3.9 * influence) * speed * collapseStrength;
-                        const swirl = (1.3 + 3.6 * influence) * speed * collapseStrength;
+                        const pull = (1.1 + 3.9 * influence) * speed * collapseStrength * dtScale;
+                        const swirl = (1.3 + 3.6 * influence) * speed * collapseStrength * dtScale;
 
                         p.x += dx * inv * pull + (-dy * inv) * swirl * 0.42;
                         p.y += dy * inv * pull + (dx * inv) * swirl * 0.42;
                     }
 
                     if (dist < 10) {
-                        // Re-seed near edges to create continuous "absorption stream".
                         const edge = Math.floor(Math.random() * 4);
-                        if (edge === 0) {
-                            p.x = Math.random() * width;
-                            p.y = -10;
-                        } else if (edge === 1) {
-                            p.x = width + 10;
-                            p.y = Math.random() * height;
-                        } else if (edge === 2) {
-                            p.x = Math.random() * width;
-                            p.y = height + 10;
-                        } else {
-                            p.x = -10;
-                            p.y = Math.random() * height;
-                        }
+                        if (edge === 0) { p.x = Math.random() * width; p.y = -10; }
+                        else if (edge === 1) { p.x = width + 10; p.y = Math.random() * height; }
+                        else if (edge === 2) { p.x = Math.random() * width; p.y = height + 10; }
+                        else { p.x = -10; p.y = Math.random() * height; }
                         p.px = p.x;
                         p.py = p.y;
                         p.life = 80 + Math.random() * 260;
@@ -192,9 +190,9 @@ export default function FlowFieldBackground({
                     continue;
                 }
 
-                const alpha = (0.22 + Math.random() * 0.16) + collapseStrength * (0.08 + Math.random() * 0.08);
+                const alpha = (0.30 + Math.random() * 0.16) + collapseStrength * (0.08 + Math.random() * 0.08);
                 ctx.strokeStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
-                ctx.lineWidth = (0.9 + Math.random() * 0.8) + collapseStrength * 0.18;
+                ctx.lineWidth = (1.4 + Math.random() * 0.8) + collapseStrength * 0.18;
                 ctx.beginPath();
                 ctx.moveTo(p.px, p.py);
                 ctx.lineTo(p.x, p.y);
