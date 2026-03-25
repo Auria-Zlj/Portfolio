@@ -1,44 +1,39 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
+/** Matches description line length so thumbnails align with copy above */
+const COPY_MAX_WIDTH = '40ch';
+
 // Each project gets a subtle colour tint baked into the glass.
 // The rest is transparent so the hero image bleeds through the blur.
 const PROJECT_THEMES = {
     3: {
-        // Salmon Says — forest green tint
         panelBg: 'linear-gradient(158deg, rgba(255,255,255,0.26) 0%, rgba(152,210,172,0.20) 100%)',
-        accent: '#1A5035',
-        tagBg: 'rgba(26,80,53,0.10)',
-        tagBorder: 'rgba(26,80,53,0.28)',
-        tagText: '#1A5035',
-        eyebrowColor: 'rgba(26,80,53,0.72)',
+        // Frosted light chips + neutral ink (readable, not heavy)
+        tagBg: 'rgba(20, 48, 32, 0.14)',
+        tagText: '#142018',
+        metaColor: '#142018',
         titleColor: '#0E1A10',
-        bodyColor: 'rgba(18,35,22,0.76)',
-        divider: 'rgba(26,80,53,0.15)',
+        bodyColor: 'rgba(18, 32, 22, 0.88)',
+        divider: 'rgba(26, 80, 53, 0.18)',
     },
     1: {
-        // X-Heal — clinical blue tint
         panelBg: 'linear-gradient(158deg, rgba(255,255,255,0.26) 0%, rgba(148,178,235,0.20) 100%)',
-        accent: '#1A3A6B',
-        tagBg: 'rgba(26,58,107,0.10)',
-        tagBorder: 'rgba(26,58,107,0.28)',
-        tagText: '#1A3A6B',
-        eyebrowColor: 'rgba(26,58,107,0.72)',
+        tagBg: 'rgba(18, 36, 72, 0.14)',
+        tagText: '#0F1728',
+        metaColor: '#0F1728',
         titleColor: '#0B1220',
-        bodyColor: 'rgba(16,26,48,0.76)',
-        divider: 'rgba(26,58,107,0.15)',
+        bodyColor: 'rgba(16, 26, 44, 0.88)',
+        divider: 'rgba(26, 58, 107, 0.18)',
     },
     2: {
-        // Prelo — warm amber tint
         panelBg: 'linear-gradient(158deg, rgba(255,255,255,0.26) 0%, rgba(235,205,148,0.20) 100%)',
-        accent: '#6B4A1E',
-        tagBg: 'rgba(107,74,30,0.10)',
-        tagBorder: 'rgba(107,74,30,0.28)',
-        tagText: '#6B4A1E',
-        eyebrowColor: 'rgba(107,74,30,0.72)',
+        tagBg: 'rgba(72, 48, 18, 0.14)',
+        tagText: '#1C1408',
+        metaColor: '#1C1408',
         titleColor: '#1E1006',
-        bodyColor: 'rgba(45,30,12,0.76)',
-        divider: 'rgba(107,74,30,0.15)',
+        bodyColor: 'rgba(40, 28, 12, 0.88)',
+        divider: 'rgba(90, 62, 24, 0.18)',
     },
 };
 
@@ -123,39 +118,36 @@ const ProjectCard = ({
                     position: 'absolute',
                     left: 0,
                     top: 0,
-                    width: isMobile ? '100%' : '46%',
+                    // Wider glass than the old ~46%; copy keeps right breathing room via padding below
+                    width: isMobile ? '100%' : '56%',
                     height: '100%',
                     background: theme.panelBg,
                     backdropFilter: 'blur(38px) saturate(1.7) brightness(1.05)',
                     WebkitBackdropFilter: 'blur(38px) saturate(1.7) brightness(1.05)',
-                    // Only left/top/bottom border — no hard right edge
-                    borderTop: '1px solid rgba(255,255,255,0.52)',
-                    borderLeft: '1px solid rgba(255,255,255,0.52)',
-                    borderBottom: '1px solid rgba(255,255,255,0.32)',
-                    borderRight: 'none',
-                    // Inner top highlight; no right-side shadow that creates a line
-                    boxShadow: 'inset 0 1.5px 0 rgba(255,255,255,0.78)',
+                    border: 'none',
+                    boxShadow: 'none',
                     // Gradient mask fades the glass panel (blur + bg) softly into the image
-                    WebkitMaskImage: 'linear-gradient(to right, black 78%, transparent 100%)',
-                    maskImage: 'linear-gradient(to right, black 78%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to right, black 76%, transparent 100%)',
+                    maskImage: 'linear-gradient(to right, black 76%, transparent 100%)',
                     zIndex: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    padding: isMobile ? '80px 7% 40px' : '110px 9% 52px',
+                    // Left 4rem matches nav; wider right padding so copy doesn’t feel edge-to-edge
+                    padding: isMobile ? '100px 7% 40px 4rem' : '140px clamp(2.75rem, 6vw, 5rem) 52px 4rem',
                     boxSizing: 'border-box',
                 }}
             >
                 {/* Main content — fills space above thumbnails */}
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, minWidth: 0, width: '100%' }}>
 
                     {/* Eyebrow */}
                     <motion.span {...fadeUp(0)} style={{
                         fontFamily: '"Inter", sans-serif',
-                        fontSize: '0.68rem',
-                        fontWeight: 500,
-                        letterSpacing: '0.18em',
+                        fontSize: isMobile ? '0.72rem' : '0.8rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.14em',
                         textTransform: 'uppercase',
-                        color: theme.eyebrowColor,
+                        color: theme.metaColor,
                         marginBottom: '1.4rem',
                         display: 'block',
                     }}>
@@ -166,15 +158,14 @@ const ProjectCard = ({
                     <motion.h2 {...fadeUp(0.07)} style={{
                         fontFamily: '"PP Neue Montreal", "Inter", sans-serif',
                         fontSize: isMobile
-                            ? 'clamp(2.6rem, 11vw, 3.8rem)'
-                            : 'clamp(3rem, 4.6vw, 5rem)',
+                            ? 'clamp(2.75rem, 11vw, 4rem)'
+                            : 'clamp(3.15rem, 4.8vw, 5.25rem)',
                         fontWeight: 650,
                         letterSpacing: '-0.03em',
                         lineHeight: 1.0,
                         color: theme.titleColor,
                         margin: '0 0 1.8rem 0',
-                        // Slight white halo so the text pops off any dark bg bleed
-                        textShadow: '0 1px 3px rgba(255,255,255,0.45)',
+                        textShadow: '0 1px 2px rgba(255,255,255,0.35)',
                     }}>
                         {title}
                     </motion.h2>
@@ -182,12 +173,13 @@ const ProjectCard = ({
                     {/* Description */}
                     <motion.p {...fadeUp(0.13)} style={{
                         fontFamily: '"Inter", sans-serif',
-                        fontSize: isMobile ? '0.93rem' : '1.03rem',
+                        fontSize: isMobile ? '1rem' : '1.125rem',
                         lineHeight: 1.76,
                         color: theme.bodyColor,
                         margin: '0 0 1.5rem 0',
-                        maxWidth: '40ch',
+                        maxWidth: COPY_MAX_WIDTH,
                         fontWeight: 400,
+                        whiteSpace: 'pre-line',
                     }}>
                         {description}
                     </motion.p>
@@ -201,15 +193,15 @@ const ProjectCard = ({
                     }}>
                         {tags.map((tag) => (
                             <span key={tag} style={{
-                                padding: '0.28rem 0.80rem',
+                                padding: '0.4rem 1rem',
                                 borderRadius: '999px',
-                                border: `1px solid ${theme.tagBorder}`,
+                                border: 'none',
                                 background: theme.tagBg,
                                 color: theme.tagText,
                                 fontFamily: '"Inter", sans-serif',
-                                fontSize: '0.72rem',
-                                fontWeight: 500,
-                                letterSpacing: '0.02em',
+                                fontSize: isMobile ? '0.78rem' : '0.84rem',
+                                fontWeight: 600,
+                                letterSpacing: '0.01em',
                             }}>
                                 {tag}
                             </span>
@@ -220,12 +212,16 @@ const ProjectCard = ({
                     {sponsor && (
                         <motion.p {...fadeUp(0.22)} style={{
                             fontFamily: '"Inter", sans-serif',
-                            fontSize: '0.67rem',
+                            fontSize: isMobile ? '0.78rem' : '0.84rem',
                             fontWeight: 600,
-                            letterSpacing: '0.09em',
-                            textTransform: 'uppercase',
-                            color: theme.eyebrowColor,
+                            letterSpacing: '0.03em',
+                            lineHeight: 1.55,
+                            textTransform: 'none',
+                            color: theme.metaColor,
                             marginBottom: '2.2rem',
+                            maxWidth: '100%',
+                            overflowWrap: 'break-word',
+                            wordBreak: 'break-word',
                         }}>
                             {sponsor}
                         </motion.p>
@@ -238,24 +234,21 @@ const ProjectCard = ({
                             onMouseEnter={() => setBtnHovered(true)}
                             onMouseLeave={() => setBtnHovered(false)}
                             style={{
-                                padding: '0.80rem 2.0rem',
+                                padding: '0.95rem 2.25rem',
                                 borderRadius: '999px',
-                                background: btnHovered ? 'rgba(20,20,20,0.88)' : 'rgba(255,255,255,0.82)',
-                                // Frosted button with its own glass look
-                                backdropFilter: 'blur(8px)',
-                                WebkitBackdropFilter: 'blur(8px)',
-                                border: '1px solid rgba(255,255,255,0.65)',
-                                color: btnHovered ? '#FFFFFF' : '#1A1A1A',
+                                background: btnHovered ? '#111111' : '#1A1A1A',
+                                border: 'none',
+                                color: '#F5F5F5',
                                 fontFamily: '"Inter", sans-serif',
-                                fontSize: '0.86rem',
+                                fontSize: isMobile ? '0.92rem' : '1rem',
                                 fontWeight: 600,
                                 letterSpacing: '0.02em',
                                 cursor: 'pointer',
-                                boxShadow: '0 2px 18px rgba(0,0,0,0.10)',
+                                boxShadow: '0 4px 20px rgba(0,0,0,0.22)',
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '0.5rem',
-                                transition: 'background 0.22s ease, color 0.22s ease',
+                                transition: 'background 0.22s ease, transform 0.22s ease',
                             }}
                         >
                             View Project
@@ -266,23 +259,30 @@ const ProjectCard = ({
 
                 {/* ── Bottom thumbnails ── */}
                 {thumbnails.length > 0 && (
-                    <motion.div {...fadeUp(0.3)}>
+                    <motion.div
+                        {...fadeUp(0.3)}
+                        style={{
+                            width: '100%',
+                            maxWidth: isMobile ? '100%' : COPY_MAX_WIDTH,
+                            minWidth: 0,
+                        }}
+                    >
                         <div style={{
                             width: '100%',
                             height: '1px',
                             background: theme.divider,
                             margin: '2rem 0 1.4rem',
                         }} />
-                        <div style={{ display: 'flex', gap: '0.75rem' }}>
+                        <div style={{ display: 'flex', gap: '0.75rem', width: '100%' }}>
                             {thumbnails.map((thumb, i) => (
                                 <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                                     <div style={{
-                                        height: isMobile ? '58px' : '76px',
+                                        height: isMobile ? '64px' : '88px',
                                         borderRadius: '10px',
                                         overflow: 'hidden',
-                                        background: 'rgba(255,255,255,0.18)',
-                                        border: '1px solid rgba(255,255,255,0.50)',
-                                        boxShadow: '0 2px 10px rgba(0,0,0,0.10)',
+                                        background: 'rgba(0,0,0,0.12)',
+                                        border: 'none',
+                                        boxShadow: '0 2px 12px rgba(0,0,0,0.15)',
                                     }}>
                                         <img
                                             src={thumb}
@@ -298,12 +298,12 @@ const ProjectCard = ({
                                     {thumbnailLabels[i] && (
                                         <span style={{
                                             fontFamily: '"Inter", sans-serif',
-                                            fontSize: '0.65rem',
+                                            fontSize: isMobile ? '0.72rem' : '0.78rem',
                                             fontWeight: 500,
                                             color: theme.bodyColor,
-                                            opacity: 0.65,
+                                            opacity: 0.92,
                                             letterSpacing: '0.01em',
-                                            lineHeight: 1.3,
+                                            lineHeight: 1.35,
                                             fontStyle: 'italic',
                                         }}>
                                             {thumbnailLabels[i]}

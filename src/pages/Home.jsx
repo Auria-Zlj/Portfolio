@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import GlassNavBar from '../components/ui/GlassNavBar';
 import DemoOne from '../components/ui/demo';
@@ -17,7 +16,6 @@ const Home = () => {
     const [eggBottom, setEggBottom] = useState('10%');
     const [eggKey, setEggKey] = useState(0);
     const [eggShowing, setEggShowing] = useState(false);
-
     useEffect(() => {
         const updateEggPos = () => {
             const ratio = window.innerWidth / window.innerHeight;
@@ -83,11 +81,9 @@ const Home = () => {
         };
     }, []);
 
-    const containerRef = useRef(null);
-
     return (
         <>
-        <div ref={containerRef} style={{ position: 'relative' }}>
+        <div style={{ position: 'relative' }}>
             {showIntro && (
                 <motion.div
                     initial={false}
@@ -151,7 +147,7 @@ const Home = () => {
                     background: 'transparent',
                     zIndex: 1
                 }}>
-                    <GlassNavBar />
+                    {!showIntro && <GlassNavBar />}
 
                     <div className="hero-content" style={{
                         zIndex: 1,
@@ -351,36 +347,37 @@ const Home = () => {
                             .hero-easter-egg { display: none; }
                         }
                     `}</style>
+
+                    {/* Scroll cue — absolute inside hero so it moves up with Home like other content */}
+                    {!showIntro && (
+                        <motion.div
+                            initial={{ y: 0 }}
+                            animate={{ y: [0, 14, 0] }}
+                            transition={{
+                                duration: 1.75,
+                                repeat: Infinity,
+                                repeatType: 'loop',
+                                ease: 'easeInOut',
+                                delay: 0.35,
+                            }}
+                            style={{
+                                position: 'absolute',
+                                bottom: '2.4rem',
+                                right: '4rem',
+                                opacity: 0.9,
+                                pointerEvents: 'none',
+                                zIndex: 10,
+                            }}
+                        >
+                            <svg width="36" height="110" viewBox="0 0 36 110" fill="none">
+                                <line x1="18" y1="0" x2="18" y2="96" stroke="#FFFFFF" strokeWidth="2" />
+                                <polyline points="8,88 18,98 28,88" stroke="#FFFFFF" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </motion.div>
+                    )}
                 </section>
             </motion.div>
         </div>
-        {!showIntro && createPortal(
-            <motion.div
-                initial={{ y: 0 }}
-                animate={{ y: [0, 14, 0] }}
-                transition={{
-                    duration: 1.75,
-                    repeat: Infinity,
-                    repeatType: 'loop',
-                    ease: 'easeInOut',
-                    delay: 0.35,
-                }}
-                style={{
-                    position: 'fixed',
-                    bottom: '2.4rem',
-                    right: '4rem',
-                    opacity: 0.9,
-                    pointerEvents: 'none',
-                    zIndex: 100,
-                }}
-            >
-                <svg width="36" height="110" viewBox="0 0 36 110" fill="none">
-                    <line x1="18" y1="0" x2="18" y2="96" stroke="#FFFFFF" strokeWidth="2" />
-                    <polyline points="8,88 18,98 28,88" stroke="#FFFFFF" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-            </motion.div>,
-            document.body
-        )}
         </>
     );
 };

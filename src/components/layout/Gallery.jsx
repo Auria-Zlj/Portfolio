@@ -7,8 +7,8 @@ import Home from '../../pages/Home';
 // import HeroShader from '../canvas/HeroShader';
 import homeHero from '../../assets/images/homehero.JPG';
 
-import preloHero from '../../assets/images/Prelo_hero.png';
-import preloSm from '../../assets/images/prelosm.png';
+import preloHero from '../../assets/images/Prelo_hero.jpg';
+import preloSm from '../../assets/images/prelosm.jpg';
 import xheatHero from '../../assets/images/X-Heal_Hero.png';
 import salmonHero from '../../assets/images/salmon_hero.png';
 import salmonRouting from '../../assets/images/salmon_routing.png';
@@ -17,11 +17,33 @@ import deviceVideo from '../../assets/images/device.mov';
 // import salmonSaysVideo from '../../assets/images/SalmonSays Final Video.mp4';
 const salmonSaysVideo = "https://www.youtube.com/embed/Bk0cCWW6BX4?autoplay=1&loop=1&playlist=Bk0cCWW6BX4&mute=1&controls=0&modestbranding=1";
 import x1 from '../../assets/images/X1.png';
-import x12 from '../../assets/images/X1.2.png';
-import x13 from '../../assets/images/X1.3.png';
-import preloLong from '../../assets/images/p1.png';
+import x12 from '../../assets/images/X1.2.jpg';
+import x13 from '../../assets/images/X1.3.jpg';
+import preloLong from '../../assets/images/p1.jpg';
 
-let hasPreloadedProjectAssets = false;
+// Preload at module level — starts downloading as soon as JS is parsed,
+// well before React mounts. The 4.6s landing animation covers the load time.
+const ALL_PRELOAD_SOURCES = [
+    homeHero, salmonHero, xheatHero, preloHero,
+    salmonPipeline, salmonRouting, x1, x12, x13, preloLong, preloSm,
+];
+
+if (typeof window !== 'undefined') {
+    ALL_PRELOAD_SOURCES.forEach((src) => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        link.fetchPriority = 'high';
+        document.head.appendChild(link);
+    });
+    ALL_PRELOAD_SOURCES.forEach((src) => {
+        const img = new Image();
+        img.fetchPriority = 'high';
+        img.src = src;
+        img.onload = () => { img.decode?.().catch(() => {}); };
+    });
+}
 
 const projects = [
     {
@@ -34,7 +56,7 @@ const projects = [
         eyebrow: '01 / Case Study',
         description: 'Designing a faster salmon origin identification workflow for Washington Department of Fish & Wildlife.',
         tags: ['Decision Architecture', 'Safe Automation'],
-        sponsor: 'deployed at Washington DFW for internal use',
+        sponsor: 'Deployed at Washington DFW for internal use',
         highlights: ['Confidence Triage', 'Expert Guardrails', 'Structured Write-back'],
         thumbnails: [salmonRouting, salmonPipeline],
         thumbnailLabels: ['Origin Routing', 'AI Pipeline'],
@@ -47,7 +69,7 @@ const projects = [
         secondaryImage: '',
         secondaryVideo: deviceVideo,
         eyebrow: '02 / Case Study',
-        description: 'Real-time rehab system that turns physical motion into guided exercise feedback.',
+        description: 'Real-time rehab system that turns physical\nmotion into guided exercise feedback.',
         tags: ['Dual BLE Sensors', 'System Logic'],
         sponsor: 'In collaboration with T-Mobile',
         highlights: ['Motion Guidance', 'Clinician Feedback Loop', 'Connected Rehab Experience'],
@@ -96,8 +118,6 @@ const Gallery = () => {
     const selectedScaleSmooth = useSpring(selectedScale, { stiffness: 230, damping: 26, mass: 0.28 });
     const selectedYSmooth = useSpring(selectedY, { stiffness: 210, damping: 28, mass: 0.26 });
     const activeProject = projects.find((project) => project.id === activeProjectId) || null;
-    const preloadedImageRefs = useRef([]);
-    const preloadLinkRefs = useRef([]);
 
     useEffect(() => {
         const resetHeroShader = () => {
@@ -110,56 +130,6 @@ const Gallery = () => {
         };
     }, []);
 
-    useEffect(() => {
-        if (hasPreloadedProjectAssets || typeof window === 'undefined') return;
-        hasPreloadedProjectAssets = true;
-
-        const preloadSources = [
-            homeHero,
-            salmonHero,
-            xheatHero,
-            preloHero,
-            salmonPipeline,
-            salmonRouting,
-            x1,
-            x12,
-            x13,
-            preloLong,
-        ];
-
-        preloadSources.forEach((src) => {
-            const link = document.createElement('link');
-            link.rel = 'preload';
-            link.as = 'image';
-            link.href = src;
-            link.fetchPriority = 'high';
-            document.head.appendChild(link);
-            preloadLinkRefs.current.push(link);
-        });
-
-        preloadSources.forEach((src) => {
-            const img = new Image();
-            img.loading = 'eager';
-            img.fetchPriority = 'high';
-            img.src = src;
-            const decodeWhenReady = () => {
-                if (typeof img.decode === 'function') {
-                    img.decode().catch(() => {});
-                }
-            };
-            if (img.complete) {
-                decodeWhenReady();
-            } else {
-                img.onload = decodeWhenReady;
-            }
-            preloadedImageRefs.current.push(img);
-        });
-
-        return () => {
-            preloadLinkRefs.current.forEach((link) => link.remove());
-            preloadLinkRefs.current = [];
-        };
-    }, []);
 
     return (
         <section
@@ -203,6 +173,7 @@ const Gallery = () => {
                 right: 0,
                 height: `calc(${viewportHeight} * 7.2)`,
                 zIndex: 5,
+                pointerEvents: 'none',
             }}>
                 {projects.slice(1).map((project, index) => (
                     <div
@@ -213,6 +184,7 @@ const Gallery = () => {
                             height: viewportHeight,
                             overflow: 'hidden',
                             zIndex: index + 1,
+                            pointerEvents: 'auto',
                             marginTop: index === 0
                                 ? `calc(${viewportHeight} * 3.95)`
                                 : index === 1
