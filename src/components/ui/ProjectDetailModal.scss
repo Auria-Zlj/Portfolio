@@ -68,16 +68,6 @@
 .modal-container-wildlife {
   background: #0A3121;
   border: 1px solid rgba(30, 90, 55, 0.35);
-  /* Wider than default modal so case-study imagery scales on large monitors */
-  width: min(97vw, 1920px);
-  max-width: min(97vw, 1920px);
-}
-
-@media (min-width: 2200px) {
-  .modal-container-wildlife {
-    width: min(98vw, 2240px);
-    max-width: min(98vw, 2240px);
-  }
 }
 
 /* Salmon article: fluid rails (replace fixed 1080px / 896px caps) */
@@ -146,6 +136,27 @@
   display: none;
   width: 0;
   height: 0;
+}
+
+/*
+ * X-Heal: default modal size like other case studies. Hero keeps 2rem inset (same as .modal-content padding elsewhere).
+ * Scroll area has no horizontal padding so long screenshots span the full inner width of the modal.
+ */
+.modal-container-xheal .modal-content {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (min-width: 769px) {
+  .modal-container-xheal .modal-card-xheal-image-wrapper {
+    box-sizing: border-box;
+    width: calc(100% - 4rem);
+    max-width: calc(100% - 4rem);
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
 }
 
 .modal-content--locked {
@@ -546,8 +557,9 @@
 .modal-card-xheal-images {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
   width: 100%;
+  min-width: 0;
   margin-left: 0;
   margin-right: 0;
   margin-top: 0.5rem;
@@ -560,6 +572,7 @@
   max-width: 100%;
   height: auto;
   object-fit: contain;
+  object-position: top center;
   border-radius: 24px;
   clip-path: inset(0 round 24px);
   display: block;
@@ -1052,6 +1065,17 @@
 
   .modal-content {
     padding: 1rem;
+  }
+
+  .modal-container-xheal .modal-content {
+    padding: 1rem;
+  }
+
+  .modal-container-xheal .modal-card-xheal-image-wrapper {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .modal-card-xheal-image-wrapper,
