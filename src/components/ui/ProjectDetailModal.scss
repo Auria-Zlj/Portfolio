@@ -68,6 +68,59 @@
 .modal-container-wildlife {
   background: #0A3121;
   border: 1px solid rgba(30, 90, 55, 0.35);
+  /* Wider than default modal so case-study imagery scales on large monitors */
+  width: min(97vw, 1920px);
+  max-width: min(97vw, 1920px);
+}
+
+@media (min-width: 2200px) {
+  .modal-container-wildlife {
+    width: min(98vw, 2240px);
+    max-width: min(98vw, 2240px);
+  }
+}
+
+/* Salmon article: fluid rails (replace fixed 1080px / 896px caps) */
+.wildlife-modal-measure-figures {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 56px;
+}
+
+.wildlife-modal-measure-figures--no-bottom {
+  margin-bottom: 0;
+}
+
+.wildlife-modal-measure-copy {
+  width: 100%;
+  max-width: min(1040px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1440px) {
+  .wildlife-modal-measure-copy {
+    max-width: min(1200px, 100%);
+  }
+}
+
+@media (min-width: 1800px) {
+  .wildlife-modal-measure-copy {
+    max-width: min(1320px, 100%);
+  }
+}
+
+.modal-card-wildlife-hero-image,
+.modal-card-wildlife-fieldwork,
+.modal-card-wildlife-flow,
+.modal-card-wildlife-pipeline {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  display: block;
 }
 
 .modal-container-wildlife .modal-content,
@@ -93,6 +146,98 @@
   display: none;
   width: 0;
   height: 0;
+}
+
+.modal-content--locked {
+  overflow-y: hidden !important;
+  overscroll-behavior: contain;
+}
+
+.modal-loading-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  border-radius: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 2rem 2.25rem;
+  pointer-events: auto;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.modal-loading-veil--xheal {
+  background: rgba(245, 240, 231, 0.82);
+}
+
+.modal-loading-veil--prelo {
+  background: rgba(245, 240, 232, 0.82);
+}
+
+.modal-loading-veil--salmonsays {
+  background: rgba(10, 49, 33, 0.78);
+}
+
+.modal-loading-veil-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.modal-loading-veil-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.modal-loading-veil-bar {
+  height: 13px;
+  border-radius: 8px;
+  max-width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.07) 0%,
+    rgba(0, 0, 0, 0.16) 50%,
+    rgba(0, 0, 0, 0.07) 100%
+  );
+  background-size: 200% 100%;
+  animation: modal-loading-shimmer 1.15s ease-in-out infinite;
+}
+
+.modal-loading-veil--salmonsays .modal-loading-veil-bar {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  background-size: 200% 100%;
+}
+
+.modal-loading-veil-bars .modal-loading-veil-bar:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.modal-loading-veil-bars .modal-loading-veil-bar:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes modal-loading-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
 }
 
 .modal-media {

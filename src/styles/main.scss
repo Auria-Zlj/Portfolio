@@ -25,7 +25,8 @@ body,
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Lenis drives smoothing; native smooth + Lenis fights snap and doubles easing */
+  scroll-behavior: auto;
 }
 
 body {
@@ -195,4 +196,54 @@ canvas {
   100% {
     background-position: -30% 50%;
   }
+}
+
+/* Lazy modal chunk — Suspense fallback (Gallery) */
+@keyframes modal-chunk-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.modal-chunk-fallback-panel {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  width: min(90vw, 480px);
+  height: min(42vh, 280px);
+  border-radius: 24px;
+  background: rgba(245, 243, 239, 0.94);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.modal-chunk-fallback-bar {
+  height: 14px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+  background-size: 200% 100%;
+  animation: modal-chunk-shimmer 1.2s ease-in-out infinite;
+}
+
+.modal-chunk-fallback-panel .modal-chunk-fallback-bar:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.modal-chunk-fallback-panel .modal-chunk-fallback-bar:nth-child(3) {
+  animation-delay: 0.24s;
 }

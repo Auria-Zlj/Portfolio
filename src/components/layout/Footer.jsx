@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import resumePdf from '../../assets/images/UXProductResume.pdf';
+import resumePdf from '../../assets/images/Auria Zhang_Resume_V2.pdf';
 
 // New NavLink component
 const NavLink = ({ href, label, linkStyle, onMouseEnter, onMouseLeave }) => {

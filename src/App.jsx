@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import ClarifierCursor from './components/ui/ClarifierCursor';
 import useInertiaScroll from './hooks/useInertiaScroll';
 import Home from './pages/Home';
 import ProjectDetails from './pages/ProjectDetails';
@@ -32,19 +30,9 @@ function AnimatedRoutes() {
 function App() {
   useInertiaScroll(); // Initialize smooth scroll
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
-      document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   return (
     <Router>
       <GrainOverlay />
-      <ClarifierCursor />
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         {/* Sharper, more technical refraction */}
         <LiquidGlassFilter

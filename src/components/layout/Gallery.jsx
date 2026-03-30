@@ -1,32 +1,66 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
-import ProjectDetailModal from '../ui/ProjectDetailModal';
 import Footer from './Footer';
 import Home from '../../pages/Home';
 // import HeroShader from '../canvas/HeroShader';
 import homeHero from '../../assets/images/homehero.JPG';
 
-import preloHero from '../../assets/images/Prelo_hero.jpg';
+import preloHeroHero from '../../assets/images/preloherohero.png';
 import preloSm from '../../assets/images/prelosm.jpg';
 import xheatHero from '../../assets/images/X-Heal_Hero.png';
 import salmonHero from '../../assets/images/salmon_hero.png';
-import salmonRouting from '../../assets/images/salmon_routing.png';
-import salmonPipeline from '../../assets/images/salmonPipline.png';
 import deviceVideo from '../../assets/images/device.mov';
 // import salmonSaysVideo from '../../assets/images/SalmonSays Final Video.mp4';
 const salmonSaysVideo = "https://www.youtube.com/embed/Bk0cCWW6BX4?autoplay=1&loop=1&playlist=Bk0cCWW6BX4&mute=1&controls=0&modestbranding=1";
-import x1 from '../../assets/images/X1.png';
-import x12 from '../../assets/images/X1.2.jpg';
-import x13 from '../../assets/images/X1.3.jpg';
-import preloLong from '../../assets/images/p1.jpg';
+const ProjectDetailModal = lazy(() => import('../ui/ProjectDetailModal'));
 
-// Preload at module level — starts downloading as soon as JS is parsed,
-// well before React mounts. The 4.6s landing animation covers the load time.
+// Preload at module level — card / hero imagery only. Modal-only assets load on “View project”.
 const ALL_PRELOAD_SOURCES = [
-    homeHero, salmonHero, xheatHero, preloHero,
-    salmonPipeline, salmonRouting, x1, x12, x13, preloLong, preloSm,
+    homeHero, salmonHero, xheatHero, preloHeroHero,
+    preloSm,
 ];
+
+function ModalChunkFallback({ onClose }) {
+    useEffect(() => {
+        const onKey = (e) => {
+            if (e.key === 'Escape') onClose();
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [onClose]);
+
+    if (typeof document === 'undefined') return null;
+    return createPortal(
+        <>
+            <div
+                role="presentation"
+                onClick={onClose}
+                style={{
+                    position: 'fixed',
+                    inset: 0,
+                    zIndex: 1000,
+                    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                }}
+            />
+            <div
+                role="status"
+                aria-live="polite"
+                aria-busy="true"
+                aria-label="Loading project"
+                className="modal-chunk-fallback-panel"
+            >
+                <div className="modal-chunk-fallback-bar" style={{ width: '92%' }} />
+                <div className="modal-chunk-fallback-bar" style={{ width: '72%' }} />
+                <div className="modal-chunk-fallback-bar" style={{ width: '56%' }} />
+            </div>
+        </>,
+        document.body
+    );
+}
 
 if (typeof window !== 'undefined') {
     ALL_PRELOAD_SOURCES.forEach((src) => {
@@ -54,12 +88,13 @@ const projects = [
         secondaryImage: '',
         secondaryVideo: salmonSaysVideo,
         eyebrow: '01 / Case Study',
-        description: 'Designing a faster salmon origin identification workflow for Washington Department of Fish & Wildlife.',
+        description: 'Designing a faster salmon origin identification workflow for Washington Department of Fish &\u00A0Wildlife.',
         tags: ['Decision Architecture', 'Safe Automation'],
         sponsor: 'Deployed at Washington DFW for internal use',
         highlights: ['Confidence Triage', 'Expert Guardrails', 'Structured Write-back'],
-        thumbnails: [salmonRouting, salmonPipeline],
-        thumbnailLabels: ['Origin Routing', 'AI Pipeline'],
+        thumbnails: [],
+        thumbnailLabels: [],
+        thumbnailVideo: salmonSaysVideo,
     },
     {
         id: 1,
@@ -73,22 +108,23 @@ const projects = [
         tags: ['Dual BLE Sensors', 'System Logic'],
         sponsor: 'In collaboration with T-Mobile',
         highlights: ['Motion Guidance', 'Clinician Feedback Loop', 'Connected Rehab Experience'],
-        thumbnails: [x1, x12],
-        thumbnailLabels: ['Device Interface', 'Motion Feedback'],
+        thumbnails: [],
+        thumbnailLabels: [],
+        thumbnailVideo: deviceVideo,
     },
     {
         id: 2,
         title: 'Prelo',
         category: 'Decision UX',
-        image: preloHero,
+        image: preloHeroHero,
         secondaryImage: preloSm,
         eyebrow: '03 / Case Study',
         description: 'Turns unfamiliar menus into confident choices through visual previews and structured dish information.',
         tags: ['Decision UX', 'Information Structuring'],
         sponsor: '',
         highlights: ['Menu Clarity', 'Visual Decision Support', 'Structured Dish Data'],
-        thumbnails: [preloSm, preloLong],
-        thumbnailLabels: ['Mobile App', 'Full Flow'],
+        thumbnails: [preloSm],
+        thumbnailLabels: [],
     },
 ];
 
@@ -111,13 +147,26 @@ const Gallery = () => {
         offset: ['start end', 'end start']
     });
     // Symmetric zoom: coming from top or bottom both have the same reveal.
-    const selectedOpacity = useTransform(selectedProgress, [0, 0.10, 0.5, 0.96, 1], [0, 1, 1, 1, 0]);
     const selectedScale = useTransform(selectedProgress, [0, 0.5, 1], [0.92, 1, 0.92]);
     const selectedY = useTransform(selectedProgress, [0, 0.5, 1], [30, 0, -30]);
-    const selectedOpacitySmooth = useSpring(selectedOpacity, { stiffness: 210, damping: 28, mass: 0.26 });
     const selectedScaleSmooth = useSpring(selectedScale, { stiffness: 230, damping: 26, mass: 0.28 });
     const selectedYSmooth = useSpring(selectedY, { stiffness: 210, damping: 28, mass: 0.26 });
     const activeProject = projects.find((project) => project.id === activeProjectId) || null;
+
+    useEffect(() => {
+        if (activeProjectId == null) return undefined;
+        const previousBodyOverflow = document.body.style.overflow;
+        const previousHtmlOverflow = document.documentElement.style.overflow;
+        const lenis = window.__portfolioLenis;
+        lenis?.stop?.();
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.documentElement.style.overflow = previousHtmlOverflow;
+            document.body.style.overflow = previousBodyOverflow;
+            lenis?.start?.();
+        };
+    }, [activeProjectId]);
 
     useEffect(() => {
         const resetHeroShader = () => {
@@ -127,6 +176,36 @@ const Gallery = () => {
         window.addEventListener('portfolio:reset-hero-shader', resetHeroShader);
         return () => {
             window.removeEventListener('portfolio:reset-hero-shader', resetHeroShader);
+        };
+    }, []);
+
+    /** Past Selected Works → project / footer are dark; nav switches to light text via event */
+    useEffect(() => {
+        const NAV_THRESHOLD = 72;
+        let ticking = false;
+        const update = () => {
+            ticking = false;
+            const el = selectedWorksRef.current;
+            if (!el) return;
+            const bottom = el.getBoundingClientRect().bottom;
+            const surface = bottom < NAV_THRESHOLD ? 'dark' : 'light';
+            window.dispatchEvent(new CustomEvent('portfolio:nav-surface', { detail: { surface } }));
+        };
+        const onScroll = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(update);
+            }
+        };
+        update();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', update);
+        const lenis = window.__portfolioLenis;
+        lenis?.on?.('scroll', update);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', update);
+            lenis?.off?.('scroll', update);
         };
     }, []);
 
@@ -146,7 +225,7 @@ const Gallery = () => {
                 scrollPadding: 0,
             }}
         >
-            {/* Salmon Says — fixed in viewport, revealed when Home+SW scroll away */}
+            {/* Salmon fixed (z3) + X-Heal/Prelo sticky (z5). Fixed + backdrop-filter is what causes the glass seam vs sticky cards. */}
             <div style={{
                 position: 'fixed',
                 top: 0,
@@ -154,7 +233,8 @@ const Gallery = () => {
                 width: '100vw',
                 height: '100vh',
                 zIndex: 3,
-                willChange: 'transform',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
             }}>
                 <ProjectCard
                     {...projects[0]}
@@ -165,7 +245,6 @@ const Gallery = () => {
                 />
             </div>
 
-            {/* X-Heal & Prelo — absolute wrapper with sticky stacking, above Salmon Says */}
             <div style={{
                 position: 'absolute',
                 top: 0,
@@ -174,6 +253,8 @@ const Gallery = () => {
                 height: `calc(${viewportHeight} * 7.2)`,
                 zIndex: 5,
                 pointerEvents: 'none',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
             }}>
                 {projects.slice(1).map((project, index) => (
                     <div
@@ -185,6 +266,8 @@ const Gallery = () => {
                             overflow: 'hidden',
                             zIndex: index + 1,
                             pointerEvents: 'auto',
+                            transform: 'translateZ(0)',
+                            backfaceVisibility: 'hidden',
                             marginTop: index === 0
                                 ? `calc(${viewportHeight} * 3.95)`
                                 : index === 1
@@ -211,7 +294,7 @@ const Gallery = () => {
                 scrollSnapAlign: 'start',
                 scrollSnapStop: 'always',
                 position: 'relative',
-                zIndex: 20,
+                zIndex: 24,
                 backgroundImage: `url(${homeHero})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
@@ -239,16 +322,18 @@ const Gallery = () => {
                     backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
                     position: 'relative',
-                    zIndex: 18,
+                    /* Above sticky project layer (5) so title/section are never painted under case cards */
+                    zIndex: 22,
+                    isolation: 'isolate',
                 }}
                 data-snap-point="true">
                 <motion.div
                     style={{
-                        opacity: selectedOpacitySmooth,
+                        opacity: 1,
                         scale: selectedScaleSmooth,
                         y: selectedYSmooth,
                         transformOrigin: 'center center',
-                        willChange: 'transform, opacity'
+                        willChange: 'transform',
                     }}
                 >
                     <h2 style={{
@@ -264,9 +349,8 @@ const Gallery = () => {
                 </motion.div>
             </div>
 
-            {/* Project snap spacers — transparent divs that provide scroll height + snap points.
-                The actual visible cards live in the absolute layer above. */}
-            {projects.map((project, index) => (
+            {/* Project snap spacers — scroll height + snap; Salmon fixed, X-Heal/Prelo sticky. */}
+            {projects.map((project) => (
                 <div
                     key={`spacer-${project.id}`}
                     data-snap-point="true"
@@ -274,9 +358,11 @@ const Gallery = () => {
                         width: '100vw',
                         height: `calc(${viewportHeight} * 1.6)`,
                         scrollSnapAlign: 'start',
-                        scrollSnapStop: 'always',
+                        scrollSnapStop: 'normal',
                         flexShrink: 0,
                         pointerEvents: 'none',
+                        contentVisibility: 'auto',
+                        containIntrinsicSize: `100vw calc(${viewportHeight} * 1.6)`,
                     }}
                 />
             ))}
@@ -296,10 +382,18 @@ const Gallery = () => {
                 <Footer />
             </div>
 
-            <ProjectDetailModal
-                project={activeProject}
-                onClose={() => setActiveProjectId(null)}
-            />
+            {activeProjectId != null && (
+                <Suspense
+                    fallback={
+                        <ModalChunkFallback onClose={() => setActiveProjectId(null)} />
+                    }
+                >
+                    <ProjectDetailModal
+                        project={activeProject}
+                        onClose={() => setActiveProjectId(null)}
+                    />
+                </Suspense>
+            )}
         </section>
     );
 };

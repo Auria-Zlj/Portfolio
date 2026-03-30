@@ -7,6 +7,8 @@ import x13 from '../../assets/images/X1.3.jpg';
 import preloPreview from '../../assets/images/p1.jpg';
 import integrationFlowImage from '../../assets/images/integrationFlow.png';
 import fish1Image from '../../assets/images/fish1.png';
+import salmonHero from '../../assets/images/salmon_hero.png';
+import salmonPipeline from '../../assets/images/salmonPipline.png';
 import './ProjectDetailModal.scss';
 
 const getProjectKey = (project) => {
@@ -21,6 +23,28 @@ const getToneClass = (projectKey) => {
     if (projectKey === 'x-heal') return 'xheal';
     if (projectKey === 'salmonsays') return 'salmonsays';
     return 'prelo';
+};
+
+const preloadImageUrl = (src) =>
+    new Promise((resolve) => {
+        const img = new Image();
+        const done = () => resolve();
+        img.onload = () => {
+            if (typeof img.decode === 'function') {
+                img.decode().then(done).catch(done);
+            } else {
+                done();
+            }
+        };
+        img.onerror = done;
+        img.src = src;
+    });
+
+/** URLs for this modal only — fetched after “View project”, before content mounts (uses HTTP cache when imgs appear). */
+const MODAL_ASSET_URLS = {
+    'x-heal': [x1, x12, x13],
+    prelo: [preloPreview],
+    salmonsays: [salmonHero, fish1Image, integrationFlowImage, salmonPipeline],
 };
 
 const TONE_STYLES = {
@@ -124,37 +148,40 @@ const ProjectDetailModal = ({ project, onClose }) => {
     const [scrollProgress, setScrollProgress] = useState(0);
     const [progressBarStyle, setProgressBarStyle] = useState(null);
     const [closeButtonStyle, setCloseButtonStyle] = useState(null);
+    const [assetsReady, setAssetsReady] = useState(false);
     const projectKey = useMemo(() => getProjectKey(project), [project]);
     const toneClass = useMemo(() => getToneClass(projectKey), [projectKey]);
     const toneStyle = TONE_STYLES[toneClass];
 
     useEffect(() => {
-        if (!project) return undefined;
-        const previousBodyOverflow = document.body.style.overflow;
-        const previousHtmlOverflow = document.documentElement.style.overflow;
-        const lenis = window.__portfolioLenis;
-
-        if (lenis && typeof lenis.stop === 'function') {
-            lenis.stop();
+        if (!projectKey) {
+            setAssetsReady(false);
+            return undefined;
         }
+        setAssetsReady(false);
+        let cancelled = false;
+        const urls = MODAL_ASSET_URLS[projectKey] || [];
+        Promise.all(urls.map(preloadImageUrl)).then(() => {
+            if (!cancelled) setAssetsReady(true);
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [projectKey]);
 
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.overflow = 'hidden';
-
+    useEffect(() => {
+        if (!project) return undefined;
         const onKeyDown = (event) => {
             if (event.key === 'Escape') onClose();
         };
         window.addEventListener('keydown', onKeyDown);
-
-        return () => {
-            document.documentElement.style.overflow = previousHtmlOverflow;
-            document.body.style.overflow = previousBodyOverflow;
-            if (lenis && typeof lenis.start === 'function') {
-                lenis.start();
-            }
-            window.removeEventListener('keydown', onKeyDown);
-        };
+        return () => window.removeEventListener('keydown', onKeyDown);
     }, [project, onClose]);
+
+    useEffect(() => {
+        if (!assetsReady || !modalContentRef.current) return;
+        modalContentRef.current.scrollTop = 0;
+    }, [assetsReady, projectKey]);
 
     useEffect(() => {
         if (!projectKey) {
@@ -166,10 +193,21 @@ const ProjectDetailModal = ({ project, onClose }) => {
         const updateFloatingControls = () => {
             if (!modalRef.current) return;
             const rect = modalRef.current.getBoundingClientRect();
+            const barW = 3;
+            const gap = 6;
+            const viewportInset = 8;
+            const maxLeft = window.innerWidth - viewportInset - barW;
+            /* Always anchor to modal’s right edge — old `right: max(8, G-8)` pinned the bar to the
+             * viewport when gutter < ~16px, which pulled the track *into* the modal. */
+            let barLeft = rect.right + gap;
+            barLeft = Math.min(barLeft, maxLeft);
+            barLeft = Math.max(barLeft, rect.right);
             setProgressBarStyle({
                 top: `${rect.top}px`,
                 height: `${rect.height}px`,
-                right: `${Math.max(8, window.innerWidth - rect.right - 8)}px`,
+                left: `${barLeft}px`,
+                width: `${barW}px`,
+                right: 'auto',
             });
             setCloseButtonStyle({
                 top: `${rect.top + 20}px`,
@@ -203,7 +241,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
             window.removeEventListener('scroll', onScroll);
             if (resizeObserver) resizeObserver.disconnect();
         };
-    }, [projectKey]);
+    }, [projectKey, assetsReady]);
 
     useEffect(() => {
         if (!projectKey || !modalContentRef.current) return undefined;
@@ -263,17 +301,18 @@ const ProjectDetailModal = ({ project, onClose }) => {
                         </svg>
                     </motion.button>
 
-                    {progressBarStyle && (
+                    {progressBarStyle && assetsReady && (
                         <motion.div
                             className={`modal-scroll-progress modal-scroll-progress-${toneClass}`}
                             style={{
                                 ...(progressBarStyle || {}),
                                 backgroundColor: toneStyle.progressTrack,
                             }}
-                            initial={{ scaleY: 0, opacity: 0 }}
-                            animate={{ scaleY: 1, opacity: 1 }}
-                            exit={{ scaleY: 0, opacity: 0 }}
-                            transition={{ type: 'spring', bounce: 0.25, duration: 0.45 }}
+                            /* Avoid transform on the same node as position:fixed — can desync layout vs getBoundingClientRect in WebKit. */
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
                         >
                             <motion.div
                                 className={`modal-scroll-progress-bar modal-scroll-progress-bar-${toneClass}`}
@@ -305,18 +344,32 @@ const ProjectDetailModal = ({ project, onClose }) => {
                         role="dialog"
                         aria-modal="true"
                         aria-label={`${project.title} detail modal`}
+                        aria-busy={!assetsReady}
                         data-lenis-prevent
                         data-lenis-prevent-wheel
                         data-lenis-prevent-touch
                     >
                         <div
-                            className="modal-content"
+                            className={`modal-content ${!assetsReady ? 'modal-content--locked' : ''}`}
                             ref={modalContentRef}
                             data-lenis-prevent
                             data-lenis-prevent-wheel
                             data-lenis-prevent-touch
+                            onWheel={(e) => {
+                                if (!assetsReady) e.preventDefault();
+                            }}
+                            style={
+                                !assetsReady
+                                    ? {
+                                          overflowY: 'hidden',
+                                          minHeight: 'min(70vh, 640px)',
+                                          touchAction: 'none',
+                                      }
+                                    : undefined
+                            }
                         >
-                            {projectKey === 'x-heal' ? (
+                            {assetsReady ? (
+                            projectKey === 'x-heal' ? (
                                 <div className="modal-card modal-card-xheal">
                                     <div className="modal-card-xheal-image-wrapper">
                                         <ProgressiveImage src={x1} alt="X-Heal" className="modal-card-xheal-image" />
@@ -365,7 +418,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                     }}
                                 >
                                     <article style={{ width: '100%', padding: '2.5rem 4rem 3rem' }}>
-                                        <div style={{ maxWidth: '1080px', margin: '0 auto 56px auto' }}>
+                                        <div className="wildlife-modal-measure-figures">
                                             <div
                                                 style={{
                                                     overflow: 'hidden',
@@ -376,7 +429,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                     minHeight: '200px'
                                                 }}
                                             >
-                                                <ProgressiveImage src="/image/salmon_hero.png" alt="Context and Workflow" className="modal-card-wildlife-hero-image" loading="eager" fetchPriority="high" />
+                                                <ProgressiveImage src={salmonHero} alt="Context and Workflow" className="modal-card-wildlife-hero-image" loading="eager" fetchPriority="high" />
                                             </div>
                                         </div>
 
@@ -439,7 +492,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         </div>
 
                                         <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '1080px', margin: '0 auto 56px auto' }}>
+                                            <div className="wildlife-modal-measure-figures">
                                                 <div
                                                     style={{
                                                         overflow: 'hidden',
@@ -453,7 +506,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                     <ProgressiveImage src={integrationFlowImage} alt="End-to-End Architecture" className="modal-card-wildlife-flow" loading="eager" fetchPriority="high" />
                                                 </div>
                                             </div>
-                                            <div style={{ maxWidth: '896px', margin: '0 auto' }}>
+                                            <div className="wildlife-modal-measure-copy">
                                                 <h3 style={{ margin: '0 0 32px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     System Overview — End-to-End Architecture
                                                 </h3>
@@ -478,7 +531,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         </section>
 
                                         <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '896px', margin: '0 auto' }}>
+                                            <div className="wildlife-modal-measure-copy">
                                                 <h3 style={{ margin: '0 0 40px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Decision Architecture — Confidence as Workflow Logic
                                                 </h3>
@@ -508,7 +561,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         </section>
 
                                         <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '1080px', margin: '0 auto 56px auto' }}>
+                                            <div className="wildlife-modal-measure-figures">
                                                 <div
                                                     style={{
                                                         overflow: 'hidden',
@@ -519,10 +572,10 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                         minHeight: '200px'
                                                     }}
                                                 >
-                                                    <ProgressiveImage src="/image/salmonPipline.png" alt="Production Pipeline Integration" className="modal-card-wildlife-pipeline" loading="eager" fetchPriority="high" />
+                                                    <ProgressiveImage src={salmonPipeline} alt="Production Pipeline Integration" className="modal-card-wildlife-pipeline" loading="eager" fetchPriority="high" />
                                                 </div>
                                             </div>
-                                            <div style={{ maxWidth: '896px', margin: '0 auto' }}>
+                                            <div className="wildlife-modal-measure-copy">
                                                 <h3 style={{ margin: '0 0 32px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Integration Reality — Production Pipeline
                                                 </h3>
@@ -541,7 +594,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         </section>
 
                                         <section style={{ marginBottom: '120px' }}>
-                                            <div style={{ maxWidth: '896px', margin: '0 auto' }}>
+                                            <div className="wildlife-modal-measure-copy">
                                                 <h3 style={{ margin: '0 0 48px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Impact &amp; What It Demonstrates
                                                 </h3>
@@ -573,7 +626,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                             </div>
                                         </section>
 
-                                        <div style={{ maxWidth: '1080px', margin: '0 auto' }}>
+                                        <div className="wildlife-modal-measure-figures wildlife-modal-measure-figures--no-bottom">
                                             <blockquote
                                                 style={{
                                                     margin: 0,
@@ -601,8 +654,27 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         fetchPriority="high"
                                     />
                                 </div>
-                            )}
+                            )
+                            ) : null}
                         </div>
+                        <AnimatePresence>
+                            {!assetsReady && (
+                                <motion.div
+                                    key="modal-asset-veil"
+                                    className={`modal-loading-veil modal-loading-veil--${toneClass}`}
+                                    initial={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                                >
+                                    <span className="modal-loading-veil-sr">Loading case study…</span>
+                                    <div className="modal-loading-veil-bars" aria-hidden>
+                                        <div className="modal-loading-veil-bar" style={{ width: '88%' }} />
+                                        <div className="modal-loading-veil-bar" style={{ width: '72%' }} />
+                                        <div className="modal-loading-veil-bar" style={{ width: '58%' }} />
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </motion.div>
                 </>
             )}

@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import LiquidGlassFilter from '../effects/LiquidGlassFilter';
 import { motion } from 'framer-motion';
-import resumePdf from '../../assets/images/UXProductResume.pdf';
+import resumePdf from '../../assets/images/Auria Zhang_Resume_V2.pdf';
 
 const GlassNavBar = () => {
+    const [surface, setSurface] = useState('light');
+
+    useLayoutEffect(() => {
+        const el = document.getElementById('selected-works');
+        if (!el) return;
+        const bottom = el.getBoundingClientRect().bottom;
+        setSurface(bottom < 72 ? 'dark' : 'light');
+    }, []);
+
+    useEffect(() => {
+        const onSurface = (e) => {
+            setSurface(e.detail?.surface ?? 'light');
+        };
+        window.addEventListener('portfolio:nav-surface', onSurface);
+        return () => window.removeEventListener('portfolio:nav-surface', onSurface);
+    }, []);
+
+    const onDark = surface === 'dark';
+    const nameColor = onDark ? '#F5F5F5' : '#2A2A2A';
+    const linkColor = onDark ? 'rgba(255,255,255,0.88)' : 'rgba(0, 0, 0, 0.6)';
+    const linkLineColor = onDark ? 'rgba(255,255,255,0.85)' : 'rgba(0, 0, 0, 0.6)';
+    const navBg = onDark ? 'rgba(0,0,0,0.08)' : 'rgba(255, 255, 255, 0.015)';
+    const navBorder = onDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(255, 255, 255, 0.04)';
+
     // New Link Structure
     const links = [
         { label: 'WORK', href: '#selected-works' },
@@ -33,11 +56,12 @@ const GlassNavBar = () => {
                 zIndex: 950,
                 padding: '1.5rem 4rem', // Spacious padding
 
-                // Heavy Blur / Clear Glass Effect
-                background: 'rgba(255, 255, 255, 0.02)', // Very clear
-                backdropFilter: 'blur(20px)', // Heavy blur
+                // Heavy Blur — bg/border follow scroll (light vs dark sections)
+                background: navBg,
+                backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.05)', // Subtle edge
+                borderBottom: navBorder,
+                transition: 'background 0.28s ease, border-color 0.28s ease',
 
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -56,10 +80,11 @@ const GlassNavBar = () => {
                     fontSize: '1.2rem',
                     fontWeight: 300,
                     letterSpacing: '0.2em',
-                    color: '#2A2A2A',
+                    color: nameColor,
                     textDecoration: 'none',
                     cursor: 'pointer',
-                    textTransform: 'uppercase'
+                    textTransform: 'uppercase',
+                    transition: 'color 0.28s ease',
                 }}
             >
                 AURIA ZHANG
@@ -68,7 +93,14 @@ const GlassNavBar = () => {
             {/* Right - Links with Hover Line */}
             <div style={{ display: 'flex', gap: '3rem' }}>
                 {links.map((link) => (
-                    <NavLink key={link.label} href={link.href} label={link.label} newTab={link.newTab} />
+                    <NavLink
+                        key={link.label}
+                        href={link.href}
+                        label={link.label}
+                        newTab={link.newTab}
+                        linkColor={linkColor}
+                        linkLineColor={linkLineColor}
+                    />
                 ))}
             </div>
         </motion.nav>
@@ -82,7 +114,7 @@ const GlassNavBar = () => {
 };
 
 // Sub-component for Link with Hover Line
-const NavLink = ({ href, label, newTab = false }) => {
+const NavLink = ({ href, label, newTab = false, linkColor, linkLineColor }) => {
     const [isHovered, setIsHovered] = React.useState(false);
 
     const handleClick = (e) => {
@@ -111,10 +143,11 @@ const NavLink = ({ href, label, newTab = false }) => {
                 fontFamily: '"Inter", sans-serif',
                 fontSize: '13px',
                 fontWeight: 400,
-                color: 'rgba(0, 0, 0, 0.6)',
+                color: linkColor,
                 textDecoration: 'none',
                 cursor: 'pointer',
                 letterSpacing: '0.08em',
+                transition: 'color 0.28s ease',
             }}
         >
             {label}
@@ -133,8 +166,9 @@ const NavLink = ({ href, label, newTab = false }) => {
                     left: 0,
                     right: 0,
                     height: '1px',
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    originX: 0
+                    background: linkLineColor,
+                    originX: 0,
+                    transition: 'background 0.28s ease',
                 }}
             />
         </motion.a>
