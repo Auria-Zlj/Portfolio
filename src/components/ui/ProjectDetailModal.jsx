@@ -372,7 +372,12 @@ const ProjectDetailModal = ({ project, onClose }) => {
                             projectKey === 'x-heal' ? (
                                 <div className="modal-card modal-card-xheal">
                                     <div className="modal-card-xheal-image-wrapper">
-                                        <ProgressiveImage src={x1} alt="X-Heal" className="modal-card-xheal-image" />
+                                        <ProgressiveImage
+                                            src={x1}
+                                            alt="X-Heal"
+                                            className="modal-card-xheal-image"
+                                            style={{ height: '100%' }}
+                                        />
                                     </div>
                                     <div className="modal-card-xheal-text">
                                         <div className="modal-card-xheal-header">
