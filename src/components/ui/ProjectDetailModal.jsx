@@ -409,8 +409,12 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                         </div>
                                     </div>
                                     <div className="modal-card-xheal-images">
-                                        <ProgressiveImage src={x12} alt="X-Heal detail 1" className="modal-card-xheal-additional-image" />
-                                        <ProgressiveImage src={x13} alt="X-Heal detail 2" className="modal-card-xheal-additional-image" />
+                                        <div className="modal-card-xheal-additional-image-frame">
+                                            <ProgressiveImage src={x12} alt="X-Heal detail 1" className="modal-card-xheal-additional-image" />
+                                        </div>
+                                        <div className="modal-card-xheal-additional-image-frame">
+                                            <ProgressiveImage src={x13} alt="X-Heal detail 2" className="modal-card-xheal-additional-image" />
+                                        </div>
                                     </div>
                                 </div>
                             ) : projectKey === 'salmonsays' ? (
