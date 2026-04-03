@@ -250,7 +250,7 @@ const Gallery = () => {
                 top: 0,
                 left: 0,
                 right: 0,
-                height: `calc(${viewportHeight} * 7.2)`,
+                height: `calc(${viewportHeight} * 7.85)`,
                 zIndex: 5,
                 pointerEvents: 'none',
                 transform: 'translateZ(0)',
@@ -269,7 +269,7 @@ const Gallery = () => {
                             transform: 'translateZ(0)',
                             backfaceVisibility: 'hidden',
                             marginTop: index === 0
-                                ? `calc(${viewportHeight} * 3.95)`
+                                ? `calc(${viewportHeight} * 4.6)`
                                 : index === 1
                                 ? `calc(${viewportHeight} * 0.6)`
                                 : 0,
@@ -303,30 +303,28 @@ const Gallery = () => {
                 <Home />
             </div>
 
-            {/* Selected Works - Second snap point — above project cards */}
+            {/* Selected Works - Second snap point */}
             <div
-                id="selected-works"
-                ref={selectedWorksRef}
                 style={{
                     width: '100vw',
-                    minHeight: `calc(${viewportHeight} * 1.35)`,
-                    height: `calc(${viewportHeight} * 1.35)`,
+                    minHeight: viewportHeight,
+                    height: viewportHeight,
                     scrollSnapAlign: 'start',
                     scrollSnapStop: 'always',
+                    flexShrink: 0,
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    position: 'relative',
+                    zIndex: 22,
                     backgroundImage: `url(${homeHero})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundAttachment: 'fixed',
-                    position: 'relative',
-                    /* Above sticky project layer (5) so title/section are never painted under case cards */
-                    zIndex: 22,
-                    isolation: 'isolate',
                 }}
-                data-snap-point="true">
+                data-snap-point="true"
+            >
                 <motion.div
                     style={{
                         opacity: 1,
@@ -342,11 +340,96 @@ const Gallery = () => {
                         fontWeight: 700,
                         color: 'var(--color-text)',
                         letterSpacing: '-0.03em',
-                        marginBottom: '1rem'
                     }}>
                         Selected Works <span style={{ color: 'var(--color-accent)', fontSize: '1rem', verticalAlign: 'middle' }}>●</span>
                     </h2>
                 </motion.div>
+            </div>
+
+            {/* Client & Collaboration Wall - Third snap point */}
+            <div
+                id="selected-works"
+                ref={selectedWorksRef}
+                style={{
+                    width: '100vw',
+                    minHeight: viewportHeight,
+                    height: viewportHeight,
+                    scrollSnapAlign: 'start',
+                    scrollSnapStop: 'normal',
+                    flexShrink: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    position: 'relative',
+                    zIndex: 22,
+                    backgroundImage: `url(${homeHero})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundAttachment: 'fixed',
+                }}
+                data-snap-point="true"
+            >
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    width: '100%',
+                    padding: '0 2vw',
+                }}>
+                    <h3 style={{
+                        fontFamily: '"Inter", "Helvetica Neue", system-ui, sans-serif',
+                        fontSize: '18px',
+                        fontWeight: 700,
+                        letterSpacing: '0.2em',
+                        textTransform: 'uppercase',
+                        color: '#FFFFFF',
+                        marginBottom: '4rem',
+                        textAlign: 'center'
+                    }}>
+                        SELECTED COLLABORATIONS & TRUSTED BY:
+                    </h3>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        columnGap: '6rem',
+                        rowGap: '3rem',
+                        flexWrap: 'wrap',
+                    }}>
+                        <img 
+                            src="/image/Amazon_Web_Services_Logo.svg.png" 
+                            alt="AWS" 
+                            style={{ height: '56px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
+                        />
+                        <img 
+                            src="/image/Washington_State_Department_of_Fish_and_Wildlife_(logo).svg" 
+                            alt="Washington Department of Fish & Wildlife" 
+                            style={{ height: '145px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.9)' }} 
+                        />
+                        <img 
+                            src="/image/Bosch-logo.svg.png" 
+                            alt="Bosch" 
+                            style={{ height: '44px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
+                        />
+                        <img 
+                            src="/image/T-Mobile-Logo.png" 
+                            alt="T-Mobile" 
+                            style={{ height: '80px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
+                        />
+                        <img 
+                            src="/image/Sheridan_College_Logo.png" 
+                            alt="Sheridan College" 
+                            style={{ height: '85px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
+                        />
+                        <img 
+                            src="/image/Skill-Squirrel-LOGO-vert-PURPLE.png" 
+                            alt="Skill Squirrel" 
+                            style={{ height: '105px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
+                        />
+                    </div>
+                </div>
             </div>
 
             {/* Project snap spacers — scroll height + snap; Salmon fixed, X-Heal/Prelo sticky. */}

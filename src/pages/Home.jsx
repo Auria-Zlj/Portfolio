@@ -32,7 +32,7 @@ const Home = () => {
     useEffect(() => {
         let alive = true;
         const run = async () => {
-            await new Promise(r => setTimeout(r, 6500)); // wait for intro to finish (~4600ms) + buffer
+            await new Promise(r => setTimeout(r, 4900)); // wait for intro to finish (~4600ms) + small buffer
             while (alive) {
                 if (alive) { setEggKey(k => k + 1); setEggShowing(true); }
                 await new Promise(r => setTimeout(r, 4000)); // visible: draw + linger
