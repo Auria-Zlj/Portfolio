@@ -516,11 +516,11 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                 </div>
                                             </div>
                                             <div className="wildlife-modal-measure-copy">
-                                                <h3 style={{ margin: '0 0 32px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
+                                                <h3 style={{ margin: '0 0 32px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     System Overview — End-to-End Architecture
                                                 </h3>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                                                    <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
+                                                    <p style={{ margin: 0, fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
                                                         The system is structured into three integrated layers that coordinate field-to-lab workflows:
                                                     </p>
                                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -530,8 +530,8 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                             { title: 'ML & Data Layer', desc: 'ML inference running on EC2. S3 stores images/overlays while DynamoDB handles predictions, confidence scores, and metadata.' }
                                                         ].map((item, index) => (
                                                             <div key={index} style={{ paddingLeft: '20px', borderLeft: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                                                                <h4 style={{ margin: '0 0 8px', fontFamily: '"Unbounded", sans-serif', fontSize: '1rem', color: '#ffffff' }}>{item.title}</h4>
-                                                                <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>{item.desc}</p>
+                                                                <h4 style={{ margin: '0 0 8px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1rem', color: '#ffffff' }}>{item.title}</h4>
+                                                                <p style={{ margin: 0, fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>{item.desc}</p>
                                                             </div>
                                                         ))}
                                                     </div>
@@ -541,7 +541,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
 
                                         <section style={{ marginBottom: '120px' }}>
                                             <div className="wildlife-modal-measure-copy">
-                                                <h3 style={{ margin: '0 0 40px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
+                                                <h3 style={{ margin: '0 0 40px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Decision Architecture — Confidence as Workflow Logic
                                                 </h3>
                                                 <div style={{
@@ -556,11 +556,11 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                         { step: '04', title: 'Continuous Training', desc: 'All overrides are written back into a structured dataset used for future model retraining cycles.' }
                                                     ].map((item, index) => (
                                                         <div key={index} style={{ borderLeft: '2px solid rgba(34, 197, 94, 0.5)', paddingLeft: '24px' }}>
-                                                            <div style={{ fontFamily: '"Unbounded", sans-serif', fontSize: '0.875rem', color: 'rgba(34, 197, 94, 0.8)', marginBottom: '8px', fontWeight: 600 }}>{item.step}</div>
-                                                            <h4 style={{ margin: '0 0 12px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff' }}>
+                                                            <div style={{ fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '0.875rem', color: 'rgba(34, 197, 94, 0.8)', marginBottom: '8px', fontWeight: 600 }}>{item.step}</div>
+                                                            <h4 style={{ margin: '0 0 12px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff' }}>
                                                                 {item.title}
                                                             </h4>
-                                                            <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#9ca3af' }}>
+                                                            <p style={{ margin: 0, fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#9ca3af' }}>
                                                                 {item.desc}
                                                             </p>
                                                         </div>
@@ -585,17 +585,17 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                 </div>
                                             </div>
                                             <div className="wildlife-modal-measure-copy">
-                                                <h3 style={{ margin: '0 0 32px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
+                                                <h3 style={{ margin: '0 0 32px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Integration Reality — Production Pipeline
                                                 </h3>
-                                                <p style={{ marginBottom: '32px', fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
+                                                <p style={{ marginBottom: '32px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
                                                     This system is not a concept; it is fully deployed within internal government workflows, supporting batch uploads and role-based review visibility.
                                                 </p>
                                                 <div style={{ background: 'rgba(255, 255, 255, 0.05)', borderRadius: '12px', padding: '32px', borderLeft: '4px solid #4f8710' }}>
-                                                    <strong style={{ display: 'block', marginBottom: '12px', fontFamily: '"Unbounded", sans-serif', fontSize: '1rem', color: '#ffffff' }}>
+                                                    <strong style={{ display: 'block', marginBottom: '12px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1rem', color: '#ffffff' }}>
                                                         System Capabilities
                                                     </strong>
-                                                    <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
+                                                    <p style={{ margin: 0, fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.125rem', lineHeight: 1.625, color: '#d1d5db' }}>
                                                         Supports batch uploads, persistent run history, role-based review visibility, structured override logging, and stable reload behavior across the pipeline.
                                                     </p>
                                                 </div>
@@ -604,7 +604,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
 
                                         <section style={{ marginBottom: '120px' }}>
                                             <div className="wildlife-modal-measure-copy">
-                                                <h3 style={{ margin: '0 0 48px', fontFamily: '"Unbounded", sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
+                                                <h3 style={{ margin: '0 0 48px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.75rem', fontWeight: 620, color: '#ffffff' }}>
                                                     Impact &amp; What It Demonstrates
                                                 </h3>
                                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
@@ -614,10 +614,10 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                         { val: '100%', label: 'Physical to Digital Transition' }
                                                     ].map((metric, i) => (
                                                         <div key={i}>
-                                                            <div style={{ fontFamily: '"Unbounded", sans-serif', fontSize: '3.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
+                                                            <div style={{ fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '3.5rem', fontWeight: 800, color: '#ffffff', marginBottom: '8px' }}>
                                                                 {metric.val}
                                                             </div>
-                                                            <div style={{ fontFamily: '"Unbounded", sans-serif', fontSize: '0.75rem', color: '#9ca3af', textTransform: 'uppercase', tracking: '0.1em', lineHeight: 1.4 }}>
+                                                            <div style={{ fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '0.75rem', color: '#9ca3af', textTransform: 'uppercase', tracking: '0.1em', lineHeight: 1.4 }}>
                                                                 {metric.label}
                                                             </div>
                                                         </div>
@@ -625,10 +625,10 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                 </div>
 
                                                 <div style={{ background: 'rgba(0, 0, 0, 0.25)', borderRadius: '16px', padding: '40px', marginTop: '64px', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                                                    <h4 style={{ margin: '0 0 20px', fontFamily: '"Unbounded", sans-serif', fontSize: '1rem', color: '#ffffff', textTransform: 'uppercase', tracking: '0.05em' }}>
+                                                    <h4 style={{ margin: '0 0 20px', fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1rem', color: '#ffffff', textTransform: 'uppercase', tracking: '0.05em' }}>
                                                         Core Competencies Demonstrated
                                                     </h4>
-                                                    <p style={{ margin: 0, fontFamily: '"Cabin", sans-serif', fontSize: '1.125rem', lineHeight: 1.7, color: '#d1d5db' }}>
+                                                    <p style={{ margin: 0, fontFamily: '"Outfit", system-ui, sans-serif', fontSize: '1.125rem', lineHeight: 1.7, color: '#d1d5db' }}>
                                                         ML product design under severe data constraints, operationalizing model confidence into workflow control logic, full-stack deployment coordination, and building a continuous learning loop from day one.
                                                     </p>
                                                 </div>
@@ -641,7 +641,7 @@ const ProjectDetailModal = ({ project, onClose }) => {
                                                     margin: 0,
                                                     paddingLeft: '1rem',
                                                     borderLeft: '4px solid #A7F3D0',
-                                                    fontFamily: '"Cabin", sans-serif',
+                                                    fontFamily: '"Outfit", system-ui, sans-serif',
                                                     fontSize: '1rem',
                                                     fontStyle: 'italic',
                                                     lineHeight: 1.8,

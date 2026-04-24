@@ -297,7 +297,7 @@ const ProjectCard = ({
 
                     {/* Eyebrow */}
                     <motion.span {...fadeUp(0)} style={{
-                        fontFamily: '"Inter", sans-serif',
+                        fontFamily: '"Outfit", system-ui, sans-serif',
                         fontSize: isMobile ? '0.65rem' : '0.72rem',
                         fontWeight: 600,
                         letterSpacing: '0.14em',
@@ -312,7 +312,7 @@ const ProjectCard = ({
 
                     {/* Massive title */}
                     <motion.h2 {...fadeUp(0.07)} style={{
-                        fontFamily: '"PP Neue Montreal", "Inter", sans-serif',
+                        fontFamily: '"Outfit", system-ui, sans-serif',
                         fontSize: isSalmon
                             ? (isMobile
                                 ? 'clamp(1.95rem, 8vw, 3.05rem)'
@@ -332,7 +332,7 @@ const ProjectCard = ({
 
                     {/* Description */}
                     <motion.p {...fadeUp(0.13)} style={{
-                        fontFamily: '"Inter", sans-serif',
+                        fontFamily: '"Outfit", system-ui, sans-serif',
                         fontSize: isMobile ? '0.875rem' : '0.98rem',
                         lineHeight: 1.76,
                         color: theme.bodyColor,
@@ -361,7 +361,7 @@ const ProjectCard = ({
                                 border: 'none',
                                 background: theme.tagBg,
                                 color: theme.tagText,
-                                fontFamily: '"Inter", sans-serif',
+                                fontFamily: '"Outfit", system-ui, sans-serif',
                                 fontSize: isMobile ? '0.7rem' : '0.76rem',
                                 fontWeight: 600,
                                 letterSpacing: '0.01em',
@@ -375,7 +375,7 @@ const ProjectCard = ({
                     {/* Sponsor */}
                     {sponsor && (
                         <motion.p {...fadeUp(0.22)} style={{
-                            fontFamily: '"Inter", sans-serif',
+                            fontFamily: '"Outfit", system-ui, sans-serif',
                             fontSize: isMobile ? '0.7rem' : '0.76rem',
                             fontWeight: 600,
                             letterSpacing: '0.03em',
@@ -406,7 +406,7 @@ const ProjectCard = ({
                                     : 'linear-gradient(145deg, var(--color-accent, #00BB44) 0%, #00A038 100%)',
                                 border: '1px solid rgba(0, 140, 55, 0.65)',
                                 color: '#FFFFFF',
-                                fontFamily: '"Inter", sans-serif',
+                                fontFamily: '"Outfit", system-ui, sans-serif',
                                 fontSize: isMobile ? '0.74rem' : '0.8rem',
                                 fontWeight: 600,
                                 letterSpacing: '0.03em',

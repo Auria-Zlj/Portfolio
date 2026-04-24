@@ -59,12 +59,12 @@ const Footer = () => {
         transition: 'opacity 0.2s ease',
         fontSize: '14px',
         fontWeight: 300, // Light weight
-        fontFamily: '"Inter", sans-serif'
+        fontFamily: '"Outfit", system-ui, sans-serif'
     };
 
     const colHeaderStyle = {
         fontSize: '11px',
-        fontFamily: '"Inter", sans-serif',
+        fontFamily: '"Outfit", system-ui, sans-serif',
         fontWeight: 500,
         letterSpacing: '0.1em',
         textTransform: 'uppercase',
@@ -83,7 +83,7 @@ const Footer = () => {
             backgroundColor: '#0A0A0A',
             color: '#FFFFFF',
             padding: '15vh 6vw 6vh 6vw', // Generous breathing room
-            fontFamily: '"PP Neue Montreal", "Inter", sans-serif',
+            fontFamily: '"Outfit", system-ui, sans-serif',
             display: 'flex',
             flexDirection: 'column',
             gap: '12vh' // Plenty of negative space
@@ -127,7 +127,7 @@ const Footer = () => {
                             margin: 0,
                             lineHeight: 1.4,
                             letterSpacing: '0.01em',
-                            fontFamily: '"PP Neue Montreal", "Inter", sans-serif'
+                            fontFamily: '"Outfit", system-ui, sans-serif'
                         }}>
                             Product Designer · University of Washington · Class of 2026
                         </p>
@@ -138,7 +138,7 @@ const Footer = () => {
                             margin: 0,
                             lineHeight: 1.4,
                             letterSpacing: '0.01em',
-                            fontFamily: '"PP Neue Montreal", "Inter", sans-serif'
+                            fontFamily: '"Outfit", system-ui, sans-serif'
                         }}>
                             Open to full-time UX / Product Designer roles
                         </p>
@@ -186,7 +186,7 @@ const Footer = () => {
                             fontSize: '14px',
                             fontWeight: 300,
                             opacity: 0.7,
-                            fontFamily: '"Inter", sans-serif'
+                            fontFamily: '"Outfit", system-ui, sans-serif'
                         }}>Seattle / Vancouver</span>
                     </div>
 
@@ -221,7 +221,7 @@ const Footer = () => {
                     opacity: 0.25,
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
-                    fontFamily: '"Inter", sans-serif'
+                    fontFamily: '"Outfit", system-ui, sans-serif'
                 }}>
                     © 2026 AURIA ZHANG
                 </span>

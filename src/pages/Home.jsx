@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import GlassNavBar from '../components/ui/GlassNavBar';
 import DemoOne from '../components/ui/demo';
-
-const rotatingWords = [
-    { text: 'complex systems', color: '#A81415' },
-    { text: 'data-driven workflows', color: '#A81415' },
-    { text: 'AI-assisted products', color: '#A81415' },
-];
+import QuietCTA from '../components/ui/QuietCTA';
 
 const Home = () => {
-    const [wordIndex, setWordIndex] = useState(0);
     const [showIntro, setShowIntro] = useState(true);
     const [introCollapse, setIntroCollapse] = useState(false);
     const [eggBottom, setEggBottom] = useState('10%');
@@ -32,7 +26,7 @@ const Home = () => {
     useEffect(() => {
         let alive = true;
         const run = async () => {
-            await new Promise(r => setTimeout(r, 4900)); // wait for intro to finish (~4600ms) + small buffer
+            await new Promise(r => setTimeout(r, 2300)); // wait for intro to finish (~2000ms) + small buffer
             while (alive) {
                 if (alive) { setEggKey(k => k + 1); setEggShowing(true); }
                 await new Promise(r => setTimeout(r, 4000)); // visible: draw + linger
@@ -44,13 +38,6 @@ const Home = () => {
         return () => { alive = false; };
     }, []);
 
-    useEffect(() => {
-        const interval = window.setInterval(() => {
-            setWordIndex((current) => (current + 1) % rotatingWords.length);
-        }, 3200);
-
-        return () => window.clearInterval(interval);
-    }, []);
 
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -59,8 +46,8 @@ const Home = () => {
             return undefined;
         }
 
-        const totalMs = 4600;
-        const collapseDurationMs = 1200;
+        const totalMs = 2000;
+        const collapseDurationMs = 700;
 
         const collapseTimer = window.setTimeout(() => {
             setIntroCollapse(true);
@@ -140,123 +127,191 @@ const Home = () => {
                     height: '100vh',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '0 5vw',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    padding: '0 6vw',
                     position: 'relative',
                     background: 'transparent',
-                    zIndex: 1
+                    zIndex: 1,
+                    color: '#fff',
+                    fontFamily: '"JetBrains Mono", monospace',
                 }}>
                     {!showIntro && <GlassNavBar />}
 
-                    <div className="hero-content" style={{
+                    {/* Top scrim — design system spec: rgba(10,24,38,0.26) → transparent over 55% height */}
+                    <div style={{
+                        position: 'absolute',
+                        top: 0, left: 0, right: 0,
+                        height: '55%',
+                        background: 'linear-gradient(to bottom, rgba(10,24,38,0.10) 0%, rgba(10,24,38,0.04) 55%, rgba(10,24,38,0) 100%)',
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                    }} />
+
+                    {/* V2 — editorial two-column layout */}
+                    <div style={{
+                        position: 'absolute',
+                        top: 140,
+                        left: 0,
+                        right: 0,
+                        padding: '0 6vw',
+                        display: 'grid',
+                        gridTemplateColumns: '1.8fr 1fr',
+                        columnGap: 100,
+                        alignItems: 'start',
                         zIndex: 1,
-                        textAlign: 'center',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        gap: '1.8rem',
-                        marginTop: '-8vh'
+                        fontFamily: '"Outfit", system-ui, sans-serif',
                     }}>
-                        <div style={{ overflow: 'hidden', padding: '0.5em 2rem' }}>
+                        {/* Left column */}
+                        <div>
+
+                            {/* Vol. header */}
                             <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={showIntro ? { opacity: 0, y: 10 } : { opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
                                 style={{
-                                    zIndex: 10,
-                                    textAlign: 'center',
-                                    display: 'inline-block',
-                                    position: 'relative',
-                                    width: 'fit-content',
-                                    margin: '0 auto'
+                                    fontSize: 13,
+                                    letterSpacing: '0.22em',
+                                    color: 'rgba(255,255,255,0.60)',
+                                    textTransform: 'uppercase',
+                                    fontFamily: '"JetBrains Mono", monospace',
+                                    marginBottom: 16,
                                 }}
-                                >
-                                    <h2
-                                        className="hero-headline"
-                                        style={{
-                                            margin: 0,
-                                            color: '#FFFFFF',
-                                            fontFamily: '"Playfair Display", serif',
-                                            textAlign: 'center',
-                                        }}
-                                    >
-                                    <span style={{
-                                        display: 'block',
-                                        fontFamily: '"Inter", "Helvetica Neue", system-ui, sans-serif',
-                                        fontSize: '12px',
-                                        fontWeight: 400,
-                                        letterSpacing: '0.15em',
-                                        textTransform: 'uppercase',
-                                        color: '#3A3530',
-                                        marginBottom: '10px',
-                                        lineHeight: 1.2
-                                    }}>
-                                        Product Designer
-                                    </span>
-                                    <span style={{
-                                        display: 'block',
-                                        fontSize: '34px',
-                                        fontWeight: 400,
-                                        fontStyle: 'normal',
-                                        lineHeight: 1.1,
-                                        letterSpacing: '0.01em',
-                                        color: '#FFFFFF',
-                                        fontFamily: '"Playfair Display", serif',
-                                        marginBottom: '0px',
-                                    }}>
-                                        Crafting clarity for
-                                    </span>
-                                    <span className="hero-rotating-word-wrap" style={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'flex-start',
-                                        marginTop: '2px',
-                                        overflow: 'visible',
-                                        minHeight: 'calc(5.5rem * 1.2)',
-                                    }}>
-                                        <AnimatePresence mode="wait">
-                                            <motion.span
-                                                key={rotatingWords[wordIndex].text}
-                                                initial={{ opacity: 0, y: '0.15em' }}
-                                                animate={{ opacity: 1, y: '0em' }}
-                                                exit={{ opacity: 0, y: '-0.1em' }}
-                                                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-                                                className="hero-rotating-word"
-                                                style={{
-                                                    display: 'block',
-                                                    fontSize: '5.5rem',
-                                                    fontFamily: '"Playfair Display", serif',
-                                                    fontStyle: 'italic',
-                                                    fontWeight: 400,
-                                                    letterSpacing: '-0.02em',
-                                                    lineHeight: 1.05,
-                                                    color: '#FFFFFF',
-                                                    whiteSpace: 'nowrap',
-                                                    flexShrink: 0,
-                                                }}
-                                            >
-                                                {rotatingWords[wordIndex].text}
-                                            </motion.span>
-                                        </AnimatePresence>
-                                    </span>
-                                </h2>
+                            >
+                                Vol. 01 — Portfolio / 2026
+                            </motion.div>
+
+                            {/* Divider */}
+                            <motion.div
+                                initial={{ opacity: 0, scaleX: 0 }}
+                                animate={showIntro ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                                style={{
+                                    width: '95%',
+                                    height: 1,
+                                    background: 'rgba(255,255,255,0.25)',
+                                    marginBottom: 48,
+                                    transformOrigin: 'left',
+                                }}
+                            />
+
+                            {/* Headline */}
+                            <motion.h1
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={showIntro ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+                                style={{
+                                    margin: 0,
+                                    fontFamily: '"Outfit", system-ui, sans-serif',
+                                    fontSize: 72,
+                                    fontWeight: 300,
+                                    lineHeight: 1.05,
+                                    letterSpacing: '-0.02em',
+                                    color: 'rgba(255,255,255,0.98)',
+                                }}
+                            >
+                                Designing clear products<br/>
+                                for <span style={{ fontWeight: 600 }}>complex systems</span>.
+                            </motion.h1>
+
+                            {/* Subline */}
+                            <motion.p
+                                initial={{ opacity: 0, y: 16 }}
+                                animate={showIntro ? { opacity: 0, y: 16 } : { opacity: 1, y: 0 }}
+                                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.42 }}
+                                style={{
+                                    margin: '28px 0 0',
+                                    fontFamily: '"Outfit", system-ui, sans-serif',
+                                    fontSize: 18,
+                                    fontWeight: 300,
+                                    lineHeight: 1.5,
+                                    color: 'rgba(255,255,255,0.92)',
+                                    maxWidth: 760,
+                                }}
+                            >
+                                I design AI-assisted and operational products where usability depends on getting the workflow, logic, and constraints right.
+                            </motion.p>
+
+                            {/* CTA */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={showIntro ? { opacity: 0, y: 12 } : { opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.58 }}
+                                style={{ marginTop: 36 }}
+                            >
+                                <QuietCTA />
                             </motion.div>
                         </div>
-                    </div>
 
-                    <div
-                        style={{
-                            position: 'absolute',
-                            bottom: '3rem',
-                            left: '4rem',
-                            fontSize: '12px',
-                            fontWeight: 300,
-                            letterSpacing: '0.12em',
-                            color: '#FFFFFF',
-                            fontFamily: '"Inter", sans-serif',
-                            opacity: 0.9,
-                            textTransform: 'uppercase'
-                        }}
-                    >
-                        Seattle / Vancouver
+                        {/* Right column — ambient scrolling capabilities */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 14 }}
+                            animate={showIntro ? { opacity: 0, y: 14 } : { opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
+                            style={{ paddingTop: 95, paddingLeft: 0 }}
+                        >
+                            <div style={{
+                                fontSize: 18,
+                                letterSpacing: '0.18em',
+                                color: 'rgba(255,255,255,0.90)',
+                                textTransform: 'uppercase',
+                                marginBottom: 32,
+                                fontFamily: '"JetBrains Mono", monospace',
+                            }}>
+                                Capabilities
+                            </div>
+
+                            {/* Masked scrolling container */}
+                            <div style={{
+                                borderTop: '1px solid rgba(255,255,255,0.30)',
+                                borderBottom: '1px solid rgba(255,255,255,0.30)',
+                                paddingRight: '15%',
+                            }}>
+                            <div style={{
+                                height: 260,
+                                overflow: 'hidden',
+                                maskImage: 'linear-gradient(to bottom, transparent, black 28%, black 72%, transparent)',
+                                WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 28%, black 72%, transparent)',
+                                cursor: 'default',
+                                pointerEvents: 'none',
+                            }}>
+                                <div style={{
+                                    animation: 'capScroll 20s linear infinite',
+                                }}>
+                                    {/* Render list twice for seamless loop */}
+                                    {[...Array(2)].map((_, pass) =>
+                                        ['Complex Workflows', 'System Logic', 'AI-Assisted Products', 'Operational Tools', 'Implementation-Aware Design', 'Constraint-Driven UX', 'Data-Heavy Interfaces'].map((t) => (
+                                            <div key={`${pass}-${t}`} style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 18,
+                                                padding: '12px 0',
+                                                userSelect: 'none',
+                                            }}>
+                                                <span style={{
+                                                    display: 'inline-block',
+                                                    width: 8,
+                                                    height: 8,
+                                                    border: '2px solid rgba(255,255,255,0.75)',
+                                                    flexShrink: 0,
+                                                }} />
+                                                <span style={{
+                                                    fontSize: 15,
+                                                    fontWeight: 300,
+                                                    color: 'rgba(255,255,255,0.88)',
+                                                    letterSpacing: '0.02em',
+                                                    fontFamily: '"JetBrains Mono", monospace',
+                                                }}>
+                                                    {t}
+                                                </span>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                            </div>
+                        </motion.div>
                     </div>
 
                     {eggShowing && (
@@ -329,6 +384,10 @@ const Home = () => {
 
 
                     <style>{`
+                        @keyframes capScroll {
+                            from { transform: translateY(0); }
+                            to   { transform: translateY(-50%); }
+                        }
                         @keyframes eggFadeIn {
                             from { opacity: 0; }
                             to { opacity: 1; }
@@ -348,6 +407,24 @@ const Home = () => {
                         }
                     `}</style>
 
+                    {/* Based in Seattle — bottom left */}
+                    {!showIntro && (
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '2.4rem',
+                            left: '6vw',
+                            fontSize: 12,
+                            letterSpacing: '0.18em',
+                            color: 'rgba(255,255,255,0.65)',
+                            textTransform: 'uppercase',
+                            fontFamily: '"JetBrains Mono", monospace',
+                            pointerEvents: 'none',
+                            zIndex: 10,
+                        }}>
+                            Based in Seattle
+                        </div>
+                    )}
+
                     {/* Scroll cue — absolute inside hero so it moves up with Home like other content */}
                     {!showIntro && (
                         <motion.div
@@ -364,7 +441,7 @@ const Home = () => {
                                 position: 'absolute',
                                 bottom: '2.4rem',
                                 right: '4rem',
-                                opacity: 0.9,
+                                opacity: 0.5,
                                 pointerEvents: 'none',
                                 zIndex: 10,
                             }}

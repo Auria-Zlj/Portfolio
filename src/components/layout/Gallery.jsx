@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
 import Footer from './Footer';
 import Home from '../../pages/Home';
@@ -127,6 +127,114 @@ const projects = [
         thumbnailLabels: [],
     },
 ];
+
+const logoItems = [
+    { src: '/image/Amazon_Web_Services_Logo.svg.png',                          alt: 'AWS',                          name: 'Amazon Web Services', height: 56  },
+    { src: '/image/Washington_State_Department_of_Fish_and_Wildlife_(logo).svg', alt: 'WA Fish & Wildlife',           name: 'WA Dept. of Fish & Wildlife',  height: 120 },
+    { src: '/image/Bosch-logo.svg.png',                                         alt: 'Bosch',                        name: 'Bosch Home Comfort',  height: 44  },
+    { src: '/image/T-Mobile-Logo.png',                                          alt: 'T-Mobile',                     name: 'T-Mobile',            height: 80  },
+    { src: '/image/Sheridan_College_Logo.png',                                  alt: 'Sheridan College',             name: 'Sheridan College',    height: 85  },
+    { src: '/image/Skill-Squirrel-LOGO-vert-PURPLE.png',                        alt: 'Skill Squirrel',               name: 'Skill Squirrel',      height: 105 },
+];
+
+const LogoSection = () => {
+    const [hoveredName, setHoveredName] = useState(null);
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', padding: '0 6vw' }}>
+            {/* Heading */}
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '3rem' }}>
+                <span style={{
+                    fontFamily: '"Outfit", system-ui, sans-serif',
+                    fontSize: '1.3rem',
+                    fontWeight: 450,
+                    color: '#FFFFFF',
+                    marginBottom: '6px',
+                    letterSpacing: '0.06em',
+                }}>
+                    Worked with
+                </span>
+                <div style={{ position: 'relative', height: '3.8rem', overflow: 'hidden' }}>
+                    <p aria-hidden style={{
+                        fontFamily: '"Outfit", system-ui, sans-serif',
+                        fontSize: '3rem',
+                        fontWeight: 800,
+                        color: 'transparent',
+                        whiteSpace: 'nowrap',
+                        pointerEvents: 'none',
+                        margin: 0,
+                        lineHeight: 1.2,
+                    }}>
+                        WA Dept. of Fish & Wildlife
+                    </p>
+                    <div style={{ position: 'absolute', inset: 0 }}>
+                        <AnimatePresence mode="wait">
+                            <motion.p
+                                key={hoveredName ?? 'default'}
+                                initial={{ y: 12, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: -12, opacity: 0 }}
+                                transition={{ duration: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
+                                style={{
+                                    fontFamily: '"Outfit", system-ui, sans-serif',
+                                    fontSize: '3rem',
+                                    fontWeight: 800,
+                                    color: 'rgba(255,255,255,0.85)',
+                                    whiteSpace: 'nowrap',
+                                    margin: 0,
+                                    lineHeight: 1.2,
+                                    textAlign: 'center',
+                                    width: '100%',
+                                }}
+                            >
+                                {hoveredName ?? 'real teams'}
+                            </motion.p>
+                        </AnimatePresence>
+                    </div>
+                </div>
+            </div>
+
+            {/* Logos */}
+            <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '5rem',
+                flexWrap: 'wrap',
+            }}>
+                {logoItems.map(({ src, alt, name, height }) => {
+                    const isHovered = hoveredName === name;
+                    const isDimmed = hoveredName !== null && !isHovered;
+                    return (
+                        <motion.img
+                            key={alt}
+                            src={src}
+                            alt={alt}
+                            onMouseEnter={() => setHoveredName(name)}
+                            onMouseLeave={() => setHoveredName(null)}
+                            animate={{
+                                scale: isHovered ? 1.08 : 1,
+                                opacity: isDimmed ? 0.35 : 1,
+                            }}
+                            transition={{ duration: 0.22, ease: 'easeOut' }}
+                            style={{
+                                height: `${height}px`,
+                                objectFit: 'contain',
+                                mixBlendMode: 'screen',
+                                filter: isHovered
+                                    ? 'invert(1) grayscale(100%) brightness(2.5) opacity(1)'
+                                    : 'invert(1) grayscale(100%) brightness(2) opacity(0.85)',
+                                cursor: 'default',
+                                transition: 'filter 0.22s ease',
+                            }}
+                        />
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
 
 // Removed StickyCardWrapper — replaced with inline sticky stacking in Gallery return
 
@@ -335,10 +443,10 @@ const Gallery = () => {
                     }}
                 >
                     <h2 style={{
-                        fontFamily: 'var(--font-display)',
+                        fontFamily: '"Outfit", system-ui, sans-serif',
                         fontSize: '3rem',
                         fontWeight: 700,
-                        color: 'var(--color-text)',
+                        color: '#FFFFFF',
                         letterSpacing: '-0.03em',
                     }}>
                         Selected Works <span style={{ color: 'var(--color-accent)', fontSize: '1rem', verticalAlign: 'middle' }}>●</span>
@@ -361,6 +469,7 @@ const Gallery = () => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    paddingBottom: '10vh',
                     position: 'relative',
                     zIndex: 22,
                     backgroundImage: `url(${homeHero})`,
@@ -370,66 +479,7 @@ const Gallery = () => {
                 }}
                 data-snap-point="true"
             >
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    width: '100%',
-                    padding: '0 2vw',
-                }}>
-                    <h3 style={{
-                        fontFamily: '"Inter", "Helvetica Neue", system-ui, sans-serif',
-                        fontSize: '18px',
-                        fontWeight: 700,
-                        letterSpacing: '0.2em',
-                        textTransform: 'uppercase',
-                        color: '#FFFFFF',
-                        marginBottom: '4rem',
-                        textAlign: 'center'
-                    }}>
-                        SELECTED COLLABORATIONS & TRUSTED BY:
-                    </h3>
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        columnGap: '6rem',
-                        rowGap: '3rem',
-                        flexWrap: 'wrap',
-                    }}>
-                        <img 
-                            src="/image/Amazon_Web_Services_Logo.svg.png" 
-                            alt="AWS" 
-                            style={{ height: '56px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
-                        />
-                        <img 
-                            src="/image/Washington_State_Department_of_Fish_and_Wildlife_(logo).svg" 
-                            alt="Washington Department of Fish & Wildlife" 
-                            style={{ height: '145px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.9)' }} 
-                        />
-                        <img 
-                            src="/image/Bosch-logo.svg.png" 
-                            alt="Bosch" 
-                            style={{ height: '44px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
-                        />
-                        <img 
-                            src="/image/T-Mobile-Logo.png" 
-                            alt="T-Mobile" 
-                            style={{ height: '80px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
-                        />
-                        <img 
-                            src="/image/Sheridan_College_Logo.png" 
-                            alt="Sheridan College" 
-                            style={{ height: '85px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
-                        />
-                        <img 
-                            src="/image/Skill-Squirrel-LOGO-vert-PURPLE.png" 
-                            alt="Skill Squirrel" 
-                            style={{ height: '105px', objectFit: 'contain', mixBlendMode: 'screen', filter: 'invert(1) grayscale(100%) brightness(2) opacity(0.85)' }} 
-                        />
-                    </div>
-                </div>
+                <LogoSection />
             </div>
 
             {/* Project snap spacers — scroll height + snap; Salmon fixed, X-Heal/Prelo sticky. */}

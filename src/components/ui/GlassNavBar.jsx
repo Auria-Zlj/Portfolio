@@ -4,29 +4,30 @@ import { motion } from 'framer-motion';
 import resumePdf from '../../assets/images/Auria Zhang_Resume_V2.pdf';
 
 const GlassNavBar = () => {
-    const [surface, setSurface] = useState('light');
+    const [surface, setSurface] = useState('dark');
 
     useLayoutEffect(() => {
         const el = document.getElementById('selected-works');
         if (!el) return;
-        const bottom = el.getBoundingClientRect().bottom;
-        setSurface(bottom < 72 ? 'dark' : 'light');
+        const top = el.getBoundingClientRect().top;
+        // Only switch to light if selected-works has scrolled past the nav (top < 72)
+        if (top < 72) setSurface('light');
     }, []);
 
     useEffect(() => {
         const onSurface = (e) => {
-            setSurface(e.detail?.surface ?? 'light');
+            setSurface(e.detail?.surface ?? 'dark');
         };
         window.addEventListener('portfolio:nav-surface', onSurface);
         return () => window.removeEventListener('portfolio:nav-surface', onSurface);
     }, []);
 
-    const onDark = surface === 'dark';
-    const nameColor = onDark ? '#F5F5F5' : '#2A2A2A';
-    const linkColor = onDark ? 'rgba(255,255,255,0.88)' : 'rgba(0, 0, 0, 0.6)';
-    const linkLineColor = onDark ? 'rgba(255,255,255,0.85)' : 'rgba(0, 0, 0, 0.6)';
-    const navBg = onDark ? 'rgba(0,0,0,0.08)' : 'rgba(255, 255, 255, 0.015)';
-    const navBorder = onDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(255, 255, 255, 0.04)';
+    // Always white text — hero has photo bg, dark sections also need white
+    const nameColor = '#F5F5F5';
+    const linkColor = 'rgba(255,255,255,0.88)';
+    const linkLineColor = 'rgba(255,255,255,0.85)';
+    const navBg = 'rgba(255,255,255,0.04)';
+    const navBorder = '1px solid transparent';
 
     // New Link Structure
     const links = [
@@ -56,10 +57,9 @@ const GlassNavBar = () => {
                 zIndex: 950,
                 padding: '1.5rem 4rem', // Spacious padding
 
-                // Heavy Blur — bg/border follow scroll (light vs dark sections)
                 background: navBg,
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
                 borderBottom: navBorder,
                 transition: 'background 0.28s ease, border-color 0.28s ease',
 
@@ -76,7 +76,7 @@ const GlassNavBar = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
                 style={{
-                    fontFamily: '"Inter", sans-serif',
+                    fontFamily: '"Outfit", system-ui, sans-serif',
                     fontSize: '1.2rem',
                     fontWeight: 300,
                     letterSpacing: '0.2em',
@@ -140,7 +140,7 @@ const NavLink = ({ href, label, newTab = false, linkColor, linkLineColor }) => {
             onMouseLeave={() => setIsHovered(false)}
             style={{
                 position: 'relative',
-                fontFamily: '"Inter", sans-serif',
+                fontFamily: '"Outfit", system-ui, sans-serif',
                 fontSize: '13px',
                 fontWeight: 400,
                 color: linkColor,
