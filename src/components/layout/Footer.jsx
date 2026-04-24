@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import resumePdf from '../../assets/images/Auria Zhang_Resume_V2.pdf';
+
 
 // New NavLink component
 const NavLink = ({ href, label, linkStyle, onMouseEnter, onMouseLeave }) => {
@@ -194,7 +194,7 @@ const Footer = () => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <span style={colHeaderStyle}>Links</span>
                         <a href="https://www.linkedin.com/in/linjun-zhang/" target="_blank" rel="noopener noreferrer" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>LinkedIn</a>
-                        <a href={resumePdf} target="_blank" rel="noopener noreferrer" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Resume</a>
+                        <a href="/Linjun_Portfolio.pdf" target="_blank" rel="noopener noreferrer" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Resume</a>
                     </div>
 
                     {/* Navigation */}

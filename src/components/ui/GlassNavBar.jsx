@@ -1,8 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
-import resumePdf from '../../assets/images/Auria Zhang_Resume_V2.pdf';
-
 const GlassNavBar = () => {
     const [surface, setSurface] = useState('dark');
 
@@ -34,7 +32,7 @@ const GlassNavBar = () => {
         { label: 'WORK', href: '#selected-works' },
         { label: 'LAB', href: '#lab' },
         { label: 'ABOUT', href: '#about' },
-        { label: 'RESUME', href: resumePdf, newTab: true },
+        { label: 'RESUME', href: '/Linjun_Portfolio.pdf', newTab: true },
     ];
 
     const scrollToHome = (e) => {
