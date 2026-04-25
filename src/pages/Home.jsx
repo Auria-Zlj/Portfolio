@@ -121,7 +121,7 @@ const Home = () => {
         const smallR = Math.min(window.innerWidth, window.innerHeight) * 0.17;
 
         // Timeline (ms): punch in → hold → expand
-        const P1  = 750;   // phase 1 end: 0 → smallR
+        const P1  = 700;   // phase 1 end: 0 → smallR
         const P2  = 1200;  // pause end / phase 2 start
         const END = 2300;  // phase 2 end: smallR → maxR
 
