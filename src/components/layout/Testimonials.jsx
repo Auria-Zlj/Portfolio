@@ -105,7 +105,7 @@ const Card = ({ quote, name, role, company, img }) => (
 const ScrollColumn = ({ items, duration, reverse = false }) => (
     <div style={{ overflow: 'hidden', flex: 1 }}>
         <motion.div
-            animate={{ y: reverse ? ['0%', '50%'] : ['0%', '-50%'] }}
+            animate={{ y: reverse ? ['-50%', '0%'] : ['0%', '-50%'] }}
             transition={{ duration, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
             style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', paddingBottom: '1.25rem' }}
         >
@@ -132,7 +132,7 @@ const Testimonials = () => {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                style={{ marginBottom: '8vh' }}
+                style={{ marginBottom: '8vh', textAlign: 'center' }}
             >
                 <div style={{
                     fontFamily: '"JetBrains Mono", monospace',
