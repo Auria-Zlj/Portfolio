@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import ProjectCard from '../ui/ProjectCard';
 import Footer from './Footer';
+import Testimonials from './Testimonials';
 import Home from '../../pages/Home';
 // import HeroShader from '../canvas/HeroShader';
 import homeHero from '../../assets/images/homehero.JPG';
@@ -499,6 +500,16 @@ const Gallery = () => {
                     }}
                 />
             ))}
+
+            {/* Testimonials */}
+            <div style={{
+                width: '100vw',
+                position: 'relative',
+                background: '#0A0A0A',
+                zIndex: projects.length + 3,
+            }}>
+                <Testimonials />
+            </div>
 
             {/* Footer - Final snap point */}
             <div style={{
