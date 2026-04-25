@@ -146,14 +146,14 @@ const Testimonials = () => {
                 </div>
                 <h2 style={{
                     fontFamily: '"Outfit", system-ui, sans-serif',
-                    fontSize: 'clamp(2rem, 5vw, 4rem)',
+                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                     fontWeight: 300,
                     letterSpacing: '-0.03em',
                     lineHeight: 1.05,
                     color: '#F5F5F5',
                     margin: '0 0 1rem',
                 }}>
-                    From people I've<br />worked with.
+                    From people I've worked with.
                 </h2>
                 <p style={{
                     fontFamily: '"Outfit", system-ui, sans-serif',
