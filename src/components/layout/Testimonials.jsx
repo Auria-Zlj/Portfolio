@@ -134,16 +134,6 @@ const Testimonials = () => {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 style={{ marginBottom: '8vh', textAlign: 'center' }}
             >
-                <div style={{
-                    fontFamily: '"JetBrains Mono", monospace',
-                    fontSize: '11px',
-                    letterSpacing: '0.2em',
-                    textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.3)',
-                    marginBottom: '1.2rem',
-                }}>
-                    Testimonials
-                </div>
                 <h2 style={{
                     fontFamily: '"Outfit", system-ui, sans-serif',
                     fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
