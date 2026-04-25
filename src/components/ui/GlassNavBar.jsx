@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
-const GlassNavBar = () => {
+const GlassNavBar = ({ visible = true }) => {
     const [surface, setSurface] = useState('dark');
 
     useLayoutEffect(() => {
@@ -44,16 +44,15 @@ const GlassNavBar = () => {
     const navNode = (
         <motion.nav
             initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            animate={visible ? { y: 0, opacity: 1 } : { y: -100, opacity: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             style={{
                 position: 'fixed',
                 top: 0,
                 left: 0,
                 width: '100%',
-                // Keep nav above project cards but below modal layers.
                 zIndex: 950,
-                padding: '1.5rem 4rem', // Spacious padding
+                padding: '1.5rem 4rem',
 
                 background: navBg,
                 backdropFilter: 'blur(12px)',
@@ -64,6 +63,9 @@ const GlassNavBar = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+
+                // CSS-level guarantee: invisible before framer-motion kicks in
+                visibility: visible ? 'visible' : 'hidden',
             }}
         >
             {/* Left - Name */}

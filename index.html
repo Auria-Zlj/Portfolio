@@ -16,6 +16,8 @@
 </head>
 
 <body>
+  <!-- Intro overlay: present before React loads, covers everything from first paint -->
+  <div id="page-intro-overlay" style="position:fixed;inset:0;z-index:9999;background:white;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:all;"></div>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
