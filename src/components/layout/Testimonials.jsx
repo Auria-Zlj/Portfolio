@@ -1,38 +1,55 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
+const NEON = '#E3FE7A';
+
 const testimonials = [
     {
         quote: "Working with Auria on the Salmon Says project brought a level of professionalism, organization, and clear communication that was critical to the project's success. Her ability to navigate complexity and solve problems thoughtfully made her a valuable contributor throughout the development of a complex, AI-assisted product.",
-        name: "Andrew Claiborne",
-        role: "Fish Ageing Lab, Science Division",
-        company: "Washington Department of Fish and Wildlife",
+        name: 'Andrew Claiborne',
+        role: 'Fish Ageing Lab, Science Division',
+        company: 'Washington Department of Fish and Wildlife',
+        initials: 'AC',
     },
     {
-        quote: "Auria was an excellent collaborator throughout the product development process. She was responsive to feedback, thoughtful in her contributions, and helped shape a high-quality product that we are actively using in our workflow.",
-        name: "Austin J. Anderson",
-        role: "Biologist",
-        company: "Washington Department of Fish and Wildlife",
+        quote: 'Auria was an excellent collaborator throughout the product development process. She was responsive to feedback, thoughtful in her contributions, and helped shape a high-quality product that we are actively using in our workflow.',
+        name: 'Austin J. Anderson',
+        role: 'Biologist',
+        company: 'Washington Department of Fish and Wildlife',
+        initials: 'AA',
     },
     {
-        quote: "Auria made a meaningful contribution to a product that has already proven valuable for our fisheries program. Her collaborative approach and responsiveness helped move the work forward in a smooth and effective way.",
-        name: "Caleb Jetter",
-        role: "Research Scientist",
-        company: "Washington Department of Fish and Wildlife",
+        quote: 'Auria made a meaningful contribution to a product that has already proven valuable for our fisheries program. Her collaborative approach and responsiveness helped move the work forward in a smooth and effective way.',
+        name: 'Caleb Jetter',
+        role: 'Research Scientist',
+        company: 'Washington Department of Fish and Wildlife',
+        initials: 'CJ',
     },
     {
-        quote: "Auria brought strong product thinking to our AI-assisted salmon identification project. She was especially good at bringing clarity to a complicated workflow and shaping practical solutions the team could realistically build.",
-        name: "Mubina Raza",
-        role: "Senior Manager, Infrastructure & Operations",
-        company: "Washington Department of Fish and Wildlife",
+        quote: 'Auria brought strong product thinking to our AI-assisted salmon identification project. She was especially good at bringing clarity to a complicated workflow and shaping practical solutions the team could realistically build.',
+        name: 'Mubina Raza',
+        role: 'Senior Manager, Infrastructure & Operations',
+        company: 'Washington Department of Fish and Wildlife',
+        initials: 'MR',
     },
 ];
 
 const col1 = testimonials.slice(0, 2);
 const col2 = testimonials.slice(2, 4);
-const col3 = [];
 
-const Card = ({ quote, name, role, company }) => (
+const InitialsAvatar = ({ initials }) => (
+    <div style={{
+        width: 36, height: 36, borderRadius: '50%',
+        border: '1px solid rgba(255,255,255,0.35)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontFamily: '"JetBrains Mono", monospace',
+        fontSize: 11, fontWeight: 500, letterSpacing: '0.06em',
+        color: 'rgba(255,255,255,0.75)',
+        flexShrink: 0,
+    }}>{initials}</div>
+);
+
+const Card = ({ quote, name, role, company, initials, index }) => (
     <div style={{
         background: 'rgba(255,255,255,0.03)',
         border: '1px solid rgba(255,255,255,0.07)',
@@ -41,18 +58,34 @@ const Card = ({ quote, name, role, company }) => (
         display: 'flex',
         flexDirection: 'column',
         gap: '1.5rem',
+        position: 'relative',
     }}>
+        {/* Neon index */}
+        <div style={{
+            position: 'absolute', top: 20, right: 24,
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: 11, color: NEON, letterSpacing: '0.1em',
+        }}>0{index + 1}</div>
+
         <p style={{
+            margin: 0,
             fontFamily: '"Outfit", system-ui, sans-serif',
             fontSize: '15px',
             fontWeight: 300,
             lineHeight: 1.65,
             color: 'rgba(255,255,255,0.75)',
-            margin: 0,
         }}>
             "{quote}"
         </p>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+
+        <div style={{
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            paddingTop: '1rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+        }}>
+            <InitialsAvatar initials={initials} />
             <div>
                 <div style={{
                     fontFamily: '"Outfit", system-ui, sans-serif',
@@ -63,11 +96,12 @@ const Card = ({ quote, name, role, company }) => (
                 }}>{name}</div>
                 <div style={{
                     fontFamily: '"JetBrains Mono", monospace',
-                    fontSize: '11px',
+                    fontSize: '10.5px',
                     color: 'rgba(255,255,255,0.35)',
                     letterSpacing: '0.05em',
-                    marginTop: '2px',
-                }}>{role} · {company}</div>
+                    marginTop: '3px',
+                    lineHeight: 1.55,
+                }}>{role}<br />{company}</div>
             </div>
         </div>
     </div>
@@ -81,7 +115,7 @@ const ScrollColumn = ({ items, duration, reverse = false }) => (
             style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', paddingBottom: '1.25rem' }}
         >
             {[...items, ...items].map((t, i) => (
-                <Card key={i} {...t} />
+                <Card key={i} index={testimonials.indexOf(t)} {...t} />
             ))}
         </motion.div>
     </div>
@@ -97,38 +131,83 @@ const Testimonials = () => {
             width: '100%',
             padding: '14vh 6vw 12vh',
             boxSizing: 'border-box',
+            position: 'relative',
+            overflow: 'hidden',
         }}>
+            {/* Subtle neon radial wash */}
+            <div style={{
+                position: 'absolute', inset: 0, pointerEvents: 'none',
+                background: `radial-gradient(ellipse 80% 50% at 50% 0%, ${NEON}08, transparent 60%)`,
+            }} />
+
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                style={{ marginBottom: '8vh', textAlign: 'center' }}
+                style={{ marginBottom: '8vh', position: 'relative' }}
             >
-                <h2 style={{
-                    fontFamily: '"Outfit", system-ui, sans-serif',
-                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                    fontWeight: 300,
-                    letterSpacing: '-0.03em',
-                    lineHeight: 1.05,
-                    color: '#F5F5F5',
-                    margin: '0 0 1rem',
+                {/* Eyebrow */}
+                <div style={{
+                    fontFamily: '"JetBrains Mono", monospace',
+                    fontSize: 13,
+                    letterSpacing: '0.22em',
+                    textTransform: 'uppercase',
+                    color: 'rgba(255,255,255,0.6)',
+                    marginBottom: 16,
                 }}>
-                    From people I've worked with.
-                </h2>
-                <p style={{
-                    fontFamily: '"Outfit", system-ui, sans-serif',
-                    fontSize: '16px',
-                    fontWeight: 300,
-                    color: 'rgba(255,255,255,0.4)',
-                    margin: 0,
-                    letterSpacing: '0.01em',
+                    Vol. 02 — Testimonials{' '}
+                    <span style={{ color: NEON }}>/ 2026</span>
+                </div>
+
+                {/* Hairline */}
+                <motion.div
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+                    transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                    style={{
+                        width: '95%', height: 1,
+                        background: 'rgba(255,255,255,0.25)',
+                        marginBottom: 48, transformOrigin: 'left',
+                    }}
+                />
+
+                {/* Two-col: headline + meta */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '2.2fr 1fr',
+                    columnGap: 72,
+                    alignItems: 'end',
                 }}>
-                    Perspectives across products, teams, and partnerships.
-                </p>
+                    <h2 style={{
+                        margin: 0,
+                        fontFamily: '"Outfit", system-ui, sans-serif',
+                        fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                        fontWeight: 300,
+                        letterSpacing: '-0.02em',
+                        lineHeight: 1.1,
+                        color: 'rgba(255,255,255,0.98)',
+                    }}>
+                        From people I've{' '}
+                        <span style={{
+                            fontWeight: 600, color: NEON,
+                            textShadow: `0 0 32px ${NEON}40`,
+                        }}>worked with.</span>
+                    </h2>
+                    <div style={{
+                        fontFamily: '"JetBrains Mono", monospace',
+                        fontSize: 12,
+                        letterSpacing: '0.18em',
+                        textTransform: 'uppercase',
+                        color: 'rgba(255,255,255,0.45)',
+                        paddingBottom: 8,
+                    }}>
+                        04 references · WDFW
+                    </div>
+                </div>
             </motion.div>
 
-            {/* Columns */}
+            {/* Scrolling columns */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
