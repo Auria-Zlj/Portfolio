@@ -186,7 +186,7 @@ const Testimonials = () => {
                     animate={inView ? { scaleX: 1, opacity: 1 } : {}}
                     transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                     style={{
-                        width: '95%', height: 1,
+                        width: '100%', height: 1,
                         background: 'rgba(255,255,255,0.25)',
                         marginBottom: 48, transformOrigin: 'left',
                     }}
