@@ -34,8 +34,9 @@ const testimonials = [
     },
 ];
 
-const col1 = testimonials.slice(0, 2);
-const col2 = testimonials.slice(2, 4);
+const col1 = [testimonials[0], testimonials[1]];
+const col2 = [testimonials[2], testimonials[3]];
+const col3 = [testimonials[1], testimonials[2]];
 
 const InitialsAvatar = ({ initials }) => (
     <div style={{
@@ -226,7 +227,7 @@ const Testimonials = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
                     gap: '1.25rem',
                     maxHeight: '600px',
                     overflow: 'hidden',
@@ -236,6 +237,7 @@ const Testimonials = () => {
             >
                 <ScrollColumn items={col1} duration={20} />
                 <ScrollColumn items={col2} duration={24} reverse />
+                <ScrollColumn items={col3} duration={22} />
             </motion.div>
         </section>
     );
