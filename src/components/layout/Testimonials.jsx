@@ -3,54 +3,36 @@ import { motion, useInView } from 'framer-motion';
 
 const testimonials = [
     {
-        quote: "Auria has a rare ability to hold both the user's mental model and the system's constraints at the same time. The flows she designed were the clearest our product had ever been.",
-        name: "Marcus Tran",
-        role: "Head of Product",
-        company: "Prelo",
-        img: "https://randomuser.me/api/portraits/men/32.jpg",
+        quote: "Working with Auria on the Salmon Says project brought a level of professionalism, organization, and clear communication that was critical to the project's success. Her ability to navigate complexity and solve problems thoughtfully made her a valuable contributor throughout the development of a complex, AI-assisted product.",
+        name: "Andrew Claiborne",
+        role: "Fish Ageing Lab, Science Division",
+        company: "Washington Department of Fish and Wildlife",
     },
     {
-        quote: "She pushed back on our assumptions early — in the best way. By the time we handed off to engineering, there were almost no open questions.",
-        name: "Yuna Park",
-        role: "Engineering Lead",
-        company: "Xheat",
-        img: "https://randomuser.me/api/portraits/women/44.jpg",
+        quote: "Auria was an excellent collaborator throughout the product development process. She was responsive to feedback, thoughtful in her contributions, and helped shape a high-quality product that we are actively using in our workflow.",
+        name: "Austin J. Anderson",
+        role: "Biologist",
+        company: "Washington Department of Fish and Wildlife",
     },
     {
-        quote: "Working with Auria felt collaborative from day one. She brought structure to ambiguous briefs and always grounded decisions in actual user behaviour.",
-        name: "Daniel Osei",
-        role: "Product Manager",
-        company: "Freelance",
-        img: "https://randomuser.me/api/portraits/men/61.jpg",
+        quote: "Auria made a meaningful contribution to a product that has already proven valuable for our fisheries program. Her collaborative approach and responsiveness helped move the work forward in a smooth and effective way.",
+        name: "Caleb Jetter",
+        role: "Research Scientist",
+        company: "Washington Department of Fish and Wildlife",
     },
     {
-        quote: "The audit she ran surfaced three interaction gaps we'd missed in six months of iteration. Precise, thorough, and delivered without friction.",
-        name: "Leila Nakamura",
-        role: "Design Director",
-        company: "Studio North",
-        img: "https://randomuser.me/api/portraits/women/17.jpg",
-    },
-    {
-        quote: "Auria's strength is in operational complexity. She made a multi-step enterprise workflow feel obvious — no small feat.",
-        name: "Chris Halvorsen",
-        role: "CEO",
-        company: "Salmon Says",
-        img: "https://randomuser.me/api/portraits/men/8.jpg",
-    },
-    {
-        quote: "She bridged the gap between design and development better than anyone I've worked with. Engineers actually trusted her specs.",
-        name: "Sofia Reyes",
-        role: "Frontend Engineer",
-        company: "Prelo",
-        img: "https://randomuser.me/api/portraits/women/29.jpg",
+        quote: "Auria brought strong product thinking to our AI-assisted salmon identification project. She was especially good at bringing clarity to a complicated workflow and shaping practical solutions the team could realistically build.",
+        name: "Mubina Raza",
+        role: "Senior Manager, Infrastructure & Operations",
+        company: "Washington Department of Fish and Wildlife",
     },
 ];
 
 const col1 = testimonials.slice(0, 2);
 const col2 = testimonials.slice(2, 4);
-const col3 = testimonials.slice(4, 6);
+const col3 = [];
 
-const Card = ({ quote, name, role, company, img }) => (
+const Card = ({ quote, name, role, company }) => (
     <div style={{
         background: 'rgba(255,255,255,0.03)',
         border: '1px solid rgba(255,255,255,0.07)',
@@ -71,17 +53,6 @@ const Card = ({ quote, name, role, company, img }) => (
             "{quote}"
         </p>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <img
-                src={img}
-                alt={name}
-                style={{
-                    width: 36, height: 36,
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    opacity: 0.85,
-                    flexShrink: 0,
-                }}
-            />
             <div>
                 <div style={{
                     fontFamily: '"Outfit", system-ui, sans-serif',
@@ -164,7 +135,7 @@ const Testimonials = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
                     gap: '1.25rem',
                     maxHeight: '600px',
                     overflow: 'hidden',
@@ -172,9 +143,8 @@ const Testimonials = () => {
                     WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
                 }}
             >
-                <ScrollColumn items={col1} duration={18} />
-                <ScrollColumn items={col2} duration={22} reverse />
-                <ScrollColumn items={col3} duration={20} />
+                <ScrollColumn items={col1} duration={20} />
+                <ScrollColumn items={col2} duration={24} reverse />
             </motion.div>
         </section>
     );
