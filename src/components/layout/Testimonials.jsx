@@ -49,23 +49,35 @@ const InitialsAvatar = ({ initials }) => (
     }}>{initials}</div>
 );
 
+const NeonMarker = () => (
+    <span style={{
+        display: 'inline-block', width: 8, height: 8, flexShrink: 0,
+        border: `2px solid ${NEON}`,
+        background: NEON,
+        boxShadow: `0 0 10px ${NEON}88`,
+    }} />
+);
+
 const Card = ({ quote, name, role, company, initials, index }) => (
     <div style={{
-        background: 'rgba(255,255,255,0.03)',
-        border: '1px solid rgba(255,255,255,0.07)',
-        borderRadius: '16px',
-        padding: '2rem',
+        background: 'rgba(255,255,255,0.025)',
+        border: '1px solid rgba(255,255,255,0.10)',
+        borderTop: `2px solid ${NEON}`,
+        borderRadius: '0 0 14px 14px',
+        padding: '28px 28px 24px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '1.5rem',
-        position: 'relative',
+        gap: '1.25rem',
     }}>
-        {/* Neon index */}
-        <div style={{
-            position: 'absolute', top: 20, right: 24,
-            fontFamily: '"JetBrains Mono", monospace',
-            fontSize: 11, color: NEON, letterSpacing: '0.1em',
-        }}>0{index + 1}</div>
+        {/* Header row */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span style={{
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase',
+                color: NEON,
+            }}>Reference 0{index + 1} / 0{testimonials.length}</span>
+            <NeonMarker />
+        </div>
 
         <p style={{
             margin: 0,
@@ -73,7 +85,7 @@ const Card = ({ quote, name, role, company, initials, index }) => (
             fontSize: '15px',
             fontWeight: 300,
             lineHeight: 1.65,
-            color: 'rgba(255,255,255,0.75)',
+            color: 'rgba(255,255,255,0.80)',
         }}>
             "{quote}"
         </p>
@@ -91,17 +103,17 @@ const Card = ({ quote, name, role, company, initials, index }) => (
                     fontFamily: '"Outfit", system-ui, sans-serif',
                     fontSize: '13px',
                     fontWeight: 500,
-                    color: 'rgba(255,255,255,0.9)',
+                    color: 'rgba(255,255,255,0.95)',
                     letterSpacing: '0.01em',
                 }}>{name}</div>
                 <div style={{
                     fontFamily: '"JetBrains Mono", monospace',
                     fontSize: '10.5px',
-                    color: 'rgba(255,255,255,0.35)',
+                    color: 'rgba(255,255,255,0.40)',
                     letterSpacing: '0.05em',
                     marginTop: '3px',
                     lineHeight: 1.55,
-                }}>{role}<br />{company}</div>
+                }}>{role} · {company}</div>
             </div>
         </div>
     </div>
@@ -202,7 +214,7 @@ const Testimonials = () => {
                         color: 'rgba(255,255,255,0.45)',
                         paddingBottom: 8,
                     }}>
-                        04 references · WDFW
+                        <span style={{ color: NEON }}>●</span> Archive · {testimonials.length} references
                     </div>
                 </div>
             </motion.div>
