@@ -71,7 +71,7 @@ const Card = ({ quote, name, role, company, initials, index }) => (
         background: 'rgba(255,255,255,0.025)',
         border: '1px solid rgba(255,255,255,0.10)',
         borderTop: `2px solid ${NEON}`,
-        borderRadius: '0 0 14px 14px',
+        borderRadius: 0,
         padding: '22px 20px 20px',
         display: 'flex',
         flexDirection: 'column',
