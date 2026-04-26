@@ -132,7 +132,7 @@ const ScrollColumn = ({ items, duration, reverse = false }) => (
         <motion.div
             animate={{ y: reverse ? ['-50%', '0%'] : ['0%', '-50%'] }}
             transition={{ duration, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', paddingBottom: '1.25rem' }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '2rem', paddingBottom: '2rem' }}
         >
             {[...items, ...items].map((t, i) => (
                 <Card key={i} index={testimonials.indexOf(t)} {...t} />
