@@ -32,11 +32,18 @@ const testimonials = [
         company: 'Washington Department of Fish and Wildlife',
         initials: 'MR',
     },
+    {
+        quote: 'Linjun was dependable and quick to get up to speed. She understood feedback well, communicated smoothly across teams, and I could trust her to deliver without much hand-holding.',
+        name: 'Xuefei Liu',
+        role: 'Head of Design Department',
+        company: 'Bosch Home Comfort · Germany HQ, Shanghai Office',
+        initials: 'XL',
+    },
 ];
 
 const col1 = [testimonials[0], testimonials[1]];
 const col2 = [testimonials[2], testimonials[3]];
-const col3 = [testimonials[1], testimonials[2]];
+const col3 = [testimonials[4], testimonials[0]];
 
 const InitialsAvatar = ({ initials }) => (
     <div style={{
