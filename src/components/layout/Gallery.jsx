@@ -451,7 +451,7 @@ const Gallery = () => {
                         color: '#FFFFFF',
                         letterSpacing: '-0.03em',
                     }}>
-                        Selected Works <span style={{ color: 'var(--color-accent)', fontSize: '1rem', verticalAlign: 'middle' }}>●</span>
+                        Selected Works <span style={{ color: '#E3FE7A', fontSize: '1rem', verticalAlign: 'middle' }}>●</span>
                     </h2>
                 </motion.div>
             </div>
