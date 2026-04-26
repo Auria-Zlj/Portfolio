@@ -12,7 +12,7 @@ import preloHeroHero from '../../assets/images/preloherohero.png';
 import preloSm from '../../assets/images/prelosm.jpg';
 import xheatHero from '../../assets/images/X-Heal_Hero.png';
 import salmonHero from '../../assets/images/salmon_hero.png';
-import deviceVideo from '../../assets/images/device.mov';
+import deviceVideo from '../../assets/images/device.mp4';
 // import salmonSaysVideo from '../../assets/images/SalmonSays Final Video.mp4';
 const salmonSaysVideo = "https://www.youtube.com/embed/Bk0cCWW6BX4?autoplay=1&loop=1&playlist=Bk0cCWW6BX4&mute=1&controls=0&modestbranding=1";
 const ProjectDetailModal = lazy(() => import('../ui/ProjectDetailModal'));
