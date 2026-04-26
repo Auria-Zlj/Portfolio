@@ -297,12 +297,12 @@ const ProjectCard = ({
 
                     {/* Eyebrow */}
                     <motion.span {...fadeUp(0)} style={{
-                        fontFamily: '"Outfit", system-ui, sans-serif',
-                        fontSize: isMobile ? '0.65rem' : '0.72rem',
-                        fontWeight: 600,
-                        letterSpacing: '0.14em',
+                        fontFamily: '"JetBrains Mono", monospace',
+                        fontSize: isMobile ? '0.65rem' : '0.7rem',
+                        fontWeight: 400,
+                        letterSpacing: '0.22em',
                         textTransform: 'uppercase',
-                        color: theme.metaColor,
+                        color: 'rgba(255,255,255,0.6)',
                         marginBottom: '1.4rem',
                         display: 'block',
                         textShadow: TEXT_SHADOW_BODY,
@@ -375,13 +375,12 @@ const ProjectCard = ({
                     {/* Sponsor */}
                     {sponsor && (
                         <motion.p {...fadeUp(0.22)} style={{
-                            fontFamily: '"Outfit", system-ui, sans-serif',
-                            fontSize: isMobile ? '0.7rem' : '0.76rem',
-                            fontWeight: 600,
-                            letterSpacing: '0.03em',
+                            fontFamily: '"JetBrains Mono", monospace',
+                            fontSize: isMobile ? '0.65rem' : '0.7rem',
+                            fontWeight: 400,
+                            letterSpacing: '0.04em',
                             lineHeight: 1.55,
-                            textTransform: 'none',
-                            color: theme.metaColor,
+                            color: 'rgba(255,255,255,0.55)',
                             marginBottom: '2.2rem',
                             maxWidth: '100%',
                             overflowWrap: 'break-word',
@@ -392,38 +391,47 @@ const ProjectCard = ({
                         </motion.p>
                     )}
 
-                    {/* Pill CTA */}
+                    {/* QuietCTA */}
                     <motion.div {...fadeUp(0.26)}>
                         <button
                             onClick={handleOpen}
                             onMouseEnter={() => setBtnHovered(true)}
                             onMouseLeave={() => setBtnHovered(false)}
                             style={{
-                                padding: '0.58rem 1.35rem',
-                                borderRadius: '999px',
-                                background: btnHovered
-                                    ? 'linear-gradient(145deg, #00D04A 0%, var(--color-accent, #00BB44) 55%, #009A38 100%)'
-                                    : 'linear-gradient(145deg, var(--color-accent, #00BB44) 0%, #00A038 100%)',
-                                border: '1px solid rgba(0, 140, 55, 0.65)',
-                                color: '#FFFFFF',
-                                fontFamily: '"Outfit", system-ui, sans-serif',
-                                fontSize: isMobile ? '0.74rem' : '0.8rem',
-                                fontWeight: 600,
-                                letterSpacing: '0.03em',
-                                cursor: 'pointer',
-                                boxShadow: btnHovered
-                                    ? '0 4px 22px rgba(0, 187, 68, 0.55), 0 2px 10px rgba(0,0,0,0.22)'
-                                    : '0 3px 18px rgba(0, 187, 68, 0.42), 0 2px 8px rgba(0,0,0,0.2)',
                                 display: 'inline-flex',
                                 alignItems: 'center',
-                                gap: '0.38rem',
-                                transition: 'background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease',
-                                textShadow: '0 1px 2px rgba(0,0,0,0.35)',
-                                transform: btnHovered ? 'translateY(-1px)' : 'none',
+                                gap: 14,
+                                padding: '11px 4px 11px 0',
+                                background: 'transparent',
+                                border: 'none',
+                                borderBottom: `1px solid ${btnHovered ? '#E3FE7A' : 'rgba(255,255,255,0.55)'}`,
+                                color: btnHovered ? '#E3FE7A' : '#fff',
+                                fontFamily: '"JetBrains Mono", monospace',
+                                fontSize: isMobile ? '0.7rem' : '0.76rem',
+                                fontWeight: 400,
+                                letterSpacing: '0.04em',
+                                cursor: 'pointer',
+                                transition: 'color 0.28s, border-color 0.28s',
+                                textShadow: TEXT_SHADOW_BODY,
                             }}
                         >
-                            View Project
-                            <span style={{ fontSize: '0.76rem', lineHeight: 1 }}>→</span>
+                            {/* Neon dot */}
+                            <span style={{
+                                width: 7, height: 7, borderRadius: '50%',
+                                background: '#E3FE7A', flexShrink: 0,
+                                boxShadow: btnHovered ? '0 0 14px #E3FE7A' : '0 0 8px #E3FE7Aaa',
+                                transition: 'box-shadow 0.28s',
+                            }} />
+                            <span>View Project</span>
+                            {/* Diagonal arrow */}
+                            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"
+                                style={{
+                                    transform: btnHovered ? 'translate(3px,-3px)' : 'none',
+                                    transition: 'transform 0.28s',
+                                    flexShrink: 0,
+                                }}>
+                                <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
                         </button>
                     </motion.div>
                 </div>
