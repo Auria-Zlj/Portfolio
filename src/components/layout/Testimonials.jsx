@@ -72,7 +72,7 @@ const Card = ({ quote, name, role, company, initials, index }) => (
         border: '1px solid rgba(255,255,255,0.10)',
         borderTop: `2px solid ${NEON}`,
         borderRadius: '0 0 14px 14px',
-        padding: '28px 28px 24px',
+        padding: '22px 20px 20px',
         display: 'flex',
         flexDirection: 'column',
         gap: '1.25rem',
@@ -235,7 +235,7 @@ const Testimonials = () => {
                 style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: '1.25rem',
+                    gap: '2.5rem',
                     maxHeight: '600px',
                     overflow: 'hidden',
                     maskImage: 'linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)',
