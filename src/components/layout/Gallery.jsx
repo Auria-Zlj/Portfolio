@@ -180,12 +180,13 @@ const LogoSection = () => {
                                     fontFamily: '"Outfit", system-ui, sans-serif',
                                     fontSize: '3rem',
                                     fontWeight: 800,
-                                    color: 'rgba(255,255,255,0.85)',
+                                    color: hoveredName ? 'rgba(255,255,255,0.85)' : '#E3FE7A',
                                     whiteSpace: 'nowrap',
                                     margin: 0,
                                     lineHeight: 1.2,
                                     textAlign: 'center',
                                     width: '100%',
+                                    textShadow: hoveredName ? 'none' : '0 0 32px #E3FE7A40',
                                 }}
                             >
                                 {hoveredName ?? 'real teams'}
