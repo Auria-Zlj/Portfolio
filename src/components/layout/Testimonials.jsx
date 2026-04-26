@@ -201,11 +201,11 @@ const Testimonials = () => {
                         lineHeight: 1.1,
                         color: 'rgba(255,255,255,0.98)',
                     }}>
-                        From people I've{' '}
+                        In the words of<br />
                         <span style={{
                             fontWeight: 600, color: NEON,
                             textShadow: `0 0 32px ${NEON}40`,
-                        }}>worked with.</span>
+                        }}>those who shipped with me.</span>
                     </h2>
                     <div style={{
                         fontFamily: '"JetBrains Mono", monospace',
