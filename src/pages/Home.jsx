@@ -221,7 +221,8 @@ const Home = () => {
                                         fontFamily: '"JetBrains Mono", monospace', marginBottom: 16,
                                     }}
                                 >
-                                    Vol. 01 — Portfolio / 2026
+                                    Vol. 01 — Portfolio{' '}
+                                    <span style={{ color: '#E3FE7A' }}>/ 2026</span>
                                 </motion.div>
 
                                 <motion.div
@@ -256,16 +257,22 @@ const Home = () => {
                                     ))}
                                     <br />
                                     {[
-                                        { text: 'for', bold: false },
-                                        { text: 'complex', bold: true },
-                                        { text: 'systems.', bold: true },
+                                        { text: 'for', bold: false, neon: false },
+                                        { text: 'complex', bold: true, neon: true },
+                                        { text: 'systems.', bold: true, neon: true },
                                     ].map((w, i) => (
                                         <motion.span
                                             key={w.text}
                                             initial={{ opacity: 0, y: 28, rotateX: 80 }}
                                             animate={heroVisible ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 28, rotateX: 80 }}
                                             transition={{ type: 'spring', damping: 14, stiffness: 70, delay: heroVisible ? 0.41 + i * 0.07 : 0 }}
-                                            style={{ display: 'inline-block', marginRight: '0.25em', fontWeight: w.bold ? 600 : 300, transformOrigin: 'bottom center' }}
+                                            style={{
+                                                display: 'inline-block', marginRight: '0.25em',
+                                                fontWeight: w.bold ? 600 : 300,
+                                                color: w.neon ? '#E3FE7A' : 'rgba(255,255,255,0.98)',
+                                                textShadow: w.neon ? '0 0 32px #E3FE7A40' : 'none',
+                                                transformOrigin: 'bottom center',
+                                            }}
                                         >{w.text}</motion.span>
                                     ))}
                                 </h1>
@@ -302,7 +309,7 @@ const Home = () => {
                             >
                                 <div style={{
                                     fontSize: 18, letterSpacing: '0.18em',
-                                    color: 'rgba(255,255,255,0.90)', textTransform: 'uppercase',
+                                    color: '#E3FE7A', textTransform: 'uppercase',
                                     marginBottom: 32, fontFamily: '"JetBrains Mono", monospace',
                                 }}>
                                     Capabilities
@@ -328,7 +335,10 @@ const Home = () => {
                                                     }}>
                                                         <span style={{
                                                             display: 'inline-block', width: 8, height: 8,
-                                                            border: '2px solid rgba(255,255,255,0.75)', flexShrink: 0,
+                                                            border: '2px solid #E3FE7A',
+                                                            background: '#E3FE7A',
+                                                            boxShadow: '0 0 10px #E3FE7A88',
+                                                            flexShrink: 0,
                                                         }} />
                                                         <span style={{
                                                             fontSize: 15, fontWeight: 300,

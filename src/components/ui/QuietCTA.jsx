@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const NEON = '#E3FE7A';
+
 const QuietCTA = ({ label = 'Get in Touch', href = 'mailto:zlinjun1@gmail.com', weight = 400 }) => {
     const [hover, setHover] = useState(false);
 
@@ -11,51 +13,43 @@ const QuietCTA = ({ label = 'Get in Touch', href = 'mailto:zlinjun1@gmail.com', 
             style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: hover ? 18 : 14,
+                gap: 14,
                 padding: '11px 4px 11px 0',
-                color: '#fff',
+                color: hover ? NEON : '#fff',
                 textDecoration: 'none',
-                fontSize: 14,
+                fontSize: 13,
                 fontWeight: weight,
-                letterSpacing: '0.01em',
+                letterSpacing: '0.04em',
                 fontFamily: '"JetBrains Mono", monospace',
-                borderBottom: '1px solid rgba(255,255,255,0.55)',
+                borderBottom: `1px solid ${hover ? NEON : 'rgba(255,255,255,0.55)'}`,
                 cursor: 'pointer',
                 flexShrink: 0,
-                transition: 'gap 0.28s cubic-bezier(0.22,1,0.36,1)',
+                transition: 'color 0.28s, border-color 0.28s',
             }}
         >
-            {/* Green accent dot */}
+            {/* Neon dot */}
             <span style={{
-                width: 6,
-                height: 6,
+                width: 7,
+                height: 7,
                 borderRadius: '50%',
-                background: '#00BB44',
+                background: NEON,
                 flexShrink: 0,
-                boxShadow: hover
-                    ? '0 0 12px rgba(0,187,68,0.75)'
-                    : '0 0 6px rgba(0,187,68,0.35)',
-                transition: 'box-shadow 0.28s cubic-bezier(0.22,1,0.36,1)',
+                boxShadow: hover ? `0 0 14px ${NEON}` : `0 0 8px ${NEON}aa`,
+                transition: 'box-shadow 0.28s',
             }} />
 
-            {/* Label */}
-            <span style={{
-                marginRight: hover ? 6 : 0,
-                transition: 'margin 0.28s cubic-bezier(0.22,1,0.36,1)',
-            }}>
-                {label}
-            </span>
+            <span>Get in Touch</span>
 
-            {/* Arrow */}
+            {/* Diagonal arrow */}
             <svg
-                width="14" height="14" viewBox="0 0 14 14" fill="none"
+                width="13" height="13" viewBox="0 0 14 14" fill="none"
                 style={{
                     transform: hover ? 'translate(3px,-3px)' : 'none',
-                    transition: 'transform 0.28s cubic-bezier(0.22,1,0.36,1)',
+                    transition: 'transform 0.28s',
                     flexShrink: 0,
                 }}
             >
-                <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
         </a>
     );

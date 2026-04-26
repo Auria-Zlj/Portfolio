@@ -20,10 +20,11 @@ const GlassNavBar = ({ visible = true }) => {
         return () => window.removeEventListener('portfolio:nav-surface', onSurface);
     }, []);
 
+    const NEON = '#E3FE7A';
     // Always white text — hero has photo bg, dark sections also need white
     const nameColor = '#F5F5F5';
     const linkColor = 'rgba(255,255,255,0.88)';
-    const linkLineColor = 'rgba(255,255,255,0.85)';
+    const linkLineColor = NEON;
     const navBg = 'rgba(255,255,255,0.04)';
     const navBorder = '1px solid transparent';
 
@@ -140,26 +141,26 @@ const NavLink = ({ href, label, newTab = false, linkColor, linkLineColor }) => {
             onMouseLeave={() => setIsHovered(false)}
             style={{
                 position: 'relative',
-                fontFamily: '"Outfit", system-ui, sans-serif',
-                fontSize: '13px',
+                fontFamily: '"JetBrains Mono", monospace',
+                fontSize: '12px',
                 fontWeight: 400,
-                color: linkColor,
+                color: isHovered ? linkLineColor : linkColor,
                 textDecoration: 'none',
                 cursor: 'pointer',
-                letterSpacing: '0.08em',
-                transition: 'color 0.28s ease',
+                letterSpacing: '0.22em',
+                transition: 'color 0.25s',
             }}
         >
             {label}
 
-            {/* Horizontal Thin Line (1px) */}
+            {/* Neon underline */}
             <motion.div
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={{
                     scaleX: isHovered ? 1 : 0,
                     opacity: isHovered ? 1 : 0
                 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 style={{
                     position: 'absolute',
                     bottom: '-4px',
@@ -168,7 +169,6 @@ const NavLink = ({ href, label, newTab = false, linkColor, linkLineColor }) => {
                     height: '1px',
                     background: linkLineColor,
                     originX: 0,
-                    transition: 'background 0.28s ease',
                 }}
             />
         </motion.a>
