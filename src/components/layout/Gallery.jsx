@@ -415,6 +415,7 @@ const Gallery = () => {
 
             {/* Selected Works - Second snap point */}
             <div
+                id="selected-works"
                 style={{
                     width: '100vw',
                     minHeight: viewportHeight,
@@ -458,7 +459,7 @@ const Gallery = () => {
 
             {/* Client & Collaboration Wall - Third snap point */}
             <div
-                id="selected-works"
+                id="logo-wall"
                 ref={selectedWorksRef}
                 style={{
                     width: '100vw',
