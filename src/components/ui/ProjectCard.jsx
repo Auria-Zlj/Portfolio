@@ -373,26 +373,7 @@ const ProjectCard = ({
                         ))}
                     </motion.div>
 
-                    {/* Sponsor */}
-                    {sponsor && (
-                        <motion.p {...fadeUp(0.22)} style={{
-                            fontFamily: '"JetBrains Mono", monospace',
-                            fontSize: isMobile ? '0.65rem' : '0.7rem',
-                            fontWeight: 400,
-                            letterSpacing: '0.04em',
-                            lineHeight: 1.55,
-                            color: 'rgba(255,255,255,0.55)',
-                            marginBottom: highlights.length > 0 ? '1rem' : '2.2rem',
-                            maxWidth: '100%',
-                            overflowWrap: 'break-word',
-                            wordBreak: 'break-word',
-                            textShadow: TEXT_SHADOW_BODY,
-                        }}>
-                            {sponsor}
-                        </motion.p>
-                    )}
-
-                    {/* Divider — always shown before CTA */}
+                    {/* Divider + sponsor + highlights — all below the line */}
                     <motion.div {...fadeUp(0.22)} style={{
                         borderTop: '1px solid rgba(255,255,255,0.15)',
                         paddingTop: '0.75rem',
@@ -400,6 +381,18 @@ const ProjectCard = ({
                         display: 'flex',
                         flexDirection: 'column',
                     }}>
+                        {sponsor && (
+                            <div style={{ padding: '5px 0' }}>
+                                <span style={{
+                                    fontFamily: '"JetBrains Mono", monospace',
+                                    fontSize: isMobile ? '0.65rem' : '0.7rem',
+                                    fontWeight: 400,
+                                    color: 'rgba(255,255,255,0.55)',
+                                    letterSpacing: '0.04em',
+                                    textShadow: TEXT_SHADOW_BODY,
+                                }}>{sponsor}</span>
+                            </div>
+                        )}
                         {highlights.map((h) => (
                             <div key={h} style={{ padding: '5px 0' }}>
                                 <span style={{
