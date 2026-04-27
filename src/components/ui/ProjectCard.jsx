@@ -103,6 +103,7 @@ const ProjectCard = ({
     /** YouTube embed URL or bundled file URL (.mov / .mp4) — replaces bottom thumbnails when set. */
     thumbnailVideo,
     highlights = [],
+    wideGlass = false,
     onOpenProject,
 }) => {
     const theme = PROJECT_THEMES[id] ?? PROJECT_THEMES[3];
@@ -147,7 +148,7 @@ const ProjectCard = ({
 
     const handleOpen = () => onOpenProject?.(id);
 
-    const glassColumnW = isMobile ? '100%' : 'min(42%, 480px)';
+    const glassColumnW = isMobile ? '100%' : wideGlass ? 'min(48%, 540px)' : 'min(42%, 480px)';
 
     /** X-Heal: desktop hero scale vs 100vw — tuned so 27" (often ~1920 logical or ~2560 CSS px) feels smaller, not only ultrawide. */
     const heroObjectPosition = isXHeal

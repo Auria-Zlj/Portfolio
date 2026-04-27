@@ -391,6 +391,7 @@ const Gallery = () => {
                             onOpenProject={setActiveProjectId}
                             thumbnails={project.thumbnails || []}
                             thumbnailLabels={project.thumbnailLabels || []}
+                            wideGlass={project.id === 3}
                         />
                     </div>
                 ))}
