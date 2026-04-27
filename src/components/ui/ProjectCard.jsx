@@ -402,23 +402,13 @@ const ProjectCard = ({
                             flexDirection: 'column',
                         }}>
                             {highlights.map((h) => (
-                                <div key={h} style={{
-                                    display: 'flex', alignItems: 'center',
-                                    gap: 14, padding: '7px 0',
-                                }}>
-                                    <span style={{
-                                        display: 'inline-block', width: 7, height: 7,
-                                        border: '2px solid #E3FE7A',
-                                        background: '#E3FE7A',
-                                        boxShadow: '0 0 8px #E3FE7A88',
-                                        flexShrink: 0,
-                                    }} />
+                                <div key={h} style={{ padding: '7px 0' }}>
                                     <span style={{
                                         fontFamily: '"JetBrains Mono", monospace',
                                         fontSize: isMobile ? '0.65rem' : '0.7rem',
                                         fontWeight: 400,
-                                        color: 'rgba(255,255,255,0.75)',
-                                        letterSpacing: '0.02em',
+                                        color: 'rgba(255,255,255,0.55)',
+                                        letterSpacing: '0.04em',
                                         textShadow: TEXT_SHADOW_BODY,
                                     }}>{h}</span>
                                 </div>
