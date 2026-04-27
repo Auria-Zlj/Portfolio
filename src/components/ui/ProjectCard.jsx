@@ -382,7 +382,7 @@ const ProjectCard = ({
                             letterSpacing: '0.04em',
                             lineHeight: 1.55,
                             color: 'rgba(255,255,255,0.55)',
-                            marginBottom: '2.2rem',
+                            marginBottom: highlights.length > 0 ? '1rem' : '2.2rem',
                             maxWidth: '100%',
                             overflowWrap: 'break-word',
                             wordBreak: 'break-word',
@@ -392,17 +392,17 @@ const ProjectCard = ({
                         </motion.p>
                     )}
 
-                    {/* Highlights — neon marker list, homepage capabilities style */}
+                    {/* Highlights */}
                     {highlights.length > 0 && (
                         <motion.div {...fadeUp(0.22)} style={{
                             borderTop: '1px solid rgba(255,255,255,0.15)',
-                            paddingTop: '1rem',
-                            marginBottom: '1.8rem',
+                            paddingTop: '0.75rem',
+                            marginBottom: '1.2rem',
                             display: 'flex',
                             flexDirection: 'column',
                         }}>
                             {highlights.map((h) => (
-                                <div key={h} style={{ padding: '7px 0' }}>
+                                <div key={h} style={{ padding: '5px 0' }}>
                                     <span style={{
                                         fontFamily: '"JetBrains Mono", monospace',
                                         fontSize: isMobile ? '0.65rem' : '0.7rem',
