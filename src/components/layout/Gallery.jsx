@@ -89,7 +89,7 @@ const projects = [
         secondaryImage: '',
         secondaryVideo: salmonSaysVideo,
         eyebrow: '01 / Case Study',
-        description: 'Built an AI-assisted system for faster salmon origin identification. Reduced turnaround from days to near-immediate.',
+        description: 'Designed an AI-assisted salmon identification system that reduced turnaround from days to near-immediate results.',
         tags: ['Decision Architecture', 'Human-in-the-Loop AI'],
         sponsor: '',
         highlights: ['Deployed internally at Washington DFW'],
