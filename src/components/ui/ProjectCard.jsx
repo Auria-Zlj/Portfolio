@@ -392,29 +392,27 @@ const ProjectCard = ({
                         </motion.p>
                     )}
 
-                    {/* Highlights */}
-                    {highlights.length > 0 && (
-                        <motion.div {...fadeUp(0.22)} style={{
-                            borderTop: '1px solid rgba(255,255,255,0.15)',
-                            paddingTop: '0.75rem',
-                            marginBottom: '1.2rem',
-                            display: 'flex',
-                            flexDirection: 'column',
-                        }}>
-                            {highlights.map((h) => (
-                                <div key={h} style={{ padding: '5px 0' }}>
-                                    <span style={{
-                                        fontFamily: '"JetBrains Mono", monospace',
-                                        fontSize: isMobile ? '0.65rem' : '0.7rem',
-                                        fontWeight: 400,
-                                        color: 'rgba(255,255,255,0.55)',
-                                        letterSpacing: '0.04em',
-                                        textShadow: TEXT_SHADOW_BODY,
-                                    }}>{h}</span>
-                                </div>
-                            ))}
-                        </motion.div>
-                    )}
+                    {/* Divider — always shown before CTA */}
+                    <motion.div {...fadeUp(0.22)} style={{
+                        borderTop: '1px solid rgba(255,255,255,0.15)',
+                        paddingTop: '0.75rem',
+                        marginBottom: '1.2rem',
+                        display: 'flex',
+                        flexDirection: 'column',
+                    }}>
+                        {highlights.map((h) => (
+                            <div key={h} style={{ padding: '5px 0' }}>
+                                <span style={{
+                                    fontFamily: '"JetBrains Mono", monospace',
+                                    fontSize: isMobile ? '0.65rem' : '0.7rem',
+                                    fontWeight: 400,
+                                    color: 'rgba(255,255,255,0.55)',
+                                    letterSpacing: '0.04em',
+                                    textShadow: TEXT_SHADOW_BODY,
+                                }}>{h}</span>
+                            </div>
+                        ))}
+                    </motion.div>
 
                     {/* QuietCTA */}
                     <motion.div {...fadeUp(0.26)}>
