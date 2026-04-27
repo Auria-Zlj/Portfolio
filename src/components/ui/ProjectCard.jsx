@@ -102,6 +102,7 @@ const ProjectCard = ({
     thumbnailLabels = [],
     /** YouTube embed URL or bundled file URL (.mov / .mp4) — replaces bottom thumbnails when set. */
     thumbnailVideo,
+    highlights = [],
     onOpenProject,
 }) => {
     const theme = PROJECT_THEMES[id] ?? PROJECT_THEMES[3];
@@ -389,6 +390,40 @@ const ProjectCard = ({
                         }}>
                             {sponsor}
                         </motion.p>
+                    )}
+
+                    {/* Highlights — neon marker list, homepage capabilities style */}
+                    {highlights.length > 0 && (
+                        <motion.div {...fadeUp(0.22)} style={{
+                            borderTop: '1px solid rgba(255,255,255,0.15)',
+                            paddingTop: '1rem',
+                            marginBottom: '1.8rem',
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}>
+                            {highlights.map((h) => (
+                                <div key={h} style={{
+                                    display: 'flex', alignItems: 'center',
+                                    gap: 14, padding: '7px 0',
+                                }}>
+                                    <span style={{
+                                        display: 'inline-block', width: 7, height: 7,
+                                        border: '2px solid #E3FE7A',
+                                        background: '#E3FE7A',
+                                        boxShadow: '0 0 8px #E3FE7A88',
+                                        flexShrink: 0,
+                                    }} />
+                                    <span style={{
+                                        fontFamily: '"JetBrains Mono", monospace',
+                                        fontSize: isMobile ? '0.65rem' : '0.7rem',
+                                        fontWeight: 400,
+                                        color: 'rgba(255,255,255,0.75)',
+                                        letterSpacing: '0.02em',
+                                        textShadow: TEXT_SHADOW_BODY,
+                                    }}>{h}</span>
+                                </div>
+                            ))}
+                        </motion.div>
                     )}
 
                     {/* QuietCTA */}
