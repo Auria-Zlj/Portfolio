@@ -462,12 +462,7 @@ const ProjectCard = ({
                             minWidth: 0,
                         }}
                     >
-                        <div style={{
-                            width: '100%',
-                            height: '1px',
-                            background: theme.divider,
-                            margin: '2rem 0 1.4rem',
-                        }} />
+                        <div style={{ margin: '2rem 0 0' }} />
                         {thumbnailVideo ? (
                             <div
                                 role="button"
